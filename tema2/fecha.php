@@ -14,4 +14,5 @@ echo date("r");
 echo "<br> en españa";
 echo "<br>";
 echo date("d/m/y H:i:s")
+
 ?>
