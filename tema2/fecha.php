@@ -15,5 +15,22 @@ echo "<br> en españa";
 echo "<br>";
 echo date("d/m/y H:i:s");
 echo "hola";
-echo "adios";
-?>
+echo "<p>STRING TO FECHA</p>";
+
+$micumple = strtotime("10/06/1999");
+echo $micumple;
+echo "<p>" . date("d/m/y", $micumple) . "</p>";
+$ho = strtotime("now");
+echo "<p>" . date("d/m/y", $ho) . "</p>";
+
+$micumple = new DateTime("1999-06-10");
+$hoy  = new DateTime();
+$intervalo = $micumple->diff($hoy);
+echo "<pre>";
+print_r($intervalo);
+echo "</pre>";
+
+
+echo"<pre>";
+print_r(getdate());
+echo"</pre>";
