@@ -31,6 +31,10 @@ print_r($intervalo);
 echo "</pre>";
 
 
-echo"<pre>";
+echo "<pre>";
 print_r(getdate());
-echo"</pre>";
+echo "</pre>";
+
+//$ruta = $_SERVER . ['SCRIPT_FILENAME'];
+echo "<a href='http://" . $_SERVER['SERVER_ADDR'] . "./micodigo.php?fichero=" . $_SERVER['SCRIPT_FILENAME'] . "'>Ver codigo</a>";
+// echo "<a href='./micodigo.php?fichero=".$ruta."'>ver mi codigo</a>";

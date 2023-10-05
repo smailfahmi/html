@@ -1,3 +1,3 @@
 <?php
-date_default_timezone_set("Europa/Oporto");
-echo date_default_timezone_get("y/m/d H:i:s");
+date_default_timezone_set("Europe/Oporto");
+echo date("y/m/d H:i:s");

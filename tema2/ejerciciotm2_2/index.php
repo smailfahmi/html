@@ -34,10 +34,10 @@
             <a href="php/fechaOporto.php" style="color: yellow"> FECHA Y HORA OPORTO </a>
         </div>
         <div class="item6">
-            <a href="" style="color: yellow"> FECHA OPORTO </a>
+            <a href="php/timestam.php" style="color: yellow">VARIABLE TIMESTAMP</a>
         </div>
         <div class="item7">
-            <a href="" style="color: yellow">HORA DE OPORTO </a>
+            <a href="php/60años.php" style="color: yellow">60 AÑOS </a>
         </div>
         <div class="item8">
             <a href="" style="color: yellow">VARIABLE TIMESTAMP</a>
