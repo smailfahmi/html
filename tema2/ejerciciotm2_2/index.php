@@ -12,39 +12,25 @@
 
     <?php
     include("../../fragmentos/header.html");
- 
+
     ?>
 
     <h1>EJERCICIO TEMA 2 FECHAS</h1>
     <div class="grid-container">
 
         <div class="item1">
-            <a href="php/nombredelarchivo.php " style="color: yellow">NOMBRE DEL ARCHIVO</a>
+            <a href="php/1.php " style="color: yellow">EJERCICIO 1 </a>
         </div>
         <div class="item2">
-            <a href="php/direccionIP.php " style="color: yellow">DIRECCION IP</a>
+            <a href="php/2.php?variable=6.5" style="color: yellow">EJERCICIO 2</a>
         </div>
         <div class="item3">
-            <a href="php/mostrarpath.php" style="color: yellow">RUTA DE ARCHIVO </a>
+            <a href="php/3.php?ano=1999&mes=6&dia=10" style="color: yellow">EJERCICIO 3</a>
         </div>
         <div class="item4">
-            <a href="php/fechaHoy.php" style="color: yellow">FECHA Y HORA ACTUAL </a>
+            <a href="php/4.php?ano1=1999&mes1=6&dia1=10&ano2=1989&mes2=6&dia2=10" style="color: yellow">EJERCICIO 4</a>
         </div>
-        <div class="item5">
-            <a href="php/fechaOporto.php" style="color: yellow"> FECHA Y HORA OPORTO </a>
-        </div>
-        <div class="item6">
-            <a href="php/timestam.php" style="color: yellow">VARIABLE TIMESTAMP</a>
-        </div>
-        <div class="item7">
-            <a href="php/60años.php" style="color: yellow">60 AÑOS </a>
-        </div>
-        <div class="item8">
-            <a href="" style="color: yellow">VARIABLE TIMESTAMP</a>
-        </div>
-        <div class="item9">
-            <a href="" style="color: yellow"> DIA DENTRO DE 60 AÑOS</a>
-        </div>
+
     </div>
 
 

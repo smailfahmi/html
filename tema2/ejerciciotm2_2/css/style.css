@@ -12,21 +12,20 @@ header {
 }
 
 .grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    gap: 10px;
-    background-color: #000000;
-    padding: 10px;
-  }
-  
-  .grid-container > div {
-    background-color: rgba(27, 24, 24, 0.8);
-    text-align: center;
-    padding: 20px 0;
-    font-size: 20px;
-   
+  display: grid;
+  grid-template-columns: auto auto; /* Cambia el número de columnas a 2 */
+  grid-template-rows: auto auto; /* Agrega filas para crear un grid 2x2 */
+  gap: 10px;
+  background-color: #000000;
+  padding: 10px;
+}
 
-  }
+.grid-container > div {
+  background-color: rgba(27, 24, 24, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 20px;
+}
   
   /* .item1 {
     grid-column-start: 1;
