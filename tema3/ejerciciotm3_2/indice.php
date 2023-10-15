@@ -120,7 +120,7 @@ $liga =
             $contador++;
         }
 
-        print_r($auxiliar);
+        //   print_r($auxiliar);
 
         foreach ($liga as $key => $value) {
             $contador = 0;
@@ -129,17 +129,25 @@ $liga =
             echo $key;
             echo "</td>";
             $equipo = current($liga);
-
+            $contador = 0;
             foreach ($equipo as $key1 => $value1) {
-                echo " $key1 == $auxiliar[$contador]";
-                if ($key1 == $auxiliar[$contador]) {
+                echo " $key == $auxiliar[$contador]==$key1 //  ";
+
+                if ($key === $auxiliar[$contador]) {
                     echo "<td>";
+                    echo "</td>";
+                    echo "<td>";
+                    $resultado = current($equipo);
+
+                    foreach ($resultado as $key2 => $value2) {
+
+                        echo "$value2";
+                    }
                     echo "</td>";
                 } else {
                     echo "<td>";
                     $resultado = current($equipo);
-                    echo $key1;
-                    echo $key;
+
                     foreach ($resultado as $key2 => $value2) {
 
                         echo $value2;
@@ -156,4 +164,50 @@ $liga =
 
 
     </tbody>
+</table>
+
+
+
+<table>
+    <tr>
+        <th>Equipos</th>
+        <?php
+        // Encabezados de columnas
+        foreach ($liga as $local => $partidos) {
+            echo "<th>$local</th>";
+        }
+        ?>
+    </tr>
+    <?php
+    foreach ($liga as $key => $value) {
+        $auxiliar[$contador] = $key;
+        $contador++;
+    }
+
+    foreach ($liga as $local => $partidos) {
+        echo "<tr>";
+        echo "<td>$local</td>";
+        $contador = 0;
+        foreach ($partidos as $visitante => $datos) {
+
+            echo "$local // $visitante";
+            $resultado = $datos["Resultado"];
+            // Dividir el resultado en goles locales y visitantes
+            if ($local === $auxiliar[$contador]) {
+                echo "<td></td>";
+            }
+            echo "<td>";
+            foreach ($datos as $key2 => $value2) {
+
+                echo $value2." ";
+            }
+            echo "</td>";
+
+            // list($golesLocal, $golesVisitante) = explode("-", $resultado);
+            // echo "<td>$golesLocal-$golesVisitante</td>";
+            $contador++;
+        }
+        echo "</tr>";
+    }
+    ?>
 </table>
