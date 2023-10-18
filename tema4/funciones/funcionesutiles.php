@@ -1,12 +1,25 @@
 <?php
-function edad($ano, $mes, $dia)
+// function edad($ano, $mes, $dia)
+// {
+//     $edad = new DateTime($ano . "-" . $mes . "-" . $dia);
+//     $fecha2 = new DateTime();
+//     $annos = ($edad->diff($fecha2))->y;
+//     return $annos;
+// }
+// function iva($precio, $ivap = 0.21)
+// {
+//     return $precio * $ivap;
+// }
+function añadirAlArray(&$array, $value)
 {
-    $edad = new DateTime($ano . "-" . $mes . "-" . $dia);
-    $fecha2 = new DateTime();
-    $annos = ($edad->diff($fecha2))->y;
-    return $annos;
+
+    $ultimo = count($array);
+    $array[$ultimo] = $value;
 }
-function iva($precio, $ivap = 0.21)
+function añadirAlArray1($array, $value)//pensar 
 {
-    return $precio * $ivap;
+
+    $ultimo = count($array);
+    $array[$ultimo] = $value;
+    return $array;
 }
