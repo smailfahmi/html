@@ -14,13 +14,10 @@ include("./valida.php")
 
     <?php
     $errores = array();
-    if (enviado()) {
-        // validarformu($errores);
+    if (enviado() &&  validacio($errores)) {
         echo "esta enviado";
         echo "<pre>";
-        print_r(
-            $_REQUEST
-        );
+        //  print_r($_REQUEST);
 
         // echo"</pre>";
     } else {
@@ -29,24 +26,32 @@ include("./valida.php")
 
     ?>
         <form action="" method="get" name="formulario1" enctype="multipart/form-data">
-            <p><label for="">Alfabetico <input type="text" name="Nombre" id="Nombre" placeholder="Nombre"></label>
-
-            </p>
-            <p> <?php
-
-                textoVacio('Nombre');
-
+            <p><label for="">Alfabetico <input type="text" name="Alfabetico" id="Alfabetico" placeholder="Nombre"></label>
+                <?php
+                escribirErrores($errores, "Alfabetico");
                 ?></p>
-            <p><label for="">Alfabetico Opcional <input type="text" name="" id="" placeholder="Nombre"></label></p>
-            <p><label for="">Alfanumérico <input type="text" name="" id="" placeholder="Nombre"></label></p>
-            <p><label for="">Alfanumérico Opcional <input type="text" name="" id="" placeholder="Nombre"></label></p>
-            <p><label for="">Numerico <input type="number" name="" id="" placeholder="Nombre"></label></p>
-            <p><label for="">Numerico Opcional <input type="number" name="" id="" placeholder="Nombre"></label></p>
-            <p><label for="">Fecha <input type="date" name="" id=""></label></p>
+
+            <p><label for="">Alfabetico Opcional <input type="text" name="AlfabeticoOpci" id="AlfabeticoOpci" placeholder="Nombre"></label></p>
+            <p><label for="">Alfanumérico <input type="text" name="Alfanumerico" id="Alfanumerico" placeholder="Nombre"></label></p>
+            <p><label for="">Alfanumérico Opcional <input type="text" name="AlfanumericoOpci" id="AlfanumericoOpci" placeholder="Nombre"></label></p>
+            <p><label for="">Numerico <input type="number" name="Numerico" id="Numerico" placeholder="Numerico"></label> <?php
+                                                                                                                            escribirErrores($errores, "Numerico");
+                                                                                                                            ?></p>
+
+            <p><label for="">Numerico Opcional <input type="number" name="NumericoOpci" id="NumericoOpci" placeholder="Nombre"></label></p>
+            <p><label for="">Fecha <input type="date" name="Fecha" id="Fecha"></label>
+                <?php
+                escribirErrores($errores, "Fecha");
+                ?>
+            </p>
             <p><label for="">Fecha Opcional <input type="date" name="" id=""></label></p>
-            <p><label for="">Opcion1<input type="radio" name="" id=""></label>
-                <label for="">Opcion2<input type="radio" name="" id=""></label>
-                <label for="">Opcion3<input type="radio" name="" id=""></label>
+            <p><label for="">Opcion1<input type="radio" name="opcion[]" id="ch1" value="opcion1"></label>
+                <label for="">Opcion2<input type="radio" name="opcion[]" id="ch2" value="opcion2"></label>
+                <label for="">Opcion3<input type="radio" name="opcion[]" id="ch3" value="opcion3"></label>
+                <?php
+                escribirErrores($errores, "opcion");
+                ?>
+
             </p>
             <p>
                 <?php

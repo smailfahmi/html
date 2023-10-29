@@ -24,6 +24,7 @@ include("./validacion.php")
         print_r(
             $_REQUEST
         );
+   
 
         // echo"</pre>";
     } else {
