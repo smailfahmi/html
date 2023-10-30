@@ -64,8 +64,9 @@ function validacio(&$errores)
     if (textoVacio('opcion')) {
         $errores['opcion'] = "Marca una opcion";
     } else {
+        // print_r($_REQUEST['opcion']);
         $valor = current($_REQUEST['opcion']);
-        //echo $valor;
+        // echo $valor;
         // foreach ($_REQUEST['opcion'] as $key => $value) {
         if ($valor == 'opcion1') {
             $errores['opcion'] = "Marca otra opcion que no sea la opcion1";
@@ -73,6 +74,24 @@ function validacio(&$errores)
 
         }
     }
+    if (textoVacio('opcionCh')) {
+        $errores['opcionCh'] = "Marca una opcion";
+    } else {
+        $valor = count($_REQUEST['opcionCh']);
+        //echo $valor;
+        // foreach ($_REQUEST['opcion'] as $key => $value) {
+        if ($valor > 3) {
+            $errores['opcionCh'] = "Marca menos opciones";
+            //   }
+
+        }
+    }
+    if (textoVacio('fichero')) {
+        $errores['fichero'] = "adjunta algun fichero";
+    }
+
+
+
     if (count($errores) == 0) {
         return true;
     } else
@@ -91,4 +110,22 @@ function radiovacio($name)
         return true;
     }
     return false;
+}
+function recuerda($name)
+{
+    if (enviado() && !empty($_REQUEST[$name])) {
+        echo $_REQUEST[$name];
+    } else if (isset($_REQUEST['borrar']))
+        echo '';
+}
+function recuerdaradio($name, $value)
+{
+    //  echo current($_REQUEST['opcion']);
+    foreach ($_REQUEST[$name] as $key => $value) {
+        echo $key;
+    }
+    if (enviado() && isset($_REQUEST[$name]) && current($_REQUEST[$name]) == $value) {
+        echo 'checked';
+    } else if (isset($_REQUEST['borrar']))
+        echo '';
 }

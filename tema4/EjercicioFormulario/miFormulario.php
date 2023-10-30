@@ -26,7 +26,8 @@ include("./valida.php")
 
     ?>
         <form action="" method="get" name="formulario1" enctype="multipart/form-data">
-            <p><label for="">Alfabetico <input type="text" name="Alfabetico" id="Alfabetico" placeholder="Nombre"></label>
+            <p><label for="">Alfabetico <input type="text" name="Alfabetico" id="Alfabetico" placeholder="Nombre" value=<?php
+                                                                                                                        recuerda('Alfabetico'); ?>></label>
                 <?php
                 escribirErrores($errores, "Alfabetico");
                 ?></p>
@@ -45,26 +46,42 @@ include("./valida.php")
                 ?>
             </p>
             <p><label for="">Fecha Opcional <input type="date" name="" id=""></label></p>
-            <p><label for="">Opcion1<input type="radio" name="opcion[]" id="ch1" value="opcion1"></label>
-                <label for="">Opcion2<input type="radio" name="opcion[]" id="ch2" value="opcion2"></label>
-                <label for="">Opcion3<input type="radio" name="opcion[]" id="ch3" value="opcion3"></label>
+            <p><label for="">Opcion1<input <?php
+                                            recuerdaradio('opcion', 'opcion1');
+                                            ?> type="radio" name="opcion[]" id="ch1" value="opcion1"></label>
+                <label for="">Opcion2<input <?php
+                                            recuerdaradio('opcion', 'opcion2');
+                                            ?> type="radio" name="opcion[]" id="ch2" value="opcion2"></label>
+                <label for="">Opcion3<input <?php
+                                            recuerdaradio('opcion', 'opcion3');
+                                            ?> type="radio" name="opcion[]" id="ch3" value="opcion3"></label>
                 <?php
                 escribirErrores($errores, "opcion");
                 ?>
 
             </p>
             <p>
+            <p>
                 <?php
                 for ($i = 1; $i < 7; $i++) {
-                    echo '<label for=""><input type="checkbox" name="" id="">Check' . ' ' . $i . '</label>';
+                    $nombre = "opcion" . $i;
+                    echo '<label for=""><input type="checkbox" name="opcionCh[]" id="' . $nombre . '"  value="' . $nombre . '" >Check ' . $i . '</label>';
                     echo ' <br>';
                 }
+                escribirErrores($errores, "opcionCh");
                 ?>
+            </p>
+
             </p>
             <p><label for="">Nº Telefono <input type="text" name="" id=""></label></p>
             <p><label for="">Email <input type="text" name="" id=""></label></p>
             <p><label for="">Contraseña <input type="text" name="" id=""></label></p>
-            <p><label for="">Subir documento <input type="file" name="" id=""></label></p>
+            <p><label for="">Subir documento <input type="file" name="fichero" id="fichero"></label>
+
+                <?php
+                escribirErrores($errores, "fichero");
+                ?>
+            </p>
 
             <p> <input type="submit" value="Enviar" name="Enviar"></p>
         </form>
