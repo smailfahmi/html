@@ -62,7 +62,8 @@ include("./validacion.php")
                 ?>
             </p>
             <br>
-            <label for="hombre"> Hombre:<input <? recuerdaradio('genero', 'hombre')
+            <label for="hombre"> Hombre:<input <?
+             recuerdaradio('genero', 'hombre')
 
                                                 ?> type="radio" name="genero" id="hombre" value="hombre"></label>
             <label for="mujer"> Mujer:<input <? recuerdaradio('genero', 'mujer')

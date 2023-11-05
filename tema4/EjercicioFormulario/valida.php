@@ -1,5 +1,20 @@
 
 <?php
+session_start(); // Inicia la sesión al comienzo del archivo
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == UPLOAD_ERR_OK) {
+        $nombre_temporal = $_FILES["imagen"]["tmp_name"];
+        $nombre_archivo = $_FILES["imagen"]["name"];
+        $directorio_destino = "imagenes_subidas/"; // Ruta donde guardarás las imágenes
+
+        move_uploaded_file($nombre_temporal, $directorio_destino . $nombre_archivo);
+
+        // Guarda la ruta del archivo en una variable de sesión
+        $_SESSION["ruta_imagen"] = $directorio_destino . $nombre_archivo;
+    }
+}
 function enviado()
 {
     if (isset($_REQUEST['Enviar'])) {
@@ -86,12 +101,9 @@ function validacio(&$errores)
 
         }
     }
-    if (textoVacio('fichero')) {
-        $errores['fichero'] = "adjunta algun fichero";
+    if (textoVacio('imagen')) {
+        $errores['imagen'] = "adjunta algun fichero";
     }
-
-
-
     if (count($errores) == 0) {
         return true;
     } else
@@ -118,13 +130,22 @@ function recuerda($name)
     } else if (isset($_REQUEST['borrar']))
         echo '';
 }
+// function recuerdaradio($name, $value)
+// {
+//     //  echo current($_REQUEST['opcion']);
+//     foreach ($_REQUEST[$name] as $key => $value) {
+//         echo $key;
+//     }
+//     if (enviado() && isset($_REQUEST[$name]) && current($_REQUEST[$name]) == $value) {
+//         echo 'checked';
+//     } else if (isset($_REQUEST['borrar']))
+//         echo '';
+// }
 function recuerdaradio($name, $value)
 {
-    //  echo current($_REQUEST['opcion']);
-    foreach ($_REQUEST[$name] as $key => $value) {
-        echo $key;
-    }
-    if (enviado() && isset($_REQUEST[$name]) && current($_REQUEST[$name]) == $value) {
+    // echo $_REQUEST['opcion'];
+    // $opcion = current($_REQUEST['opcion']);
+    if (enviado() && isset($_REQUEST[$name]) && $_REQUEST[$name][0] == $value) {
         echo 'checked';
     } else if (isset($_REQUEST['borrar']))
         echo '';

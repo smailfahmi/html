@@ -14,18 +14,20 @@ include("./valida.php")
 
     <?php
     $errores = array();
-    if (enviado() &&  validacio($errores)) {
+    if (enviado()) {
         echo "esta enviado";
         echo "<pre>";
-        //  print_r($_REQUEST);
-
-        // echo"</pre>";
+        if (isset($_SESSION["ruta_imagen"])) {
+            echo '<p>Imagen subida:</p>';
+            echo '<img src="' . $_SESSION["ruta_imagen"] . '" alt="Imagen subida">';
+        }
     } else {
+        print_r($errores);
 
 
 
     ?>
-        <form action="" method="get" name="formulario1" enctype="multipart/form-data">
+        <form action="" method="post" name="formulario1" enctype="multipart/form-data">
             <p><label for="">Alfabetico <input type="text" name="Alfabetico" id="Alfabetico" placeholder="Nombre" value=<?php
                                                                                                                         recuerda('Alfabetico'); ?>></label>
                 <?php
@@ -46,15 +48,15 @@ include("./valida.php")
                 ?>
             </p>
             <p><label for="">Fecha Opcional <input type="date" name="" id=""></label></p>
-            <p><label for="">Opcion1<input <?php
-                                            recuerdaradio('opcion', 'opcion1');
-                                            ?> type="radio" name="opcion[]" id="ch1" value="opcion1"></label>
-                <label for="">Opcion2<input <?php
-                                            recuerdaradio('opcion', 'opcion2');
-                                            ?> type="radio" name="opcion[]" id="ch2" value="opcion2"></label>
-                <label for="">Opcion3<input <?php
-                                            recuerdaradio('opcion', 'opcion3');
-                                            ?> type="radio" name="opcion[]" id="ch3" value="opcion3"></label>
+            <p><label for="opcion1">Opcion1<input <?php
+                                                    recuerdaradio('opcion', 'opcion1');
+                                                    ?> type="radio" name="opcion[]" id="ch1" value="opcion1"></label>
+                <label for="opcion2">Opcion2<input <?php
+                                                    recuerdaradio('opcion', 'opcion2');
+                                                    ?> type="radio" name="opcion[]" id="ch2" value="opcion2"></label>
+                <label for="opcion">Opcion3<input <?php
+                                                    recuerdaradio('opcion', 'opcion3');
+                                                    ?> type="radio" name="opcion[]" id="ch3" value="opcion3"></label>
                 <?php
                 escribirErrores($errores, "opcion");
                 ?>
@@ -76,7 +78,7 @@ include("./valida.php")
             <p><label for="">Nº Telefono <input type="text" name="" id=""></label></p>
             <p><label for="">Email <input type="text" name="" id=""></label></p>
             <p><label for="">Contraseña <input type="text" name="" id=""></label></p>
-            <p><label for="">Subir documento <input type="file" name="fichero" id="fichero"></label>
+            <p><label for="">Subir documento <input type="file" name="imagen" id="imagen" accept="image/*"></label>
 
                 <?php
                 escribirErrores($errores, "fichero");
