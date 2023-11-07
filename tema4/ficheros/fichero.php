@@ -133,27 +133,29 @@
 //cuando queremeos modificar un ficher secuencial
 // crear un archivo temporal leer y modificar
 // borrar el anterior y renombrar el temp con el nombre del anteriror
-$tmp = tempnam('.', "tem.txt");
-echo "<h1>leer lineas completas </h1>";
-if (file_exists('ficheroLineas.txt')) {
+
+$tmp = tempnam('.',"tem.txt");
+if(file_exists('ficheroLineas.txt')){
     echo "Existe";
-    if ((!$fp = fopen('ficheroLineas.txt', 'r'))|| (!$ft = fopen($tmp, 'w')))
-        echo "Ha habido un problema al abrir el fichero";
-    else {
-        $tex = "\nnueva linea\n";
+    if((!$fp=fopen('ficheroLineas.txt','r')) || (!$ft = fopen($tmp,'w')))
+        echo "Ha habido un problema al abrir el fichero";       
+    else{        
+        $texto = "Linea nueva";
         $contador = 1;
-        while ($leido = fgets($fp, filesize("ficheroLineas.txt"))) {
-            fputs($ft, $leido, strlen($leido));
-            if ($contador == 1) {
-                fputs($ft, $tex, strlen($tex));
-                $contador++;
-            }
+        while($leido = fgets($fp,filesize("ficheroLineas.txt"))){  
+                 fputs($ft,$leido,strlen($leido));
+                 if($contador==1){
+                    fputs($ft,$texto,strlen($texto));
+                    fputs($ft,"\n",strlen('\n'));
+                    $contador++;
+                 }
         }
-        fclose($ft);
         fclose($fp);
+        fclose($ft);
         unlink("ficheroLineas.txt");
-        rename($tmp,'ficheroLineas.txt');
+        rename($tmp,"ficheroLineas.txt");
+        chmod("ficheroLineas.txt",0777);
     }
-} else {
+}else{
     echo "No existe";
 }

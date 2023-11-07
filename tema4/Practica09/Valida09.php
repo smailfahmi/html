@@ -9,7 +9,7 @@ function guardaImagen()
             $nombre_temporal = $_FILES["imagen"]["tmp_name"];
             $nombre_archivo = $_FILES["imagen"]["name"];
             $directorio_destino = "imagenes_subidas/";
-            //crearCarpeta($directorio_destino);
+            crearCarpeta($directorio_destino);
 
             move_uploaded_file($nombre_temporal, $directorio_destino . $nombre_archivo);
 

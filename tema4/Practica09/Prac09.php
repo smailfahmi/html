@@ -29,9 +29,9 @@ include("./Valida09.php")
                                                                                         ?>></label> <?php
                                                                                                     escribirErrores($errores, "nombre");
                                                                                                     ?></p>
-            <p><label for="">Apellido: <input type="text" name="apellido" id="apellido" value=<?php
+            <p><label for="">Apellido: <input type="text" name="apellido" id="apellido" value="<?php
                                                                                                 escribirNombre('apellido');
-                                                                                                ?>></label><?php
+                                                                                                ?>"></label><?php
                                                                                                             escribirErrores($errores, "apellido");
                                                                                                             ?></p>
             <p><label for="">Contraseña: <input type="text" name="contraseña" id="contraseña" value=<?php
