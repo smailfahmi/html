@@ -20,23 +20,13 @@ include("./verificacion.php")
     <?php
     $boton = 0;
     if (isset($_GET['editar'])) {
-        print_r($datis);
-        $nombreArchivo = "notas.php";
-        if (existe($nombreArchivo)) {
-            $oculto = $_REQUEST['oculto'];
-
-            header("Location: editar.php?clave=$nombreArchivo&nom=$oculto");
-        } else {
-            echo "NO EXISTE";
-        }
+        header("Location: editar.php?nom=" . $_REQUEST['oculto']."&accion=". $_REQUEST['editar']);
     } elseif (isset($_GET['eliminar'])) {
+        // echo $_REQUEST['oculto'];
+         eliminar($_REQUEST['oculto']);
+    } elseif (isset($_REQUEST['añadir'])) {
 
-        $nombreArchivo = "notas.php";
-        if (existe($nombreArchivo)) {
-            header("Location: escribir.php?clave=$nombreArchivo");
-        } else {
-            echo "NO EXISTE";
-        }
+        header("Location: editar.php?nom=" . $_REQUEST['oculto']."&accion=". $_REQUEST['añadir']);
     } else {
     ?>
         <table class="default">
@@ -90,6 +80,9 @@ include("./verificacion.php")
         </table>
 
     <?php } ?>
+    <form action="" method="get">
+        <input type="submit" value="añadir" name="añadir">
+    </form>
 </body>
 
 </html>

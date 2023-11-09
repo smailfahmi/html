@@ -10,14 +10,42 @@
 <body>
     <?
 
-    if (isset($_REQUEST['escribir'])) {
-        print_r($_REQUEST);
-    }else{
+    if (isset($_REQUEST['volver'])) {
+        header("Location: notas.php");
+        //si le doy a escribir
+    } elseif (isset($_REQUEST['modificar'])) {
+        $tmp = tempnam('.', "tem.csv");
+        if (file_exists('notas.csv')) {
+            if ((!$fp = fopen('notas.csv', 'r')) || (!$ft = fopen($tmp, 'w')))
+                echo "Ha habido un problema al abrir el fichero";
+            else {
+                $texto = [$_REQUEST['nombre'], $_REQUEST['no1'], $_REQUEST['no2'], $_REQUEST['no3']];
+                $contador = 0;
+                while ($leido = fgetcsv($fp, filesize("notas.csv"), ";")) {
 
+                    if ($contador == $_REQUEST['oculto']) {
+                        fputcsv($ft, $texto, ";");
+                        // fputs($ft, "\n", strlen('\n'));
+                    } else {
+                        fputcsv($ft, $leido, ";");
+                    }
+                    $contador++;
+                }
+                fclose($fp);
+                fclose($ft);
+                unlink("notas.csv");
+                rename($tmp, "notas.csv");
+                chmod("notas.csv", 0777);
+            }
+        } else {
+            echo "No existe";
+        }
+        header("Location: notas.php");
+    } elseif ($_REQUEST['accion'] == "editar") {
         $dates = [];
         $fila = 0;
         if (($gestor = fopen("notas.csv", "r")) !== FALSE) {
-            while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, filesize("notas.csv"), ";")) !== FALSE) {
                 $numero = count($datos);
                 $conta = 0;
                 for ($c = 0; $c < $numero; $c++) {
@@ -30,17 +58,20 @@
             }
             fclose($gestor);
         }
+        # code...
+    }
     ?>
     <form action="" method="get">
-        <p><label for="">nombre: <input type="text" value="<?
-                                                            echo $dates[0] ?>" name="nombre"></label></p>
-        <p><label for="">nombre: <input type="text" value="<?
-                                                            echo $dates[1] ?>" name="nota1"></label></p>
-        <p><label for="">nombre: <input type="text" value="<?
-                                                            echo $dates[2] ?>" name="nota2"></label></p>
-        <p><label for="">nombre: <input type="text" value="<?
-                                                            echo $dates[3] ?>" name="nota3"></label></p>
+        <p><label for="">nombre: <input type="text" name="nombre" <? if ($_REQUEST['accion'] == "editar") echo "readonly"; ?> value="<?
+                                                                                                                                        echo $dates[0] ?>" name="nombre"></label></p>
+        <p><label for="">nota 1: <input type="number" name="no1" value="<?
+                                                                        echo $dates[1] ?>" name="nota1"></label></p>
+        <p><label for="">nota 2: <input type="number" name="no2" value="<?
+                                                                        echo $dates[2] ?>" name="nota2"></label></p>
+        <p><label for="">nota 3: <input type="number" name="no3" value="<?
+                                                                        echo $dates[3] ?>" name="nota3"></label></p>
         <p>
+            <input type="hidden" value="<? echo $_REQUEST['nom']; ?>" name="oculto">
             <label for="Leer">
                 <input type="submit" value="volver" name="volver">
             </label>
@@ -49,7 +80,7 @@
             </label>
         </p>
     </form>
-    <?}?>
+
 </body>
 
 </html>
