@@ -141,22 +141,39 @@
 
         function comprobarhijos($hijos)
         {
+            // if ($hijos->nodeType == 3 && $hijos->textContent[1] != ' ') {
+            //     echo $hijos->textContent . "\n";
+            // }
+            echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+            print_r($hijos);
+            echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
             if ($hijos->hasChildNodes()) {
                 foreach ($hijos->childNodes as $key) {
+                    if (isset($key->tagName)) {
+                        print_r($key->attributes);
+                        if ($key->attributes->length >= 0) {
+                            // print_r($key->attributes->item(1));
+                            foreach ($key->attributes as $value) {
+                                 print_r( $value->textContent);
+                        }
+                        }
+                        // // comprobarhijos($key->attributes);
+                        // echo "**************************************************************************\n";
+                        // print_r($key->tagName);
+                        // echo "<br>";
+                        // echo "**************************************************************************\n";
+                    }
 
                     comprobarhijos($key);
                 }
             } else {
+                // print_r($hijos);
+                // echo "---------------------------------------------------------------------------\n";
+                // echo $hijos->nodeType . "\n";
+                // echo $hijos->textContent . "\n";
+                // echo "---------------------------------------------------------------------------\n";
 
-                print_r($hijos);
-                if (!empty($hijos->nextSibling) && empty($hijos->previousSibling)) {
-                    echo '<tr>';
-                }
 
-                if (empty($hijos->nextSibling) && empty($hijos->previousSibling)) {
-
-                    echo '<td>' . $hijos->textContent . '</td>';
-                }
             }
         }
         echo '<table>';
@@ -169,7 +186,8 @@
 
 
 
-        // function comprobarHijos($node) {
+        // function comprobarHijos($node)
+        // {
         //     if ($node->hasChildNodes()) {
         //         echo "<tr>";
         //         foreach ($node->childNodes as $child) {
@@ -182,28 +200,34 @@
         //         echo "</tr>";
         //     }
         // }
-
         // echo '<table>';
-        // comprobarHijos($dom);
-        // echo '</table>';
+        // $xml = new DOMDocument();
+        // $xml->load('juegos.xml');
+        // comprobarhijos($xml);
+        // echo '<table>';
 
 
 
-        // print_r($key->childNodes);
-        // print_r($key->childNodes->item(1));
-        // foreach ($key->childNodes as $key1) {
-        //     if ($key1->nodeType == 1) {
-        //         $nodo = $alumno->firstChild;
-        //         do {
+        //    echo '<table>';
+        //         $xml = new DOMDocument();
+        //         $xml->load('juegos.xml');
+
+        //         print_r($xml->childNodes);
+        //         print_r($xml->childNodes->item(1));
+        //         foreach ($xml->childNodes as $key1) {
         //             if ($key1->nodeType == 1) {
-        //                 echo "\n" . $nodo->tagName . ":" . $nodo->nodeValue;
+        //                 $nodo = $alumno->firstChild;
+        //                 do {
+        //                     if ($key1->nodeType == 1) {
+        //                         echo "\n" . $nodo->tagName . ":" . $nodo->nodeValue;
+        //                     }
+        //                 } while ($nodo = $nodo->nextSibling);
         //             }
-        //         } while ($nodo = $nodo->nextSibling);
-        //     }
-        //     // echo "\nNombre: " . $key1->firstChild->nodeValue;
-        //     // echo "\nNombre: " . $key1->firstChild->firstChild->data;
-        // }
-        // }
+        //             // echo "\nNombre: " . $key1->firstChild->nodeValue;
+        //             // echo "\nNombre: " . $key1->firstChild->firstChild->data;
+        //         }
+        //         echo '<table>';
+
 
         // echo '<pre>';
         // foreach ($dom->childNodes as $key) {
