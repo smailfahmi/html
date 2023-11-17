@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<juegos>
+    <juego id="1" disponible="si">
+        <nombre>Fifa</nombre>
+        <dispositivos>
+            <dispositivo>play</dispositivo>
+            <dispositivo>xbox</dispositivo>
+        </dispositivos>
+    </juego>
+    <juego id="2" disponible="no">
+        <nombre>gta</nombre>
+        <dispositivos>
+            <dispositivo>play</dispositivo>
+            <dispositivo>xbox</dispositivo>
+        </dispositivos>
+    </juego>
+    <juego id="3" disponible="si">
+        <nombre>tetrix</nombre>
+        <dispositivos>
+            <dispositivo>pc</dispositivo>
+            <dispositivo>play</dispositivo>
+            <dispositivo>xbox</dispositivo>
+        </dispositivos>
+    </juego>
+    <juego id="4" disponible="si">
+        <nombre>Mario Kart</nombre>
+        <dispositivos>
+            <dispositivo>switch</dispositivo>
+            <dispositivo>wii</dispositivo>
+        </dispositivos>
+    </juego>
+</juegos>

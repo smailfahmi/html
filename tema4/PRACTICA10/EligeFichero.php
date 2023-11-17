@@ -105,28 +105,104 @@
         echo '</tr>';
         echo '<pre>';
         foreach ($dom->getElementsByTagName('alumno') as $alumno) {
-            $nombre = $alumno->getElementsByTagName('nombre')->item(0)->nodeValue;
+            // print_r($alumno->getElementsByTagName('nombre')->item(0));
+            $nombre = $alumno->getElementsByTagName('nombre')->item(0)->textContent;
             $nota1 = $alumno->getElementsByTagName('nota1')->item(0)->nodeValue;
             $nota2 = $alumno->getElementsByTagName('nota2')->item(0)->nodeValue;
             $nota3 = $alumno->getElementsByTagName('nota3')->item(0)->nodeValue;
-            echo "<tr> <td>$nombre</td> <td>$nota1</td> <td>$nota2</td> <td>$nota3</td>";
+            echo "<tr> <td>$nombre</td> <td>$nota1</td> <td>$nota2</td> <td>$nota3</td> </tr>";
         }
-
-        //esto solo funciona si el xml esta en linea es decir sin el codigo formateado 
-        // // print_r($dom);
-        // foreach ($dom->childNodes as $key) {
-        //     foreach ($key->childNodes as $key1) {
-        //         if ($key1->nodeType == 1) {
-        //             $nodo = $alumno->firstChild;
-        //             do {
-        //                 if ($key1->nodeType == 1) {
-        //                     echo "\n" . $nodo->tagName . ":" . $nodo->nodeValue;
+        echo '</table>';
+        //sin saber lo que hay dentro 
+        // print_r($dom);
+        // if (isset($dom->childElementCount)) { //eso quiere decir que el xml tiene hijos 
+        //     foreach ($dom->childNodes as $hijos) {
+        //         // print_r($hijos->childNodes->item(0));
+        //         if (isset($hijos->childElementCount)) { // esto quiere decir que el hijo tiene hijos 
+        //             // print_r($hijos);
+        //             foreach ($hijos->childNodes as $nietos) {
+        //                 if (isset($nietos->childElementCount)) {   // esto quiere decir que el hijo tiene hijos
+        //                     foreach ($nietos->childNodes as $bisnietos) {
+        //                         if (isset($bisnietos->childElementCount)) {
+        //                             foreach ($bisnietos->childNodes as $bisnietos1) {
+        //                                 if (isset($bisnietos1->childElementCount)) {
+        //                                     print_r($bisnietos1);
+        //                                 } else {
+        //                                     print_r($bisnietos1->textContent);
+        //                                 }
+        //                             }
+        //                         }
+        //                     }
         //                 }
-        //             } while ($nodo = $nodo->nextSibling);
+        //             }
         //         }
-        //         // echo "\nNombre: " . $key1->firstChild->nodeValue;
-        //         // echo "\nNombre: " . $key1->firstChild->firstChild->data;
         //     }
+        // }
+
+        function comprobarhijos($hijos)
+        {
+            if ($hijos->hasChildNodes()) {
+                foreach ($hijos->childNodes as $key) {
+
+                    comprobarhijos($key);
+                }
+            } else {
+
+                print_r($hijos);
+                if (!empty($hijos->nextSibling) && empty($hijos->previousSibling)) {
+                    echo '<tr>';
+                }
+
+                if (empty($hijos->nextSibling) && empty($hijos->previousSibling)) {
+
+                    echo '<td>' . $hijos->textContent . '</td>';
+                }
+            }
+        }
+        echo '<table>';
+        $xml = new DOMDocument();
+        $xml->load('juegos.xml');
+        comprobarhijos($xml);
+        echo '<table>';
+
+
+
+
+
+        // function comprobarHijos($node) {
+        //     if ($node->hasChildNodes()) {
+        //         echo "<tr>";
+        //         foreach ($node->childNodes as $child) {
+        //             if ($child->nodeType === XML_ELEMENT_NODE) {
+        //                 comprobarHijos($child);
+        //             } else {
+        //                 echo "<td>{$child->textContent}</td>";
+        //             }
+        //         }
+        //         echo "</tr>";
+        //     }
+        // }
+
+        // echo '<table>';
+        // comprobarHijos($dom);
+        // echo '</table>';
+
+
+
+        // print_r($key->childNodes);
+        // print_r($key->childNodes->item(1));
+        // foreach ($key->childNodes as $key1) {
+        //     if ($key1->nodeType == 1) {
+        //         $nodo = $alumno->firstChild;
+        //         do {
+        //             if ($key1->nodeType == 1) {
+        //                 echo "\n" . $nodo->tagName . ":" . $nodo->nodeValue;
+        //             }
+        //         } while ($nodo = $nodo->nextSibling);
+        //     }
+        //     // echo "\nNombre: " . $key1->firstChild->nodeValue;
+        //     // echo "\nNombre: " . $key1->firstChild->firstChild->data;
+        // }
         // }
 
         // echo '<pre>';
