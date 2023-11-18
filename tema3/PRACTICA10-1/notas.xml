@@ -30,4 +30,10 @@
     <nota2>8</nota2>
     <nota3>5</nota3>
   </alumno>
+  <alumno>
+    <nombre>smail</nombre>
+    <nota1>3</nota1>
+    <nota2>5</nota2>
+    <nota3>8</nota3>
+  </alumno>
 </alumnos>

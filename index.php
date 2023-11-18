@@ -6,7 +6,10 @@
   <title>Document</title>
 </head>
 <body>
- <header>
+
+<?php
+include 'fragmentos/header.html'
+?>
   <h1>Pagina de Smail</h1>
   <a href="tema1/html/tema1.html">TEMA 1</a>
   <br>
@@ -15,7 +18,9 @@
   <a href="tema3/"> TEMA 3</a>
   <br>
   <a href="tema4/"> TEMA 4</a>
- </header>
- 
+
+  <?php
+include 'fragmentos/footer.html'
+?>
 </body>
 </html>

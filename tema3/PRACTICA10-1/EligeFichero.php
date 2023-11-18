@@ -9,6 +9,10 @@
         td {
             text-align: center;
             border: solid;
+            background: yellow;
+        }
+        table{
+            background-color: black;
         }
     </style>
 </head>
@@ -18,7 +22,7 @@
     $boton = 0;
 
     ?>
-    <table class="default">
+    <table>
         <tr>
             <td>nota</td>
             <td>nota 1</td>
@@ -27,7 +31,7 @@
         </tr>
         <?php
         $array = []; // Array para almacenar los datos del CSV
-
+  
         if (($gestor = fopen("notas.csv", "r")) !== FALSE) {
             while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
                 $numero = count($datos);
@@ -141,109 +145,60 @@
 
         function comprobarhijos($hijos)
         {
-            // if ($hijos->nodeType == 3 && $hijos->textContent[1] != ' ') {
-            //     echo $hijos->textContent . "\n";
-            // }
-            echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-            print_r($hijos);
-            echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-            if ($hijos->hasChildNodes()) {
+            if ($hijos->hasChildNodes() && $hijos->childElementCount != 0) {
                 foreach ($hijos->childNodes as $key) {
                     if (isset($key->tagName)) {
-                        print_r($key->attributes);
-                        if ($key->attributes->length >= 0) {
-                            // print_r($key->attributes->item(1));
+                        if ($key->tagName == 'alumno') {
+                            echo "<tr>";
+                        }
+
+                        if ($key->attributes->length > 0) {
+
+                            echo "<tr>";
                             foreach ($key->attributes as $value) {
-                                 print_r( $value->textContent);
+                                echo '<td>';
+                                echo $value->textContent;
+                                echo '<br>';
+                                echo '</td>';
+                            }
                         }
-                        }
-                        // // comprobarhijos($key->attributes);
-                        // echo "**************************************************************************\n";
-                        // print_r($key->tagName);
-                        // echo "<br>";
-                        // echo "**************************************************************************\n";
                     }
 
                     comprobarhijos($key);
                 }
             } else {
-                // print_r($hijos);
-                // echo "---------------------------------------------------------------------------\n";
-                // echo $hijos->nodeType . "\n";
-                // echo $hijos->textContent . "\n";
-                // echo "---------------------------------------------------------------------------\n";
-
-
+                if ($hijos->nodeType == 1) {
+                    echo '<td>';
+                    echo $hijos->textContent . "\n";
+                    echo '</td>';
+                }
             }
         }
-        echo '<table>';
+        echo '<pre>';
+        echo '<table> <tr>';
+
+        for ($i = 0; $i < 4; $i++) {
+            switch ($i) {
+                case 0:
+                    echo '<td> nombre </td>';
+                    break;
+                case 1:
+                    echo '<td> nota 1 </td>';
+                    break;
+                case 2:
+                    echo '<td> nota 2 </td>';
+                    break;
+
+                default:
+                    echo '<td> nota 3 </td>';
+                    break;
+            }
+        }
+        echo '</tr>';
         $xml = new DOMDocument();
-        $xml->load('juegos.xml');
+        $xml->load('notas.xml');
         comprobarhijos($xml);
-        echo '<table>';
-
-
-
-
-
-        // function comprobarHijos($node)
-        // {
-        //     if ($node->hasChildNodes()) {
-        //         echo "<tr>";
-        //         foreach ($node->childNodes as $child) {
-        //             if ($child->nodeType === XML_ELEMENT_NODE) {
-        //                 comprobarHijos($child);
-        //             } else {
-        //                 echo "<td>{$child->textContent}</td>";
-        //             }
-        //         }
-        //         echo "</tr>";
-        //     }
-        // }
-        // echo '<table>';
-        // $xml = new DOMDocument();
-        // $xml->load('juegos.xml');
-        // comprobarhijos($xml);
-        // echo '<table>';
-
-
-
-        //    echo '<table>';
-        //         $xml = new DOMDocument();
-        //         $xml->load('juegos.xml');
-
-        //         print_r($xml->childNodes);
-        //         print_r($xml->childNodes->item(1));
-        //         foreach ($xml->childNodes as $key1) {
-        //             if ($key1->nodeType == 1) {
-        //                 $nodo = $alumno->firstChild;
-        //                 do {
-        //                     if ($key1->nodeType == 1) {
-        //                         echo "\n" . $nodo->tagName . ":" . $nodo->nodeValue;
-        //                     }
-        //                 } while ($nodo = $nodo->nextSibling);
-        //             }
-        //             // echo "\nNombre: " . $key1->firstChild->nodeValue;
-        //             // echo "\nNombre: " . $key1->firstChild->firstChild->data;
-        //         }
-        //         echo '<table>';
-
-
-        // echo '<pre>';
-        // foreach ($dom->childNodes as $key) {
-        //     if ($key->nodeType == 1) { // Verificar si el nodo es de tipo elemento (1)
-        //         foreach ($key->childNodes as $key1) {
-        //             if ($key1->nodeType == 1) { // Verificar si el nodo hijo es de tipo elemento (1)
-        //                 echo "\n" . $key1->tagName . ":" . $key1->nodeValue;
-        //             }
-        //         }
-        //     }
-        // }
-
-
-        # code...
-
-        // Iterar sobre los elementos 'alumno$alumno' e imprimir sus detalles
+        echo '</table>';
 
         ?>
 </body>
