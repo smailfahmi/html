@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/main.css">
+
 </head>
+
 <body>
 
-<?php
-include 'fragmentos/header.html'
-?>
-  <h1>Pagina de Smail</h1>
-  <a href="tema1/html/tema1.html">TEMA 1</a>
-  <br>
-  <a href="tema2/"> TEMA 2</a>
-  <br>
-  <a href="tema3/"> TEMA 3</a>
-  <br>
-  <a href="tema4/"> TEMA 4</a>
-
   <?php
-include 'fragmentos/footer.html'
-?>
+  include 'fragmentos/header.html';
+  include 'fragmentos/main.html';
+  include 'fragmentos/footer.html';
+  ?>
 </body>
+
 </html>

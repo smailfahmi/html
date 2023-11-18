@@ -1,0 +1,101 @@
+body {
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(145, 149, 172);
+    min-width: 700px;
+    min-height: 900px;
+    flex-direction: column;
+}
+
+header {
+    margin: 0px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 130px;
+    /* background-color: black; */
+}
+
+.micabecera a {
+    text-decoration: none;
+    box-sizing: border-box;
+    height: 50px;
+    color: rgb(0, 179, 255);
+
+}
+
+.micabecera {
+    background-color: rgb(76, 77, 87);
+    display: flex;
+    flex-grow: 1;
+    height: 80px;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    box-sizing: border-box;
+    border-bottom: rgb(0, 179, 255)solid 2px;
+
+}
+
+
+
+.nombre,
+.curriculum {
+    display: flex;
+    flex-grow: 1;
+    width: 130px;
+    height: 50px;
+    background-color: rgb(145, 149, 172);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: auto;
+    border-radius: 25%;
+
+}
+
+.imagen {
+    margin-top: -30px;
+    flex-grow: 1;
+    width: 110px;
+    height: 110px;
+    background-color: rgb(145, 149, 172);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: auto;
+    border-radius: 50%;
+}
+
+figure {
+
+    width: 100px;
+    height: 100px;
+}
+
+header .imagen img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.interior {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    flex-grow: 1;
+    margin: 4px;
+    background-color: rgb(76, 77, 87);
+    border-radius: 25%;
+}
