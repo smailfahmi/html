@@ -20,5 +20,3 @@
   include 'fragmentos/footer.html';
   ?>
 </body>
-
-</html>

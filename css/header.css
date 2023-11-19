@@ -53,11 +53,11 @@ header {
     height: 50px;
     background-color: rgb(145, 149, 172);
     text-align: center;
-    display: flex;
-    align-items: center;
+     align-items: center;
     justify-content: center;
     padding: auto;
     border-radius: 25%;
+    flex-direction: column;
 
 }
 
@@ -99,3 +99,18 @@ header .imagen img {
     background-color: rgb(76, 77, 87);
     border-radius: 25%;
 }
+.ocultoCabecera {
+    display: none;
+    background-color: blue;
+}
+
+.subMenuHeaderoculto .subMenuHeader {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+}
+.opcioonesCabecera{
+display: flex;
+flex-direction: column;
+}
+
