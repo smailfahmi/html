@@ -104,7 +104,7 @@ header .imagen img {
     background-color: blue;
 }
 
-.subMenuHeaderoculto .subMenuHeader {
+.ocultoCabecera .subMenuCabecera {
     display: flex;
     flex-direction: column;
     background-color: black;
