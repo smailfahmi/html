@@ -182,7 +182,7 @@ function comCorreo(&$errores)
 }
 function comFichero(&$errores)
 {
-    if (empty( $nombre_archivo = $_FILES["imagen"]["name"])) {
+    if (empty($_FILES["imagen"]["name"])) {
         $errores['imagen'] = "este campo esta vacio";
     } elseif (!preg_match('/^.+\.(jpg|png|bmp)$/',$_FILES["imagen"]["name"])) {
         $errores['imagen'] = "formato invalido";
