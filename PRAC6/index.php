@@ -154,17 +154,65 @@ $avila = [];
 $salamanca = [];
 $valladolid = [];
 
+
+
+foreach ($liga as $key => $value) {
+    foreach ($value as $key1 => $value1) {
+        $resultado1 = substr($value1['Resultado'], 0, 1);
+        $resultado2 = substr($value1['Resultado'], 2, 3);
+        if ($resultado1 > $resultado2) {
+            # code...
+        }
+        switch ($key1) {
+            case 'Zamora':
+                $zamora['golesf'][] = $resultado2;
+                $zamora['golesc'][] = $resultado1;
+                break;
+            case 'Avila':
+                $avila['golesf'][] = $resultado2;
+                $avila['golesc'][] = $resultado1;
+                break;
+            case 'Salamanca':
+                $salamanca['golesf'][] = $resultado2;
+                $salamanca['golesc'][] = $resultado1;
+                break;
+            case 'Valladolid':
+                $valladolid['golesf'][] = $resultado2;
+                $valladolid['golesc'][] = $resultado1;
+                break;
+        }
+        switch ($key) {
+            case 'Zamora':
+                $zamora['golesf'][] = $resultado1;
+                $zamora['golesc'][] = $resultado2;
+                break;
+            case 'Avila':
+                $avila['golesf'][] = $resultado1;
+                $avila['golesc'][] = $resultado2;
+                break;
+            case 'Salamanca':
+                $salamanca['golesf'][] = $resultado1;
+                $salamanca['golesc'][] = $resultado2;
+                break;
+            case 'Valladolid':
+                $valladolid['golesf'][] = $resultado1;
+                $valladolid['golesc'][] = $resultado2;
+                break;
+        }
+    }
+    echo '<br>';
+}
 $puntuaciones = [
     'zamora' => $zamora,
     'avila' => $avila,
     'salamanca' => $salamanca,
     'valladolid' => $valladolid
 ];
-
-foreach ($liga as $key => $value) {
-    foreach ($value as $key1 => $value1) {
-        $puntuaciones[$key][] = $value1['Resultado'];
+foreach ($puntuaciones as $key => $value) {
+    for ($conta = 0; $conta < count($value['golesf']); $conta++) {
+        echo $key;
+        echo '<br>';
+        echo $value['golesf'][$conta] . " " . $value['golesc'][$conta];
+        echo '<br>';
     }
 }
-
-print_r($puntuaciones['zamora']);
