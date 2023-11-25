@@ -150,3 +150,14 @@ function recuerdaradio($name, $value)
     } else if (isset($_REQUEST['borrar']))
         echo '';
 }
+function recuerdaChek($name, $valor)
+{
+    if (enviado() && isset($_REQUEST[$name])) {
+        foreach ($_REQUEST[$name] as $key => $value) {
+            if ($valor == $value)
+                return 'checked';
+        }
+        return '';
+    } else if (isset($_REQUEST['borrar']))
+        echo '';
+}

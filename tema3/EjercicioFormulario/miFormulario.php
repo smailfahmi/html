@@ -14,7 +14,7 @@ include("./valida.php")
 
     <?php
     $errores = array();
-    if (enviado()) {
+    if (enviado() && validacio($errores)) {
         echo "esta enviado";
         echo "<pre>";
         if (isset($_SESSION["ruta_imagen"])) {
@@ -22,7 +22,7 @@ include("./valida.php")
             echo '<img src="' . $_SESSION["ruta_imagen"] . '" alt="Imagen subida">';
         }
     } else {
-        print_r($errores);
+        // print_r($errores);
 
 
 
@@ -67,7 +67,8 @@ include("./valida.php")
                 <?php
                 for ($i = 1; $i < 7; $i++) {
                     $nombre = "opcion" . $i;
-                    echo '<label for=""><input type="checkbox" name="opcionCh[]" id="' . $nombre . '"  value="' . $nombre . '" >Check ' . $i . '</label>';
+                    $guardar = recuerdaChek('opcionCh',$nombre);
+                    echo '<label for=""><input '.$guardar.' type="checkbox" name="opcionCh[]" id="' . $nombre . '"  value="' . $nombre . '" >Check ' . $i . '</label>';
                     echo ' <br>';
                 }
                 escribirErrores($errores, "opcionCh");

@@ -4,7 +4,35 @@
 }
 </style>
 
+
+
+
+
 <?php
+$datos = [2, 5, 9, 7, 6, 3, 1, 5, 4, 8, 3, 2, 6, 9, 3, 5, 1, 2, 3];
+
+// Ordenar el array y eliminar elementos duplicados
+$resultado = array_unique($datos);
+sort($resultado);
+
+// Mostrar el resultado
+
+print_r($resultado);
+echo '<br>';
+echo'---------------------------------------------'.'<br>';
+foreach ($datos as $clave => $valor) {
+    if ($valor == 3) {
+        echo 'posicion ';
+        echo $datos[$clave] = $clave;
+        echo '<br>';
+    }
+}
+
+// Mostrar el resultado
+print_r($datos);
+
+echo '<br>';
+echo'-----------------------------------------------------------------------------';
 // ejercicio 1
 // $datos = [2, 5, 9, 7, 6, 3, 1, 5, 4, 8, 3, 2, 6, 9, 3, 5, 1, 2, 3];
 // asort($datos);
