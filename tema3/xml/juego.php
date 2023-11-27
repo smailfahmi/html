@@ -51,40 +51,71 @@ if (isset($_REQUEST['Editar'])) {
 
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit();
-}elseif (isset($_REQUEST['Eliminar'])){
+} elseif (isset($_REQUEST['Cambiar'])) {
+
     // Cargar el archivo XML
-$xml = new DOMDocument();
-$xml->load('juegos.xml');
+    $xml = new DOMDocument();
+    $xml->load('juegos.xml');
 
-// Obtener todos los elementos 'juego'
-$juegos = $xml->getElementsByTagName('juego');
+    // Obtener todos los elementos 'juego'
+    $juegos = $xml->getElementsByTagName('juego');
 
-// Supongamos que deseas eliminar el juego con ID 2
-$targetId = $_REQUEST['oculto'];
+    // Supongamos que deseas cambiar el nombre del juego con ID 3 a "Nuevo Nombre"
+    $targetId = $_REQUEST['oculto'];
+    $newName = "pokemon";
 
-foreach ($juegos as $juego) {
-    // Obtener el atributo 'id' de cada juego
-    $id = $juego->getAttribute('id');
+    foreach ($juegos as $juego) {
+        // Obtener el atributo 'id' de cada juego
+        $id = $juego->getAttribute('id');
 
-    // Verificar si el ID coincide con el juego que queremos eliminar
-    if ($id == $targetId) {
-        // Obtener el nodo padre del juego (en este caso, el nodo 'juegos')
-        $parent = $juego->parentNode;
-        
-        // Eliminar el juego del XML
-        $parent->removeChild($juego);
-        break; // Salir del bucle una vez que se ha eliminado el juego deseado
+        // Verificar si el ID coincide con el juego que queremos modificar
+        if ($id == $targetId) {
+            // Obtener el elemento 'nombre' del juego
+            $nombreElement = $juego->getElementsByTagName('nombre')->item(0);
+
+            // Actualizar el contenido del elemento 'nombre'
+            $nombreElement->nodeValue = $newName;
+            break; // Salir del bucle una vez que se ha actualizado el nombre del juego deseado
+        }
     }
-}
 
-// Guardar los cambios en el archivo XML
-$xml->save('juegos.xml');
+    // Guardar los cambios en el archivo XML
+    $xml->save('juegos.xml');
 
-echo 'Juego eliminado correctamente con el ID ' . $targetId;
-header('Location: ' . $_SERVER['PHP_SELF']);
-exit();
-}
-else {
+    echo 'Nombre del juego con ID ' . $targetId . ' cambiado a ' . $newName;
+} elseif (isset($_REQUEST['Eliminar'])) {
+    // Cargar el archivo XML
+    $xml = new DOMDocument();
+    $xml->load('juegos.xml');
+
+    // Obtener todos los elementos 'juego'
+    $juegos = $xml->getElementsByTagName('juego');
+
+    // Supongamos que deseas eliminar el juego con ID 2
+    $targetId = $_REQUEST['oculto'];
+
+    foreach ($juegos as $juego) {
+        // Obtener el atributo 'id' de cada juego
+        $id = $juego->getAttribute('id');
+
+        // Verificar si el ID coincide con el juego que queremos eliminar
+        if ($id == $targetId) {
+            // Obtener el nodo padre del juego (en este caso, el nodo 'juegos')
+            $parent = $juego->parentNode;
+
+            // Eliminar el juego del XML
+            $parent->removeChild($juego);
+            break; // Salir del bucle una vez que se ha eliminado el juego deseado
+        }
+    }
+
+    // Guardar los cambios en el archivo XML
+    $xml->save('juegos.xml');
+
+    echo 'Juego eliminado correctamente con el ID ' . $targetId;
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+} else {
 
     $dom = new DOMDocument();
     $dom->load('juegos.xml');
@@ -128,7 +159,7 @@ else {
 
         // $nota2 = $alumno->getElementsByTagName('nota2')->item(0)->nodeValue;
         // $nota3 = $alumno->getElementsByTagName('nota3')->item(0)->nodeValue;
-        echo '<tr> <td>' . $nombre . '</td> <td>' . $atributoDispo . '</td> <td>' . $atributoId . '</td> <td>' . $compatibles . '</td> <td><form action="" method="GET"><label for=""><input type="hidden" value=' . $atributoId . ' name="oculto"></label><label for=""><input type="submit" value="Editar" name="Editar"></label><label for=""><input type="submit" value="Eliminar" name="Eliminar"></label></form></td> </tr>';
+        echo '<tr> <td>' . $nombre . '</td> <td>' . $atributoDispo . '</td> <td>' . $atributoId . '</td> <td>' . $compatibles . '</td> <td><form action="" method="GET"><label for=""><input type="hidden" value=' . $atributoId . ' name="oculto"></label><label for=""><input type="submit" value="Editar" name="Editar"></label><label for=""><input type="submit" value="Eliminar" name="Eliminar"></label><label for=""><input type="submit" value="Cambiar" name="Cambiar"></label></form></td> </tr>';
     }
     echo '</table>';
 }

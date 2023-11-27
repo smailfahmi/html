@@ -9,7 +9,7 @@
     </juego>
     
     <juego id="3" disponible="no">
-        <nombre>tetrix</nombre>
+        <nombre>pokemon</nombre>
         <dispositivos>
             <dispositivo>pc</dispositivo>
             <dispositivo>play</dispositivo>
