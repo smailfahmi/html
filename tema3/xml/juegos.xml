@@ -1,20 +1,14 @@
 <?xml version="1.0"?>
 <juegos>
-    <juego id="1" disponible="si">
+    <juego id="1" disponible="no">
         <nombre>Fifa</nombre>
         <dispositivos>
             <dispositivo>play</dispositivo>
             <dispositivo>xbox</dispositivo>
         </dispositivos>
     </juego>
-    <juego id="2" disponible="no">
-        <nombre>gta</nombre>
-        <dispositivos>
-            <dispositivo>play</dispositivo>
-            <dispositivo>xbox</dispositivo>
-        </dispositivos>
-    </juego>
-    <juego id="3" disponible="si">
+    
+    <juego id="3" disponible="no">
         <nombre>tetrix</nombre>
         <dispositivos>
             <dispositivo>pc</dispositivo>
