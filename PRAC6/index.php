@@ -143,12 +143,6 @@ echo '<br>';
 echo 'otra version ----------------------------------------------------------------------';
 echo '<pre>';
 // maneras de crear multidimensionales
-// $puntuaciones = array(
-//     'zamora' => array(),
-//     'avila' => array(),
-//     'salamanca' => array(),
-//     'valladolid' => array()
-// );
 $zamora = [];
 $avila = [];
 $salamanca = [];
@@ -208,11 +202,53 @@ $puntuaciones = [
     'salamanca' => $salamanca,
     'valladolid' => $valladolid
 ];
+// print_r($puntuaciones);
+$resul = array(
+    'zamora' => array(
+        'favor' => 0,
+        'contra' => 0,
+        'puntos' => 0,
+    ),
+    'avila' => array(
+        'favor' => 0,
+        'contra' => 0,
+        'puntos' => 0,
+    ),
+    'salamanca' => array(
+        'favor' => 0,
+        'contra' => 0,
+        'puntos' => 0,
+    ),
+    'valladolid' => array(
+        'favor' => 0,
+        'contra' => 0,
+        'puntos' => 0,
+    )
+);
+
 foreach ($puntuaciones as $key => $value) {
     for ($conta = 0; $conta < count($value['golesf']); $conta++) {
-        echo $key;
-        echo '<br>';
-        echo $value['golesf'][$conta] . " " . $value['golesc'][$conta];
-        echo '<br>';
+        $resul[$key]['favor'] += $value['golesf'][$conta];
+        $resul[$key]['contra'] += $value['golesc'][$conta];
+
+        if ($value['golesf'][$conta] > $value['golesc'][$conta]) {
+            $resul[$key]['puntos'] += 3;
+        } elseif ($value['golesf'][$conta] === $value['golesc'][$conta]) {
+            $resul[$key]['puntos'] += 1;
+        }
     }
 }
+echo '<table>';
+echo '<tr>';
+echo '<td>EQUIPOS</td>';
+echo '<td>GOLESF</td>';
+echo '<td>GOLESC</td>';
+echo '<td>PUNTOS</td>';
+foreach ($resul as $equipo => $datos) {
+    echo '<tr>';
+    echo '<td>' . $equipo . '</td>';
+    echo '<td>' . $datos['favor'] . '</td>';
+    echo '<td>' . $datos['contra'] . '</td>';
+    echo '<td>' . $datos['puntos'] . '</td>';
+}
+print_r($resul);

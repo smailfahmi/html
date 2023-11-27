@@ -19,6 +19,7 @@ $dom->save('instrumentos.xml');
 
 
 $dom->load('instrumentos.xml');
+echo '<a href="./descarga.php">descargar</a>';
 //descargar archivo
 // $fileName = "instrumentos.xml";
 // header('Content-type: text/xml'); // Corrected the content type

@@ -20,13 +20,13 @@ include("./verificacion.php")
     <?php
     $boton = 0;
     if (isset($_GET['editar'])) {
-        header("Location: editar.php?nom=" . $_REQUEST['oculto']."&accion=". $_REQUEST['editar']);
+        header("Location: editar.php?ocult=" . $_REQUEST['oculto'] . "&accion=" . $_REQUEST['editar']);
     } elseif (isset($_GET['eliminar'])) {
         // echo $_REQUEST['oculto'];
-         eliminar($_REQUEST['oculto']);
+        eliminar($_REQUEST['oculto']);
     } elseif (isset($_REQUEST['añadir'])) {
 
-        header("Location: editar.php?nom=" . $_REQUEST['oculto']."&accion=". $_REQUEST['añadir']);
+        header("Location: editar.php?accion=" . $_REQUEST['añadir']);
     } else {
     ?>
         <table class="default">
@@ -42,7 +42,7 @@ include("./verificacion.php")
             $elemento = 0;
             $fila = 0;
             if (($gestor = fopen("notas.csv", "r")) !== FALSE) {
-                while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+                while (($datos = fgetcsv($gestor, filesize("notas.csv"), ";")) !== FALSE) {
                     $numero = count($datos);
                     echo "<tr>";
                     echo        " <form action='' method='get'>";

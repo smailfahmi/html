@@ -31,6 +31,9 @@
                     }
                     $contador++;
                 }
+                if (empty($_REQUEST['oculto'])) {
+                    fputcsv($ft, $texto, ";");
+                }
                 fclose($fp);
                 fclose($ft);
                 unlink("notas.csv");
@@ -49,7 +52,7 @@
                 $numero = count($datos);
                 $conta = 0;
                 for ($c = 0; $c < $numero; $c++) {
-                    if ($fila == (int)$_REQUEST['nom']) {
+                    if ($fila == (int)$_REQUEST['ocult']) {
                         $dates[$conta] =  $datos[$conta];
                         $conta++;
                     }
@@ -62,8 +65,16 @@
     }
     ?>
     <form action="" method="get">
-        <p><label for="">nombre: <input type="text" name="nombre" <? if ($_REQUEST['accion'] == "editar") echo "readonly"; ?> value="<?
-                                                                                                                                        echo $dates[0] ?>" name="nombre"></label></p>
+        <p><label for="">nombre: <input type="text" name="nombre" <? if ($_REQUEST['accion'] == "editar") {
+                                                                        echo "readonly";
+                                                                    } else {
+                                                                        echo "";
+                                                                    } ?> value="<?
+                                                                                if ($_REQUEST['accion'] == "editar") {
+                                                                                    echo $dates[0];
+                                                                                } else {
+                                                                                    echo "";
+                                                                                }  ?>" name="nombre"></label></p>
         <p><label for="">nota 1: <input type="number" name="no1" value="<?
                                                                         echo $dates[1] ?>" name="nota1"></label></p>
         <p><label for="">nota 2: <input type="number" name="no2" value="<?
@@ -71,7 +82,9 @@
         <p><label for="">nota 3: <input type="number" name="no3" value="<?
                                                                         echo $dates[3] ?>" name="nota3"></label></p>
         <p>
-            <input type="hidden" value="<? echo $_REQUEST['nom']; ?>" name="oculto">
+            <input type="hidden" value="<? if (isset($_REQUEST['ocult'])) {
+                                            echo $_REQUEST['ocult'];
+                                        } ?>" name="oculto">
             <label for="Leer">
                 <input type="submit" value="volver" name="volver">
             </label>

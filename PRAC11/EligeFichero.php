@@ -11,7 +11,8 @@
             border: solid;
             background: yellow;
         }
-        table{
+
+        table {
             background-color: black;
         }
     </style>
@@ -30,8 +31,11 @@
             <td>nota 3</td>
         </tr>
         <?php
+        include('../PRAC7/funciutiles.php');
+        echo 'TABLA IMPRESA DESDE UN ARRAY';
+        br();
+        br();
         $array = []; // Array para almacenar los datos del CSV
-  
         if (($gestor = fopen("notas.csv", "r")) !== FALSE) {
             while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
                 $numero = count($datos);
@@ -51,6 +55,7 @@
             }
             fclose($gestor);
         }
+        //creando un fichero xml a partir de un array 
         echo '</table>';
         $dom = new DOMDocument("1.0", "utf-8");
         $raiz = $dom->appendChild($dom->createElement('alumnos'));
@@ -82,14 +87,14 @@
         }
         $dom->formatOutput = true;
         $dom->save('notas.xml');
-
-
-
         $dom->load('notas.xml');
-        // sabiendo lo qu ehay dentro y que todos los elementos son iguales
+        echo 'TABLA IMPRESA DESDE UN XML CONOCIENDO SU ESTRUCTURA';
+        br();
+        br();
+        // sabiendo lo que hay dentro del xml y que todos los elementos son iguales
         echo '<table> <tr>';
 
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 4; $i++) { //cabecera 
             switch ($i) {
                 case 0:
                     echo '<td> nombre </td>';
@@ -108,6 +113,7 @@
         }
         echo '</tr>';
         echo '<pre>';
+        //cuerpo de la tabla 
         foreach ($dom->getElementsByTagName('alumno') as $alumno) {
             // print_r($alumno->getElementsByTagName('nombre')->item(0));
             $nombre = $alumno->getElementsByTagName('nombre')->item(0)->textContent;
@@ -117,6 +123,8 @@
             echo "<tr> <td>$nombre</td> <td>$nota1</td> <td>$nota2</td> <td>$nota3</td> </tr>";
         }
         echo '</table>';
+        //accediendo a dentro del xml con if anidados 
+
         //sin saber lo que hay dentro 
         // print_r($dom);
         // if (isset($dom->childElementCount)) { //eso quiere decir que el xml tiene hijos 
@@ -174,6 +182,10 @@
                 }
             }
         }
+        br();
+        echo 'TABLA IMPRESA DESDE UN xml CON FUNCION RECURSIVA';
+        br();
+        br();
         echo '<pre>';
         echo '<table> <tr>';
 
