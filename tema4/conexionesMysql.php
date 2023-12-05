@@ -109,12 +109,19 @@ require('./confiBD.php');
 //meter una base de datos 
 $con = new mysqli();
 try {
-    $con->connect(IP, USER, PASS, 'prueba');
+    $con->connect(IP, USER, PASS, );
     $script = file_get_contents('./banco.sql');
     $con->multi_query($script);
+
+    do {
+        $con->store_result();
+        if (!$con->next_result()) {
+            break;
+        }
+    } while (true);
     $con->close();
 } catch (\Throwable $th) {
-    switch ($th->code) {
+    switch ($th->getCode()) {
         case '1062':
             echo 'id repetido';
             break;
