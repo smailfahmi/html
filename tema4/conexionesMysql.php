@@ -35,31 +35,84 @@
 // }
 
 
-//para leeer comentamos lo anterior
+//para leeer comentamos lo anterior y para borrar lo mismo 
+
+// require('./confiBD.php');
+// try {
+//     $con = mysqli_connect(IP, USER, PASS, 'prueba');
+//     $sql = 'delete from alumnos where id > 5';
+//     $result = mysqli_query($con, $sql);
+//     // while ($array = mysqli_fetch_assoc($result)) {
+//     //     echo '<pre>';
+//     //     print_r($array);
+//     // }
+//     // while ($array = mysqli_fetch_object($result)) {
+//     //     echo '<pre>';
+//     //     print_r($array);
+//     // }
+//     // $array = mysqli_fetch_all($result,MYSQLI_BOTH);
+//     //     echo '<pre>';
+//     //     print_r($array);
+
+//     // $array = mysqli_fetch_all($result);
+//     echo mysqli_affected_rows($con);//me devuelve las lineas que modifica 
+//     // echo '<pre>';
+//     // print_r($array);
+
+//     mysqli_close($con);
+// } catch (\Throwable $th) {
+//     switch ($th->code) {
+//         case '1062':
+//             echo 'id repetido';
+//             break;
+
+//         default:
+//             echo $th->getMessage();
+//             break;
+//     }
+
+//     mysqli_close($con);
+// }
+
+// realizar update de una base de datos ;
+// require('./confiBD.php');
+// $con = new mysqli();
+
+
+// try {
+//     $con->connect(IP, USER, PASS, 'prueba');
+//     $sql = 'update alumnos set edad =?,nombre=? where id =?';
+//     $stmt = $con->stmt_init();
+//     $stmt->prepare($sql);
+//     $nomber = 'raul';
+//     $edad = 3;
+//     $id = 2;
+//     $stmt->bind_param('isi', $edad,$nomber,$id);
+//     $stmt->execute();
+//     $con->close();
+
+// } catch (\Throwable $th) {
+//     switch ($th->code) {
+//         case '1062':
+//             echo 'id repetido';
+//             break;
+
+//         default:
+//             echo $th->getMessage();
+//             break;
+//     }
+
+//     mysqli_close($con);
+// }
 
 require('./confiBD.php');
+//meter una base de datos 
+$con = new mysqli();
 try {
-    $con = mysqli_connect(IP, USER, PASS, 'prueba');
-    $sql = 'delete from alumnos where id > 5';
-    $result = mysqli_query($con, $sql);
-    // while ($array = mysqli_fetch_assoc($result)) {
-    //     echo '<pre>';
-    //     print_r($array);
-    // }
-    // while ($array = mysqli_fetch_object($result)) {
-    //     echo '<pre>';
-    //     print_r($array);
-    // }
-    // $array = mysqli_fetch_all($result,MYSQLI_BOTH);
-    //     echo '<pre>';
-    //     print_r($array);
-
-    // $array = mysqli_fetch_all($result);
-    echo mysqli_affected_rows($con);
-    // echo '<pre>';
-    // print_r($array);
-
-    mysqli_close($con);
+    $con->connect(IP, USER, PASS, 'prueba');
+    $script = file_get_contents('./banco.sql');
+    $con->multi_query($script);
+    $con->close();
 } catch (\Throwable $th) {
     switch ($th->code) {
         case '1062':
