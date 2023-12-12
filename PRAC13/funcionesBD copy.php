@@ -56,30 +56,22 @@ function existe($name) //comprobamos que existe el fichero y si no lo creamos pa
 function crearBD() //creo la base de datos a partir del script que hemos creado anteriormente 
 {
     try {
-        $con = new mysqli();
-        $con->connect(IP, USER, PASS, );
+        $DSN = 'pgsql:host=' . IP . ';dbname=prueba';
+        $con = new PDO($DSN, USER, PASS);
         $script = file_get_contents('./baseInexistente.sql');
-        $con->multi_query($script);
+        $con->exec($script);
         do {
             $con->store_result();
             if (!$con->next_result()) {
                 break;
             }
         } while (true);
-        $con->close();
+        unset($con);
         header('Location: ./index.php');
     } catch (\Throwable $th) {
-        switch ($th->getCode()) {
-            case '1062':
-                echo 'id repetido';
-                break;
 
-            default:
-                echo $th->getMessage();
-                break;
-        }
-
-        mysqli_close($con);
+        echo $th->getMessage();
+        unset($con);
     }
 }
 function leerdatos($con) //leo los datos y en creo la tabla con la informacion 
@@ -166,8 +158,7 @@ function valido(&$errores) //verifico los campos esto se hace tanto para editar 
 
 
     if (!isset($_REQUEST['fecha']) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $_REQUEST['fecha'])) {
-        if (
-            !preg_match('/^(202[0-4]|20[0-1]\d|\d{1,3})-(0?[1-9]|1[0-2])-(0?[1-9]|1[0-9]|2[0-9])$/', $_REQUEST['fecha'])) {
+        if (!isset($_REQUEST['fecha']) || !preg_match('/^[0-2030]-[0-12]-[0-30]$/', $_REQUEST['fecha'])) {
             $errores['fecha'] = 'CAMPO VACIO O FORMATO INVALIDO (YYYY-MM-DD)';
         }
     }
