@@ -10,7 +10,7 @@
 <body>
     <?
     $errores = [];
-    include('./funcionesBD.php');
+    include('./funcionesBD_PSQL.php');
     if (isset($_REQUEST['editar']) && valido($errores)) {
         if (empty($_REQUEST['ID']) && $_REQUEST['editar'] == 'EDITAR') { //en el caso que no tenga id es porque estamos en la opcion de añadir 
             aniadirvalor($_REQUEST['BD']);
