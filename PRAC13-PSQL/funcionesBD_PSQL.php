@@ -6,15 +6,17 @@ function crearBD()
     try {
         //conexion
         $con = new PDO($DSN, USER, PASS);
+        //ater user smail createdb -- para poer crear bd
         $con->exec("DROP DATABASE IF EXISTS trabajos");
         $con->exec("CREATE DATABASE trabajos"); // creo la base de datos que me interesa
+        //darle permiso alter user smail to createrole para que pueda hacer drop
         $con->exec("DROP USER IF EXISTS trabajos"); //creo el usuario 
         $con->exec("CREATE USER trabajos WITH PASSWORD 'SmailSmail'");
         $con->exec("GRANT ALL PRIVILEGES ON DATABASE trabajos TO trabajos");
         // Conexión a la nueva base de datos
-        $DSN = 'pgsql:host=' . IP . ';dbname=trabajos';//me cambio de la base de datos postgres a trabajos para crear dentro la tabla
+        $DSN = 'pgsql:host=' . IP . ';dbname=trabajos'; //me cambio de la base de datos postgres a trabajos para crear dentro la tabla
         $con = new PDO($DSN, USER, PASS);
-           $archivoSQL = './baseInexistente.sql';//cargo el script y creo la tabla
+        $archivoSQL = './baseInexistente.sql'; //cargo el script y creo la tabla
         $sqlScript = file_get_contents($archivoSQL);
         try {
             $con->exec($sqlScript);
@@ -99,9 +101,9 @@ function valido(&$errores) //verifico los campos esto se hace tanto para editar 
 function darpermisos()
 {
     $host = $_SERVER['SERVER_ADDR'];
-    $con = new PDO("pgsql:host=$host;dbname=trabajos;user=smail;password=smail");//me conecto con un usuario con permisos a la base de datos de trabajos 
-    $con->exec('GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE MisTrabajos TO trabajos');//le doy al usuario trabajos todos los permisoso con el usuario smail
-    $con->exec('GRANT USAGE ON SEQUENCE mistrabajos_id_seq TO trabajos');//esta linea sirve para darle permisos para usar el autoincrement a trabajos
+    $con = new PDO("pgsql:host=$host;dbname=trabajos;user=smail;password=smail"); //me conecto con un usuario con permisos a la base de datos de trabajos 
+    $con->exec('GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE MisTrabajos TO trabajos'); //le doy al usuario trabajos todos los permisoso con el usuario smail
+    $con->exec('GRANT USAGE ON SEQUENCE mistrabajos_id_seq TO trabajos'); //esta linea sirve para darle permisos para usar el autoincrement a trabajos
 }
 function borrarLinea($nombre, $id)
 {
@@ -131,7 +133,7 @@ function borrarLinea($nombre, $id)
         echo "Error: " . $e->getMessage();
     }
 }
-function rellenar($id, $nombre, $valor)//vamos llamando a esta funcion para rellenar el valor de los inputs
+function rellenar($id, $nombre, $valor) //vamos llamando a esta funcion para rellenar el valor de los inputs
 {
     try {
         $host = $_SERVER['SERVER_ADDR'];
@@ -145,7 +147,7 @@ function rellenar($id, $nombre, $valor)//vamos llamando a esta funcion para rell
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
-                echo $result[$valor];//esto es lo que escribe el valor en cada input
+                echo $result[$valor]; //esto es lo que escribe el valor en cada input
             } else {
                 echo 'No se encontraron resultados para el ID ' . $id;
             }
@@ -168,7 +170,7 @@ function editarvalor($nombre, $id)
             $sql = "UPDATE MisTrabajos SET empresa = :empresa, meses = :meses, fecha_entrada = :fecha_entrada WHERE id = :id";
             $stmt = $con->prepare($sql);
             $empresa = $_REQUEST['empresa'] ?? ''; // Verifica si estos valores no son nulos antes de pasarlos
-            $meses = (float) ($_REQUEST['meses'] ?? 0);//en caso de nulo devuelve 0
+            $meses = (float) ($_REQUEST['meses'] ?? 0); //en caso de nulo devuelve 0
             $fecha_entrada = $_REQUEST['fecha'] ?? '';
 
             $stmt->bindParam(':empresa', $empresa);
