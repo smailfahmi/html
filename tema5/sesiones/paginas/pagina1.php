@@ -1,3 +1,16 @@
+<?
+include('../funciones.php');
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    $_SESSION['error'] = 'no tiene permisos';
+    header('Location: ../login.php');
+    exit;
+}
+permisos(basename($_SERVER['PHP_SELF']));
+print_r($_SESSION);
+echo basename($_SERVER['PHP_SELF']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -13,3 +13,13 @@ function textovacio($name)
     }
     return false;
 }
+function permisos($url)
+{
+    if (!in_array($url, $_SESSION['usuario']['paginas'])) {
+        header('Location: ../login.php');
+        return $_SESSION['error'] = 'no tiene permiso ';
+        exit;
+    }
+
+
+}
