@@ -1,4 +1,4 @@
-<footer class="container-fluid mt-5 p-2" style="background-color: black;">
+<footer class="container-fluid pt-2" style="background-color: black;">
     <div class="row text-white text-center ">
         <div class="col">
             <h5>Sección de Navegación</h5>

@@ -2,6 +2,12 @@ CREATE DATABASE IF NOT EXISTS tienda;
 
 USE tienda;
 
+DROP USER IF EXISTS tienda;
+
+CREATE USER tienda IDENTIFIED BY 'SmailSmail';
+
+GRANT ALL ON tienda.* TO tienda;
+
 CREATE TABLE Perfil (
     codigo CHAR(5) PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL
@@ -343,6 +349,5 @@ VALUES
         2,
         8,
         1
-    ),
-    -- Asignado a la categoría 'zapatillas' (ID 8)
+    ) -- Asignado a la categoría 'zapatillas' (ID 8)
 ;
