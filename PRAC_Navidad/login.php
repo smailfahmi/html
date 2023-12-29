@@ -14,12 +14,16 @@
 
 <body>
 
-    <div class="home col-md-4 col-sm-12 col-xs-12 text-center d-flex justify-content-center align-items-center">
-        <h1> SMAILSHOP</h1>
-        <img src="./imagenes/images.jpg" alt="" style="border-radius: 50%; height: 75px; width: 75px;">
-    </div>
-    <div class="container">
 
+
+
+    <div class="container">
+        <div class="row justify-content-center p-2">
+            <div class="home col-md-4 text-center d-flex justify-content-center align-items-center">
+                <h1> SMAILSHOP</h1>
+                <img src="./imagenes/images.jpg" alt="" style="border-radius: 50%; height: 75px; width: 75px;">
+            </div>
+        </div>
         <div class="row justify-content-center">
             <!-- Formulario de Login -->
             <div class="col-md-6">

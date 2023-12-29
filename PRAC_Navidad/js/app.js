@@ -67,7 +67,7 @@ function buscar() {
 
 }
 function colocar(indice) {
-    log
+    console.log(indice);
     let seccion;
     switch (indice) {
         case 0:
