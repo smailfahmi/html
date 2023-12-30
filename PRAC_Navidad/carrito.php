@@ -21,24 +21,32 @@
         header('Location: ./login.php');
         exit;
     } else {
-
-        leerCarrito($_REQUEST['oculto'])
+        ?>
+        <div class="container">
+            <div class="row justify-content-center p-2">
+                <div class="home col-md-4 text-center d-flex justify-content-center align-items-center">
+                    <h1> SMAILSHOP</h1>
+                    <img src="./imagenes/images.jpg" alt="" style="border-radius: 50%; height: 75px; width: 75px;">
+                </div>
+            </div>
+            <?
+            leerCarrito($_REQUEST['oculto']);
             ?>
 
 
-    <? }
+        <? }
 
     ?>
 
 
 
-    <!-- JavaScript para bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
-    <script src="./js/app.js"></script>
+        <!-- JavaScript para bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+        <script src="./js/login.js"></script>
 </body>
 
 </html>

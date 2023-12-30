@@ -1,4 +1,5 @@
 <?
+
 include('./funcLogin.php');
 session_start();
 if (enviado() && !textoVacio('usuario') && !textoVacio('contraseña')) {
@@ -6,11 +7,8 @@ if (enviado() && !textoVacio('usuario') && !textoVacio('contraseña')) {
     if ($usuario) {
         $_SESSION['usuario'] = $usuario;
         header('Location:./index.php');
-    } else {
-        echo 'false';
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -38,62 +36,109 @@ if (enviado() && !textoVacio('usuario') && !textoVacio('contraseña')) {
                 <img src="./imagenes/images.jpg" alt="" style="border-radius: 50%; height: 75px; width: 75px;">
             </div>
         </div>
-        <div class="row justify-content-center">
-            <!-- Formulario de Login -->
-            <div class="col-md-6">
-                <div class="card p-3">
-                    <h3 class="mb-4">Inicio de Sesión</h3>
-                    <form action="" method="post">
-                        <div class="mb-3">
-                            <label for="usuario" class="form-label">Usuario</label>
-                            <input type="text" class="form-control" id="usuario" name="usuario" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="contraseña" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-                        </div>
-                        <input type="submit" class="btn btn-dark" value="Iniciar" name="Iniciar"></input>
-                    </form>
+        <?
+        $errores = [];
+        if (enviado() && valido1($errores)) {
+            # code...
+        } else {
+            # code...
+            ?>
+            <div class="row justify-content-center">
+                <!-- Formulario de Login -->
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <h3 class="mb-4">Inicio de Sesión</h3>
+                        <form action="" method="post">
+                            <div class="mb-3">
+                                <label for="usuario" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario">
+                                <?php
+                                escribirErrores($errores, "usuario");
+                                ?>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contraseña" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="contraseña" name="contraseña">
+                                <?php
+                                escribirErrores($errores, "contraseña");
+                                ?>
+                            </div>
+                            <input type="submit" class="btn btn-dark" value="Iniciar" name="Iniciar"></input>
+                        </form>
+
+                    </div>
 
                 </div>
 
-            </div>
-
-            <!-- Formulario de Registro -->
-            <div class="col-md-6">
-                <div class="card p-3">
-                    <h3 class="mb-4">Registro</h3>
-                    <form action="" method="post">
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre Usuario</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="contraseña" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="repContraseña" class="form-label">Repite Contraseña</label>
-                            <input type="password" class="form-control" id="repContraseña" name="repContraseña"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="fecha" class="form-label">Fecha Nacimiento</label>
-                            <input type="password" class="form-control" id="fecha" name="fecha" placeholder="dd/mm/aaaa"
-                                required>
-                        </div>
-                        <input type="submit" class="btn btn-dark" value="Registrarse"></input>
-                    </form>
+            <? }
+        if (registrarse() && valido($errores)) {
+            // registrarUsuario();
+        } else {
+            ?>
+                <!-- Formulario de Registro -->
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <h3 class="mb-4">Registro</h3>
+                        <form action="" method="post">
+                            <div class="mb-3">
+                                <label for="usuario" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" value="<?php
+                                escribirNombre('usuario');
+                                ?>">
+                                <?php
+                                escribirErrores($errores, "usuario");
+                                ?>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php
+                                escribirNombre('nombre');
+                                ?>">
+                                <?php
+                                escribirErrores($errores, "nombre");
+                                ?>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" value="<?php
+                                escribirNombre('email');
+                                ?>">
+                                <?php
+                                escribirErrores($errores, "email");
+                                ?>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contraseña" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" name="contra">
+                                <?php
+                                escribirErrores($errores, "contra");
+                                ?>
+                            </div>
+                            <div class="mb-3">
+                                <label for="repContraseña" class="form-label">Repite Contraseña</label>
+                                <input type="password" class="form-control" name="repContra">
+                                <?php
+                                escribirErrores($errores, "repContra");
+                                ?>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha Nacimiento</label>
+                                <input type="text" class="form-control" id="fecha" name="fecha" placeholder="dd/mm/aaaa"
+                                    value="<?php
+                                    escribirNombre('fecha');
+                                    ?>">
+                                <?php
+                                escribirErrores($errores, "fecha");
+                                ?>
+                            </div>
+                            <input type="submit" class="btn btn-dark" value="Registrarse" name="Registrarse"></input>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
+    <? } ?>
 
     <!-- JavaScript para bootstrap -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"

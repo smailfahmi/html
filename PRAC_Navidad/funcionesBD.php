@@ -104,10 +104,12 @@ function leerdatos() //leo los datos y en creo la tabla con la informacion
                                 <p class="card-text">Precio: $
                                     <?php echo $row['precio']; ?>
                                 </p>
-                                <a href="./carrito.php" class="carrito btn btn-dark">Agregar al carrito</a>
-                                <form action="" method="post">
-                                    <input type="hidden" name="art<? echo $contador; ?>">
+                                <form action="carrito.php" method="post">
+                                    <input type="hidden" name="oculto" value="art<?php echo $contador; ?>">
+                                    <input type="submit" class="carrito btn btn-dark" value="Agregar al carrito"></input>
+                                    <!-- Otros campos o elementos del formulario si los hay -->
                                 </form>
+
                             </div>
                         </div>
                     </div>
@@ -143,29 +145,31 @@ function leerCarrito($id) //leo los datos y en creo la tabla con la informacion
             $contador = 0;
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $contador++;
                     ?>
-                    <div class="col-md-4 mb-4" id="art<? echo $contador; ?>">
+                    <div class="container mt-4">
                         <div class="card">
-                            <img src="<?php echo $row['imagen_url']; ?>" class="card-img-top" alt="<?php echo $row['nombre']; ?>">
                             <div class="card-body">
-                                <h5 class="card-title">
-                                    <?php echo $row['nombre']; ?>
-                                </h5>
-                                <p class="card-text">
-                                    <?php echo $row['descripcion']; ?>
-                                </p>
-                                <p class="card-text">Precio: $
-                                    <?php echo $row['precio']; ?>
-                                </p>
-                                <a href="./carrito.php" class="carrito btn btn-dark">Agregar al carrito</a>
-                                <form action="" method="post">
-                                    <input type="hidden" name="oculto" value="art<? echo $contador; ?>">
-                                </form>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img src="<?php echo $row['imagen_url']; ?>" class="img-fluid" alt="Imagen">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h5 class="card-title">
+                                            <?php echo $row['nombre']; ?>
+                                        </h5>
+                                        <p class="card-text">
+                                            <?php echo $row['descripcion']; ?>
+                                        </p>
+                                        <p class="card-text">
+                                            <?php echo $row['precio']; ?> €
+                                        </p>
+                                        <a href="#" class="btn btn-primary">Finalizar compra</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <?php
+                    <?
                 }
             } else {
                 echo "No hay productos disponibles.";
