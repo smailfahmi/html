@@ -2,7 +2,7 @@
 const articulos = document.querySelectorAll('.articulo');
 const home = document.querySelector('.home');
 home.addEventListener('click', function () {
-    window.location.href = 'index.html'; // Reemplaza 'index.html' con la ruta de tu página principal
+    window.location.href = 'index.php'; // Reemplaza 'index.html' con la ruta de tu página principal
 });
 
 const buscador = document.querySelector('.buscador');

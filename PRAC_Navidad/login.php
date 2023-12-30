@@ -1,3 +1,17 @@
+<?
+include('./funcLogin.php');
+session_start();
+if (enviado() && !textoVacio('usuario') && !textoVacio('contraseña')) {
+    $usuario = validaUsuari($_REQUEST['usuario'], $_REQUEST['contraseña']);
+    if ($usuario) {
+        $_SESSION['usuario'] = $usuario;
+        header('Location:./index.php');
+    } else {
+        echo 'false';
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -29,16 +43,16 @@
             <div class="col-md-6">
                 <div class="card p-3">
                     <h3 class="mb-4">Inicio de Sesión</h3>
-                    <form>
+                    <form action="" method="post">
                         <div class="mb-3">
-                            <label for="loginEmail" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="loginEmail" required>
+                            <label for="usuario" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="usuario" name="usuario" required>
                         </div>
                         <div class="mb-3">
-                            <label for="loginPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="loginPassword" required>
+                            <label for="contraseña" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="contraseña" name="contraseña" required>
                         </div>
-                        <input type="submit" class="btn btn-dark" value="Iniciar Sesión"></input>
+                        <input type="submit" class="btn btn-dark" value="Iniciar" name="Iniciar"></input>
                     </form>
 
                 </div>
@@ -49,18 +63,28 @@
             <div class="col-md-6">
                 <div class="card p-3">
                     <h3 class="mb-4">Registro</h3>
-                    <form>
+                    <form action="" method="post">
                         <div class="mb-3">
-                            <label for="registerName" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="registerName" required>
+                            <label for="nombre" class="form-label">Nombre Usuario</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
                         </div>
                         <div class="mb-3">
-                            <label for="registerEmail" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="registerEmail" required>
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="registerPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="registerPassword" required>
+                            <label for="contraseña" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="repContraseña" class="form-label">Repite Contraseña</label>
+                            <input type="password" class="form-control" id="repContraseña" name="repContraseña"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha Nacimiento</label>
+                            <input type="password" class="form-control" id="fecha" name="fecha" placeholder="dd/mm/aaaa"
+                                required>
                         </div>
                         <input type="submit" class="btn btn-dark" value="Registrarse"></input>
                     </form>
