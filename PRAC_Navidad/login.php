@@ -72,7 +72,13 @@ if (enviado() && !textoVacio('usuario') && !textoVacio('contraseña')) {
 
             <? }
         if (registrarse() && valido($errores)) {
-            // registrarUsuario();
+            registrarUsuario();
+            $usuario = validaUsuari($_REQUEST['usuario'], $_REQUEST['contra']);
+            if ($usuario) {
+                $_SESSION['usuario'] = $usuario;
+                header('Location:./index.php');
+            }
+
         } else {
             ?>
                 <!-- Formulario de Registro -->

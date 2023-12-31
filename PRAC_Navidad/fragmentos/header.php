@@ -12,11 +12,46 @@
                 <div class="col">
                     <form action="" method="post" class="h-100">
                         <div class="d-grid gap-2 h-100">
-                            <a href="./login.php"
-                                class="btn h-100 border-dark border-3 text-decoration-none d-flex align-items-center justify-content-center">
+                            <a href="./login.php" class="btn h-100 border-dark border-3 text-decoration-none d-flex align-items-center justify-content-center">
                                 SIGN IN / SIGN UP
                             </a>
                         </div>
+
+                    </form>
+                </div>
+                <div class="col">
+                    <form action="" method="post" class="h-100">
+                        <?
+                        function compruebaPermisos()
+                        {
+                            session_start();
+                            if (isset($_SESSION['usuario'])) {
+
+                                if ($_SESSION['usuario']['perfil'] == 'ADM' || $_SESSION['usuario']['perfil'] == 'MOd') {
+                                    return true;
+                                }
+                            } else
+                                return false;
+                        }
+
+
+                        if (compruebaPermisos()) {
+
+                            echo '<div class="d-grid gap-2 h-100">';
+                            echo '<a href="./admin.php" class="btn h-100 border-dark border-3 text-decoration-none d-flex align-items-center justify-content-center">';
+                            echo 'ADMINISTRAR WEB';
+                            echo '</a>';
+                            echo '</div>';
+                        } else {
+                        ?>
+                            <div class="d-grid gap-2 h-100">
+                                <a href="./opciones.php" class="btn h-100 border-dark border-3 text-decoration-none d-flex align-items-center justify-content-center">
+                                    EDITAR PERFIL
+                                </a>
+                            </div>
+                        <? }
+                        ?>
+
 
                     </form>
                 </div>
@@ -25,8 +60,7 @@
                         <div class="input-group h-100">
                             <input type="text" class="buscador form-control border-3" placeholder="Buscar...">
                             <div class="d-grid gap-2 h-100">
-                                <input class="bBuscador btn btn h-100 border-dark border-3" type="button"
-                                    value="BUSCAR">
+                                <input class="bBuscador btn btn h-100 border-dark border-3" type="button" value="BUSCAR">
                             </div>
                         </div>
                     </form>
@@ -36,8 +70,7 @@
                 <div class="col ">
                     <form action="" method="post" class="h-100">
                         <div class="d-grid gap-2 h-100">
-                            <a href="#"
-                                class="btn btn h-100 border-dark border-3 d-flex align-items-center justify-content-center">
+                            <a href="#" class="btn btn h-100 border-dark border-3 d-flex align-items-center justify-content-center">
                                 <i class="fas fa-shopping-cart" style="font-size: 40px;"></i>
                                 <!-- Icono de cesta de Bootstrap Icons -->
                             </a>

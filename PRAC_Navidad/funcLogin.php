@@ -40,16 +40,6 @@ function textovacio($name)
     }
     return false;
 }
-function permisos($url)
-{
-    if (!in_array($url, $_SESSION['usuario']['paginas'])) {
-        header('Location: ../login.php');
-        return $_SESSION['error'] = 'no tiene permiso ';
-        exit;
-    }
-
-
-}
 function iniciar()
 {
     if (isset($_REQUEST['Iniciar'])) {
@@ -178,11 +168,12 @@ function comprrueba($fechaNueva, &$errores)
 {
     $dia = substr($fechaNueva, 0, 2);
     $mes = substr($fechaNueva, 3, 2);
-    $anio = substr($fechaNueva, 7, 4);
+    $anio = substr($fechaNueva, 6, 4);
     if ($dia > 31 || $mes > 12 || $anio > 2023) {
         $errores['fecha'] = "formato incorrecto.";
         return false;
     }
+    $_REQUEST['fecha'] = $anio . '-' . $mes . '-' . $dia;
 }
 function comFecha(&$errores)
 {
@@ -200,7 +191,7 @@ function comFecha(&$errores)
             if ($edad <= 18) {
                 $errores['fecha'] = "La persona no es mayor de edad.";
             }
-            $_REQUEST['fecha'] = $fechaNueva;
+
         }
     } else {
         $errores['fecha'] = "formato incorrecto.";

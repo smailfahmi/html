@@ -24,7 +24,7 @@ include("./validacion.php")
         print_r(
             $_REQUEST
         );
-   
+
 
         // echo"</pre>";
     } else {
@@ -62,11 +62,11 @@ include("./validacion.php")
                 ?>
             </p>
             <br>
-            <label for="hombre"> Hombre:<input <?
-             recuerdaradio('genero', 'hombre')
+            <label for="hombre"> Hombre:<input <?php
+                                                recuerdaradio('genero', 'hombre')
 
                                                 ?> type="radio" name="genero" id="hombre" value="hombre"></label>
-            <label for="mujer"> Mujer:<input <? recuerdaradio('genero', 'mujer')
+            <label for="mujer"> Mujer:<input <?php recuerdaradio('genero', 'mujer')
 
                                                 ?> type="radio" name="genero" id="muher" value="mujer"></label>
             <p class="error">
@@ -97,7 +97,7 @@ include("./validacion.php")
             <br>
             <label for="fecha_N">Fecha Nacimiento
 
-                <input value='<?
+                <input value='<?php
                                 recuerda('fecha_n');
                                 ?>' type="datetime-local" name="fecha_n" id="fehca_n">
 
@@ -112,13 +112,13 @@ include("./validacion.php")
             <p>Equipos de Baloncesto</p>
             <select name="equipo" id="">
                 <option value="0">seleccione una</option>
-                <option value="lakers" <?
+                <option value="lakers" <?php
                                         recuerdaselect('equipo', 'lakers');
                                         ?>>lakers</option>
-                <option value="celtics" <?
+                <option value="celtics" <?php
                                         recuerdaselect('equipo', 'celtics');
                                         ?>>celtics</option>
-                <option value="bulls" <?
+                <option value="bulls" <?php
                                         recuerdaselect('equipo', 'bulls');
                                         ?>>bulls</option>
             </select>
@@ -143,7 +143,7 @@ include("./validacion.php")
             <input type="submit" value="Enviar" name="Enviar">
             <input type="submit" value="Borrar" name="borrar">
         </form>
-    <? //abrir php 
+    <?php //abrir php 
     } // cerrar el else
 
     // cerrar php
@@ -151,6 +151,3 @@ include("./validacion.php")
 </body>
 
 </html>
-<?php
-
-?>
