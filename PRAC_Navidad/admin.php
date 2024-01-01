@@ -30,13 +30,13 @@
             </div>
             <?
             if (isset($_REQUEST['stock']) || isset($_REQUEST['salir'])) {
-                aumentar();
+                mostrarProductos();
             } elseif (isset($_REQUEST['editar'])) {
-                editarstock($_REQUEST['saber']);
-            } elseif (isset($_REQUEST['editar'])) {
+                mostrarProducto($_REQUEST['saber']);
+            } elseif (isset($_REQUEST['eliminar'])) {
                 quitar($_REQUEST['saber']);
             } elseif (isset($_REQUEST['editarstock'])) {
-                cambiarstock($_REQUEST['saber'], $_REQUEST['valorstock']);
+                cambiarstock($_REQUEST['saber1'], $_REQUEST['valor']);
             } else {
             ?>
                 <div class="container mt-5">

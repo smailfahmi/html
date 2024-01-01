@@ -242,10 +242,7 @@ function gestCompra()
         return false;
     }
 }
-function aumentar()
-{
-    mostrarProductos();
-}
+
 function mostrarProductos()
 {
     try {
@@ -316,7 +313,7 @@ function mostrarProductos()
         echo "Error: " . $e->getMessage();
     }
 }
-function editarstock($id)
+function mostrarProducto($id)
 {
     try {
         // Aquí va tu conexión a la base de datos
@@ -350,7 +347,6 @@ function editarstock($id)
                     <th>Stock</th>
                     <th>Categoría ID</th>
                     <th>Visible</th>
-                    <th>Acciones</th>
                   </tr>';
             echo '</thead>';
             echo '<tbody>';
@@ -363,18 +359,17 @@ function editarstock($id)
                 echo '<td>' . $row['precio'] . '</td>';
                 echo '<td>' . $row['descripcion'] . '</td>';
                 echo '<td><img src="' . $row['imagen_url'] . '" width="100" height="100"></td>';
-                echo '<td>' . '<input type="number"  name="valorstock" value="' . $row['stock'] . '"></td>';
+                echo '<td>
+                    <form action="" method="post">
+                        <input type="number" name="valor" value="' . $row['stock'] . '">
+                        <input type="hidden" name="saber1" value="' . $row['id'] . '">
+                        <input type="submit" class="btn btn-primary" name="editarstock" value="Editar Stock">
+                    </form>
+                </td>';
                 echo '<td>' . $row['categoria_id'] . '</td>';
                 echo '<td>' . ($row['visible'] == 1 ? 'Sí' : 'No') . '</td>';
-                echo '<td>
-                        <form action="" method="post">
-                            <input type="submit" class="btn btn-primary" name="editarstock" value="Editar Stock">
-                            <input type="hidden" name="saber" value="' . $row['id'] . '">
-                        </form>
-                    </td>';
                 echo '</tr>';
             }
-
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
@@ -396,8 +391,30 @@ function editarstock($id)
 }
 function quitar($id)
 {
+    try {
+        $con = new mysqli($_SERVER['SERVER_ADDR'], 'tienda', 'SmailSmail', 'tienda');
+
+        // Verificar la conexión
+        if ($con->connect_error) {
+            die("Error de conexión: " . $con->connect_error);
+        }
+
+        // Consulta SQL con consulta preparada y marcadores de posición
+        $sql = 'UPDATE Productos SET visible=? WHERE id=?';
+        $stmt = $con->prepare($sql);
+
+        // Asignar valores a los marcadores de posición y ejecutar la consulta
+        $stmt->bind_param('ii', 0, $id);
+
+        $stmt->execute();
+        $stmt->close();
+        $con->close();
+    } catch (\Throwable $th) {
+        echo 'Error: ' . $th->getMessage();
+    }
+    mostrarProductos();
 }
-function cambiarstock($id,$cantidad)
+function cambiarstock($id, $cantidad)
 {
 
     try {
@@ -409,16 +426,17 @@ function cambiarstock($id,$cantidad)
         }
 
         // Consulta SQL con consulta preparada y marcadores de posición
-        $sql = 'UPDATE Productos SET stock=? WHERE id=?';
+        $sql = 'UPDATE Productos SET stock=? SET visible=? WHERE id=?';
         $stmt = $con->prepare($sql);
 
         // Asignar valores a los marcadores de posición y ejecutar la consulta
-        $stmt->bind_param('ii', $cantidad,$id);
-    
+        $stmt->bind_param('iii', $cantidad, 1, $id,);
+
         $stmt->execute();
         $stmt->close();
         $con->close();
     } catch (\Throwable $th) {
         echo 'Error: ' . $th->getMessage();
     }
+    mostrarProductos();
 }
