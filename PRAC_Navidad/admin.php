@@ -29,8 +29,14 @@
                 </div>
             </div>
             <?
-            if (isset($_REQUEST['stock'])) {
+            if (isset($_REQUEST['stock']) || isset($_REQUEST['salir'])) {
                 aumentar();
+            } elseif (isset($_REQUEST['editar'])) {
+                editarstock($_REQUEST['saber']);
+            } elseif (isset($_REQUEST['editar'])) {
+                quitar($_REQUEST['saber']);
+            } elseif (isset($_REQUEST['editarstock'])) {
+                cambiarstock($_REQUEST['saber'], $_REQUEST['valorstock']);
             } else {
             ?>
                 <div class="container mt-5">

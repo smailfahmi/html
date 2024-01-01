@@ -316,3 +316,109 @@ function mostrarProductos()
         echo "Error: " . $e->getMessage();
     }
 }
+function editarstock($id)
+{
+    try {
+        // Aquí va tu conexión a la base de datos
+        $con = new mysqli(IP, 'tienda', 'SmailSmail', 'tienda');
+
+        // Verificar la conexión
+        if ($con->connect_error) {
+            die("Error de conexión: " . $con->connect_error);
+        }
+
+        // Sanitize the input
+        $id = $con->real_escape_string($id);
+
+        // Realizar la consulta a la tabla Productos
+        $query = "SELECT * FROM Productos WHERE id =" . $id;
+        $result = $con->query($query);
+
+        // Verificar si hay resultados
+        if ($result && $result->num_rows > 0) {
+            echo '<div class="container mt-4">';
+            echo '<h2>Productos</h2>';
+            echo '<div class="table-responsive">';
+            echo '<table class="table table-bordered table-hover">';
+            echo '<thead class="thead-dark">';
+            echo '<tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Descripción</th>
+                    <th>Imagen</th>
+                    <th>Stock</th>
+                    <th>Categoría ID</th>
+                    <th>Visible</th>
+                    <th>Acciones</th>
+                  </tr>';
+            echo '</thead>';
+            echo '<tbody>';
+
+            // Iterar sobre los resultados
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['nombre'] . '</td>';
+                echo '<td>' . $row['precio'] . '</td>';
+                echo '<td>' . $row['descripcion'] . '</td>';
+                echo '<td><img src="' . $row['imagen_url'] . '" width="100" height="100"></td>';
+                echo '<td>' . '<input type="number"  name="valorstock" value="' . $row['stock'] . '"></td>';
+                echo '<td>' . $row['categoria_id'] . '</td>';
+                echo '<td>' . ($row['visible'] == 1 ? 'Sí' : 'No') . '</td>';
+                echo '<td>
+                        <form action="" method="post">
+                            <input type="submit" class="btn btn-primary" name="editarstock" value="Editar Stock">
+                            <input type="hidden" name="saber" value="' . $row['id'] . '">
+                        </form>
+                    </td>';
+                echo '</tr>';
+            }
+
+            echo '</tbody>';
+            echo '</table>';
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo 'No hay productos disponibles para el ID proporcionado.';
+        }
+
+        echo '
+        <form action="" method="post">
+            <input type="submit" class="btn btn-primary" name="salir" value="Salir">
+        </form>';
+
+        // Cerrar la conexión a la base de datos
+        $con->close();
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+function quitar($id)
+{
+}
+function cambiarstock($id,$cantidad)
+{
+
+    try {
+        $con = new mysqli($_SERVER['SERVER_ADDR'], 'tienda', 'SmailSmail', 'tienda');
+
+        // Verificar la conexión
+        if ($con->connect_error) {
+            die("Error de conexión: " . $con->connect_error);
+        }
+
+        // Consulta SQL con consulta preparada y marcadores de posición
+        $sql = 'UPDATE Productos SET stock=? WHERE id=?';
+        $stmt = $con->prepare($sql);
+
+        // Asignar valores a los marcadores de posición y ejecutar la consulta
+        $stmt->bind_param('ii', $cantidad,$id);
+    
+        $stmt->execute();
+        $stmt->close();
+        $con->close();
+    } catch (\Throwable $th) {
+        echo 'Error: ' . $th->getMessage();
+    }
+}
