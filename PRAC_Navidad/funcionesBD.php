@@ -89,30 +89,34 @@ function leerdatos() //leo los datos y en creo la tabla con la informacion
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $contador++;
-            ?>
-                    <div class="col-md-4 mb-4" id="art<? echo $contador; ?>">
-                        <div class="card">
-                            <img src="<?php echo $row['imagen_url']; ?>" class="card-img-top" alt="<?php echo $row['nombre']; ?>">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <?php echo $row['nombre']; ?>
-                                </h5>
-                                <p class="card-text">
-                                    <?php echo $row['descripcion']; ?>
-                                </p>
-                                <p class="card-text">Precio: $
-                                    <?php echo $row['precio']; ?>
-                                </p>
-                                <form action="carrito.php" method="post">
-                                    <input type="hidden" name="oculto" value="art<?php echo $contador; ?>">
-                                    <input type="submit" class="carrito btn btn-dark" value="Agregar al carrito"></input>
-                                    <!-- Otros campos o elementos del formulario si los hay -->
-                                </form>
+                    if ($row['visible'] == 1) {
+                        # code...
 
+            ?>
+                        <div class="col-md-4 mb-4" id="art<? echo $contador; ?>">
+                            <div class="card">
+                                <img src="<?php echo $row['imagen_url']; ?>" class="card-img-top" alt="<?php echo $row['nombre']; ?>">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <?php echo $row['nombre']; ?>
+                                    </h5>
+                                    <p class="card-text">
+                                        <?php echo $row['descripcion']; ?>
+                                    </p>
+                                    <p class="card-text">Precio: $
+                                        <?php echo $row['precio']; ?>
+                                    </p>
+                                    <form action="carrito.php" method="post">
+                                        <input type="hidden" name="oculto" value="art<?php echo $contador; ?>">
+                                        <input type="submit" class="carrito btn btn-dark" value="Agregar al carrito"></input>
+                                        <!-- Otros campos o elementos del formulario si los hay -->
+                                    </form>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
             <?php
+                    }
                 }
             } else {
                 echo "No hay productos disponibles.";
@@ -205,6 +209,26 @@ function compruebaPermisos1()
 {
     if (isset($_SESSION['usuario'])) {
         if ($_SESSION['usuario']['perfil'] == 'ADM' || $_SESSION['usuario']['perfil'] == 'MOD') {
+            return true;
+        } else
+            return false;
+    } else
+        return false;
+}
+function compruebaPermisoA()
+{
+    if (isset($_SESSION['usuario'])) {
+        if ($_SESSION['usuario']['perfil'] == 'ADM') {
+            return true;
+        } else
+            return false;
+    } else
+        return false;
+}
+function compruebaPermisoM()
+{
+    if (isset($_SESSION['usuario'])) {
+        if ($_SESSION['usuario']['perfil'] == 'MOD') {
             return true;
         } else
             return false;
@@ -306,7 +330,7 @@ function mostrarProductos()
         } else {
             echo 'No hay productos disponibles.';
         }
-
+        echo '<a class="btn btn-dark mb-2" href="./mostrar.php">Mostrar</a>';
         // Cerrar la conexión a la base de datos
         $con->close();
     } catch (Exception $e) {
@@ -401,10 +425,11 @@ function quitar($id)
 
         // Consulta SQL con consulta preparada y marcadores de posición
         $sql = 'UPDATE Productos SET visible=? WHERE id=?';
+        $valor = 0;
         $stmt = $con->prepare($sql);
 
         // Asignar valores a los marcadores de posición y ejecutar la consulta
-        $stmt->bind_param('ii', 0, $id);
+        $stmt->bind_param('ii', $valor, $id);
 
         $stmt->execute();
         $stmt->close();
@@ -426,11 +451,11 @@ function cambiarstock($id, $cantidad)
         }
 
         // Consulta SQL con consulta preparada y marcadores de posición
-        $sql = 'UPDATE Productos SET stock=? SET visible=? WHERE id=?';
+        $sql = 'UPDATE Productos SET stock=? , visible=? WHERE id=?';
         $stmt = $con->prepare($sql);
-
+        $valor = 1;
         // Asignar valores a los marcadores de posición y ejecutar la consulta
-        $stmt->bind_param('iii', $cantidad, 1, $id,);
+        $stmt->bind_param('iii', $cantidad, $valor, $id,);
 
         $stmt->execute();
         $stmt->close();
@@ -438,5 +463,79 @@ function cambiarstock($id, $cantidad)
     } catch (\Throwable $th) {
         echo 'Error: ' . $th->getMessage();
     }
+    insertarAlbaran($id, $cantidad);
     mostrarProductos();
+}
+function insertarAlbaran($id, $cantidad)
+{
+
+    // Detalles de la conexión a la base de datos
+    $servername = $_SERVER['SERVER_ADDR'];
+    $username = "tienda";
+    $password = "SmailSmail";
+    $dbname = "tienda";
+
+    // Crear conexión
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Verificar la conexión
+    if ($conn->connect_error) {
+        die("Error en la conexión: " . $conn->connect_error);
+    }
+
+    // Datos para la inserción
+    $producto_id = $id; // Reemplaza con el ID del producto
+    $administrador_id = sacarid(); // Reemplaza con el ID del administrador
+    $cantidad_anadida = $cantidad; // Cantidad añadida en el albarán
+
+    // Query de inserción
+    $sql = "INSERT INTO Albaran (producto_id, administrador_id, cantidad_anadida) 
+        VALUES ($producto_id, $administrador_id, $cantidad_anadida)";
+
+    // Ejecutar la inserción y verificar si fue exitosa
+    if ($conn->query($sql) === TRUE) {
+        echo "Inserción exitosa en la tabla Albaran.";
+    } else {
+        echo "Error al insertar datos: " . $conn->error;
+    }
+
+    // Cerrar la conexión
+    $conn->close();
+}
+function sacarid()
+{
+    // Detalles de la conexión a la base de datos
+    $servername = $_SERVER['SERVER_ADDR'];
+    $username = "tienda";
+    $password = "SmailSmail";
+    $dbname = "tienda";
+    // Crear conexión
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Verificar la conexión
+    if ($conn->connect_error) {
+        die("Error en la conexión: " . $conn->connect_error);
+    }
+    // Sanitizar el nombre de usuario para evitar inyección SQL
+    $nombreUsuario = $conn->real_escape_string($_SESSION['usuario']['usuario']);
+    // Consulta SQL para obtener el ID del usuario por nombre de usuario
+    $sql = "SELECT id FROM Usuarios WHERE usuario = '$nombreUsuario'";
+    // Ejecutar la consulta
+    $result = $conn->query($sql);
+    // Verificar si se obtuvieron resultados y obtener el ID
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $idUsuario = $row['id'];
+    } else {
+        // Si no se encontró ningún usuario con ese nombre de usuario
+        $idUsuario = null;
+    }
+    // Cerrar la conexión
+    $conn->close();
+    return $idUsuario;
+}
+function mostrarAlbaran()
+{
+}
+function mostrarPedidos()
+{
 }
