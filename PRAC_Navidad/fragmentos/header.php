@@ -27,7 +27,7 @@
                             session_start();
                             if (isset($_SESSION['usuario'])) {
 
-                                if ($_SESSION['usuario']['perfil'] == 'ADM' || $_SESSION['usuario']['perfil'] == 'MOd') {
+                                if ($_SESSION['usuario']['perfil'] == 'ADM' || $_SESSION['usuario']['perfil'] == 'MOD') {
                                     return true;
                                 }
                             } else
