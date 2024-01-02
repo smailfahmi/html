@@ -533,9 +533,100 @@ function sacarid()
     $conn->close();
     return $idUsuario;
 }
-function mostrarAlbaran()
+function editarMod()
 {
+    try {
+        // Aquí va tu conexión a la base de datos
+        $con = new mysqli(IP, 'tienda', 'SmailSmail', 'tienda');
+
+        // Verificar la conexión
+        if ($con->connect_error) {
+            die("Error de conexión: " . $con->connect_error);
+        }
+
+        // Realizar la consulta a la tabla Productos
+        $query = "SELECT * FROM Pedidos";
+        $result = $con->query($query);
+
+        // Verificar si hay resultados
+        if ($result->num_rows > 0) {
+            echo '<div class="container mt-4">';
+            echo '<h2>Pedidos</h2>';
+            echo '<div class="table-responsive">';
+            echo '<table class="table table-bordered table-hover">';
+            echo '<thead class="thead-dark">';
+            echo '<tr>
+                    <th>ID</th>
+                    <th>ID-P</th>
+                    <th>ID-U</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>';
+            echo '</thead>';
+            // Iterar sobre los resultados
+            while ($row = $result->fetch_assoc()) {
+                echo '<tbody>';
+                echo '<tr>';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['producto_id'] . '</td>';
+                echo '<td>' . $row['usuario_id'] . '</td>';
+                echo '<td>' . $row['cantidad'] . '</td>';
+                echo '<td>' . $row['fecha_pedido'] . '</td>';
+                echo '</tr>';
+                echo ' </tbody>';
+            }
+
+            echo '</table>';
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo 'No hay productos disponibles.';
+        }
+        $query = "SELECT * FROM Albaran";
+        $result = $con->query($query);
+
+        // Verificar si hay resultados
+        if ($result->num_rows > 0) {
+            echo '<div class="container mt-4">';
+            echo '<h2>Pedidos</h2>';
+            echo '<div class="table-responsive">';
+            echo '<table class="table table-bordered table-hover">';
+            echo '<thead class="thead-dark">';
+            echo '<tr>
+                    <th>ID</th>
+                    <th>ID-P</th>
+                    <th>ID-U</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>';
+            echo '</thead>';
+            // Iterar sobre los resultados
+            while ($row = $result->fetch_assoc()) {
+                echo '<tbody>';
+                echo '<tr>';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['producto_id'] . '</td>';
+                echo '<td>' . $row['administrador_id'] . '</td>';
+                echo '<td>' . $row['cantidad_anadida'] . '</td>';
+                echo '<td>' . $row['fecha_albaran'] . '</td>';
+                echo '</tr>';
+                echo ' </tbody>';
+            }
+
+            echo '</table>';
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo 'No hay productos disponibles.';
+        }
+        // Cerrar la conexión a la base de datos
+        $con->close();
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
 }
-function mostrarPedidos()
+function editarAdmin()
 {
 }

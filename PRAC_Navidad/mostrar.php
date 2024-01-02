@@ -29,7 +29,9 @@
                 </div>
             </div>
         </div>
+
     <?
+            editarAdmin();
         }
         if (compruebaPermisoM()) {
     ?>
@@ -42,7 +44,9 @@
             </div>
         </div>
     <?
+            editarMod();
         }
+        echo '<a class="btn btn-dark m-2" href="./admin.php">Volver</a>';
     ?>
 
 
