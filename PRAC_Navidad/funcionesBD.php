@@ -126,7 +126,7 @@ function leerdatos() //leo los datos y en creo la tabla con la informacion
             ?>
         </div>
     </div>
-<? }
+    <? }
 
 function extraerNumero($cadena)
 {
@@ -596,8 +596,8 @@ function editarMod()
             echo '<tr>
                     <th>ID</th>
                     <th>ID-P</th>
-                    <th>ID-U</th>
-                    <th>Cantidad</th>
+                    <th>ID-A</th>
+                    <th>Cantidad añadida</th>
                     <th>Fecha</th>
                     <th>Acciones</th>
                 </tr>';
@@ -629,4 +629,227 @@ function editarMod()
 }
 function editarAdmin()
 {
+    try {
+        // Aquí va tu conexión a la base de datos
+        $con = new mysqli(IP, 'tienda', 'SmailSmail', 'tienda');
+
+        // Verificar la conexión
+        if ($con->connect_error) {
+            die("Error de conexión: " . $con->connect_error);
+        }
+
+        // Realizar la consulta a la tabla Productos
+        $query = "SELECT * FROM Pedidos";
+        $result = $con->query($query);
+
+        // Verificar si hay resultados
+        if ($result->num_rows > 0) {
+            echo '<div class="container mt-4">';
+            echo '<h2>Pedidos</h2>';
+            echo '<div class="table-responsive">';
+            echo '<table class="table table-bordered table-hover">';
+            echo '<thead class="thead-dark">';
+            echo '<tr>
+                    <th>ID</th>
+                    <th>ID-P</th>
+                    <th>ID-U</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>';
+            echo '</thead>';
+            // Iterar sobre los resultados
+            while ($row = $result->fetch_assoc()) {
+                echo '<tbody>';
+                echo '<tr>';
+    ?>
+                <form method="post" action="">
+                    <td><input class="form-control" type="number" name="id" value="<?php echo $row['id']; ?>" readonly></td>
+                    <td><input class="form-control" type="number" name="producto_id" value="<?php echo $row['producto_id']; ?>"></td>
+                    <td><input class="form-control" type="number" name="usuario_id" value="<?php echo $row['usuario_id']; ?>"></td>
+                    <td><input class="form-control" type="number" name="cantidad" value="<?php echo $row['cantidad']; ?>"></td>
+                    <td><input class="form-control" type="text" name="fecha_pedido" value="<?php echo $row['fecha_pedido']; ?>" readonly></td>
+                    <td><input class="btn btn-dark" type="submit" name="actualizar" value="Actualizar"></td>
+                </form>
+            <?
+
+                echo '</tr>';
+                echo ' </tbody>';
+            }
+
+            echo '</table>';
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo 'No hay productos disponibles.';
+        }
+        $query = "SELECT * FROM Albaran";
+        $result = $con->query($query);
+
+        // Verificar si hay resultados
+        if ($result->num_rows > 0) {
+            echo '<div class="container mt-4">';
+            echo '<h2>Albaran</h2>';
+            echo '<div class="table-responsive">';
+            echo '<table class="table table-bordered table-hover">';
+            echo '<thead class="thead-dark">';
+            echo '<tr>
+                    <th>ID</th>
+                    <th>ID-P</th>
+                    <th>ID-A</th>
+                    <th>Cantidad añadida</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>';
+            echo '</thead>';
+            // Iterar sobre los resultados
+            while ($row = $result->fetch_assoc()) {
+                echo '<tbody>';
+                echo '<tr>';
+            ?>
+                <form method="post" action="">
+                    <td><input class="form-control" type="number" name="id" value="<?php echo $row['id']; ?>" readonly></td>
+                    <td><input class="form-control" type="number" name="producto_id" value="<?php echo $row['producto_id']; ?>"></td>
+                    <td><input class="form-control" type="number" name="administrador_id" value="<?php echo $row['administrador_id']; ?>"></td>
+                    <td><input class="form-control" type="number" name="cantidad_anadida" value="<?php echo $row['cantidad_anadida']; ?>"></td>
+                    <td><input class="form-control" type="text" name="fecha_albaran" value="<?php echo $row['fecha_albaran']; ?>" readonly></td>
+                    <td><input class="btn btn-dark" type="submit" name="actualizar1" value="Actualizar"></td>
+
+                </form>
+<?
+                echo '</tr>';
+                echo ' </tbody>';
+            }
+
+            echo '</table>';
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo 'No hay productos disponibles.';
+        }
+        // Cerrar la conexión a la base de datos
+        $con->close();
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+function actualiza()
+{
+
+    $con = new mysqli(IP, 'tienda', 'SmailSmail', 'tienda');
+
+    // Verificar la conexión
+    if ($con->connect_error) {
+        die("Conexión fallida: " . $con->connect_error);
+    }
+
+    $producto_id = $_REQUEST['producto_id'];
+    $usuario_id = $_REQUEST['usuario_id'];
+    $cantidad = $_REQUEST['cantidad'];
+    $id = $_REQUEST['id'];
+    // Query para actualizar el registro en la tabla Albaran
+    $sql = "UPDATE Pedidos SET producto_id = $producto_id, usuario_id = $usuario_id, cantidad = $cantidad WHERE id = $id";
+
+    if ($con->query($sql) === TRUE) {
+    } else {
+        echo "Error al actualizar el registro: " . $con->error;
+    }
+
+    $con->close();
+}
+function actualiza1()
+{
+    $con = new mysqli(IP, 'tienda', 'SmailSmail', 'tienda');
+
+    // Verificar la conexión
+    if ($con->connect_error) {
+        die("Conexión fallida: " . $con->connect_error);
+    }
+
+    $producto_id = $_REQUEST['producto_id'];
+    $administrador_id = $_REQUEST['administrador_id'];
+    $cantidad_anadida = $_REQUEST['cantidad_anadida'];
+    $id = $_REQUEST['id'];
+    // Query para actualizar el registro en la tabla Albaran
+    $sql = "UPDATE Albaran SET producto_id = $producto_id, administrador_id = $administrador_id, cantidad_anadida = $cantidad_anadida WHERE id = $id";
+
+    if ($con->query($sql) === TRUE) {
+    } else {
+        echo "Error al actualizar el registro: " . $con->error;
+    }
+
+    $con->close();
+}
+function aniadirprod()
+{
+    echo '
+    <form method="post" action="" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label  class="form-label">Nombre del Producto:</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Seleccionar imagen:</label>
+            <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" class="form-control" rows="4" cols="30"></textarea>
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Precio:</label>
+            <input type="number" id="precio" name="precio" class="form-control" min="0.01" step="0.01" required>
+        </div>
+        <div class="mb-3">
+        <label class="form-label">Stock:</label>
+        <input type="number" id="stock1" name="stock1" class="form-control" min="1" required>
+       </div>
+        <input type="submit" class="btn btn-primary" value="Agregar" name="agregar">
+    </form>
+    ';
+}
+
+function guardaImagen()
+{
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == UPLOAD_ERR_OK) {
+            $nombre_temporal = $_FILES["imagen"]["tmp_name"];
+            $nombre_archivo = $_FILES["imagen"]["name"];
+            $directorio_destino = "./imagenes/prod/";
+
+            move_uploaded_file($nombre_temporal, $directorio_destino . $nombre_archivo);
+        }
+    }
+}
+function agregar()
+{
+    guardaImagen();
+    $con = new mysqli(IP, 'tienda', 'SmailSmail', 'tienda');
+
+    // Verificar la conexión
+    if ($con->connect_error) {
+        die("Conexión fallida: " . $con->connect_error);
+    }
+    // Preparar la sentencia SQL con parámetros
+    $sql = "INSERT INTO Productos (nombre,imagen_url, descripcion, precio,stock) VALUES (?, ?, ?, ?,?)";
+    $stmt = $con->prepare($sql);
+    $nombre = $_REQUEST['nombre'];
+    $descripcion = $_REQUEST['descripcion'];
+    $precio = $_REQUEST['precio'];
+    $ruta = "./imagenes/prod/" . $_FILES["imagen"]["name"];
+    $stock=$_REQUEST['stock1'];
+    // Vincular los parámetros
+    $stmt->bind_param("sssdd", $nombre, $ruta, $descripcion, $precio,$stock);
+
+    // Ejecutar la sentencia
+    if ($stmt->execute() === TRUE) {
+       header('Location: ./admin.php');
+    } else {
+        echo "Error al agregar el producto: " . $con->error;
+    }
+
+    // Cerrar la conexión
+    $stmt->close();
+    $con->close();
 }

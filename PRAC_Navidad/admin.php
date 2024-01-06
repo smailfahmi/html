@@ -37,13 +37,20 @@
                 quitar($_REQUEST['saber']);
             } elseif (isset($_REQUEST['editarstock'])) {
                 cambiarstock($_REQUEST['saber1'], $_REQUEST['valor']);
+            } elseif (isset($_REQUEST['nuevo'])) {
+                if (compruebaPermisoA()) {
+                    aniadirprod();
+                } else
+                    header('Location: ./admin.php');
+            } elseif (isset($_REQUEST['agregar'])) {
+                agregar();
             } else {
             ?>
                 <div class="container mt-5">
                     <form action="" method="POST">
                         <div class="row">
-                            <input type="submit" class="btn btn-dark m-1" name="stock" value="Aumentar Stock">
-
+                            <input type="submit" class="btn btn-dark m-1" name="stock" value="Editar productos">
+                            <input type="submit" class="btn btn-dark m-1" name="nuevo" value="Añadir productos">
                             <a href="./index.php" class="btn btn-dark m-1">Salir</a>
                             <a href="./logOut.php" class="btn btn-dark m-1">Cerrar sesion</a>
                         </div>

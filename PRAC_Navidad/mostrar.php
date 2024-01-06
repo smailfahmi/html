@@ -13,6 +13,15 @@
 
 <body><?
         include('./funcionesBD.php');
+
+        if (isset($_REQUEST['actualizar'])) {
+            actualiza();
+        }
+
+        if (isset($_REQUEST['actualizar1'])) {
+            actualiza1();
+        }
+
         session_start();
         if (!isset($_SESSION['usuario']) || !compruebaPermisos1()) {
             $_SESSION['error'] = 'no tiene permisos';
