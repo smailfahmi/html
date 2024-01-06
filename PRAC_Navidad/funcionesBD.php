@@ -235,35 +235,85 @@ function compruebaPermisoM()
     } else
         return false;
 }
+function compruebastock($producto_id)
+{
+    $conn = new mysqli(IP, 'tienda', 'SmailSmail', 'tienda');
+
+    // Verificar la conexión
+    if ($conn->connect_error) {
+        die("Error de conexión: " . $conn->connect_error);
+    }
+    // Verificar la conexión
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
+    $producto_id = $_REQUEST['numero'];
+    // Consulta para obtener el stock actual del producto
+    $sql = "SELECT stock FROM Productos WHERE id = $producto_id";
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $stock_actual = $row["stock"];
+
+        // Verificar si hay stock disponible
+        if ($stock_actual > 0) {
+            // Restar uno al stock disponible
+            $nuevo_stock = $stock_actual - 1;
+
+            // Actualizar el stock en la base de datos
+            $update_sql = "UPDATE Productos SET stock = $nuevo_stock WHERE id = $producto_id";
+            if ($conn->query($update_sql) === TRUE) {
+                // Cerrar la conexión y retornar verdadero (se restó el stock con éxito)
+                $conn->close();
+                return true;
+            } else {
+                echo "Error al actualizar el stock: " . $conn->error;
+            }
+        } else {
+            // Cerrar la conexión y retornar falso (no hay stock disponible)
+            $conn->close();
+            return false;
+        }
+    } else {
+        echo "Producto no encontrado";
+    }
+
+    // Cerrar la conexión por si hay algún error
+    $conn->close();
+    return false;
+}
 function gestCompra()
 {
-    try {
-        // Configuración de las credenciales en constantes o archivo de configuración externo
-        $dsn = 'mysql:host=' . IP . ';dbname=tienda';
-        $usuarioDB = 'tienda';
-        $contraseñaDB = 'SmailSmail';
-        // Crear conexión PDO
-        $con = new PDO($dsn, $usuarioDB, $contraseñaDB);
-        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Preparar la consulta para insertar un nuevo pedido
-        $sql = 'INSERT INTO Pedidos (producto_id, usuario_id, cantidad, fecha_pedido) 
+    
+        try {
+            // Configuración de las credenciales en constantes o archivo de configuración externo
+            $dsn = 'mysql:host=' . IP . ';dbname=tienda';
+            $usuarioDB = 'tienda';
+            $contraseñaDB = 'SmailSmail';
+            // Crear conexión PDO
+            $con = new PDO($dsn, $usuarioDB, $contraseñaDB);
+            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Preparar la consulta para insertar un nuevo pedido
+            $sql = 'INSERT INTO Pedidos (producto_id, usuario_id, cantidad, fecha_pedido) 
                 VALUES (?, ?, ?, ?)';
 
-        $fecha_hora_actual = date("Y-m-d") . ' ' . date("H:i:s");
-        $stmt = $con->prepare($sql);
-        // Obtener valores para la inserción (reemplaza los valores por los adecuados)
-        $producto_id = $_REQUEST['numero']; // Reemplaza con el ID del producto
-        $usuario_id = $_SESSION['usuario']['id']; // Reemplaza con el ID del usuario
-        $cantidad = 1; // Reemplaza con la cantidad del producto
-        // Ejecutar la consulta con los valores proporcionados
-        $stmt->execute([$producto_id, $usuario_id, $cantidad, $fecha_hora_actual]);
-        // Cerrar la conexión y retornar true si la inserción fue exitosa
-        unset($con);
-        return true;
-    } catch (PDOException $e) {
-        // Manejo de errores: Registra el error en un archivo de registro o muestra un mensaje de error genérico al usuario
-        error_log("Error al registrar pedido: " . $e->getMessage(), 0);
-        return false;
+            $fecha_hora_actual = date("Y-m-d") . ' ' . date("H:i:s");
+            $stmt = $con->prepare($sql);
+            // Obtener valores para la inserción (reemplaza los valores por los adecuados)
+            $producto_id = $_REQUEST['numero']; // Reemplaza con el ID del producto
+            $usuario_id = $_SESSION['usuario']['id']; // Reemplaza con el ID del usuario
+            $cantidad = 1; // Reemplaza con la cantidad del producto
+            // Ejecutar la consulta con los valores proporcionados
+            $stmt->execute([$producto_id, $usuario_id, $cantidad, $fecha_hora_actual]);
+            // Cerrar la conexión y retornar true si la inserción fue exitosa
+            unset($con);
+            return true;
+        } catch (PDOException $e) {
+            // Manejo de errores: Registra el error en un archivo de registro o muestra un mensaje de error genérico al usuario
+            error_log("Error al registrar pedido: " . $e->getMessage(), 0);
+            return false;
+
     }
 }
 
@@ -330,7 +380,7 @@ function mostrarProductos()
         } else {
             echo 'No hay productos disponibles.';
         }
-        echo '<a class="btn btn-dark mb-2" href="./mostrar.php">Mostrar</a>';
+        echo '<a class="btn btn-dark mb-2" href="./mostrar.php">Mostrar albaranes</a>';
         // Cerrar la conexión a la base de datos
         $con->close();
     } catch (Exception $e) {
@@ -589,7 +639,7 @@ function editarMod()
         // Verificar si hay resultados
         if ($result->num_rows > 0) {
             echo '<div class="container mt-4">';
-            echo '<h2>Pedidos</h2>';
+            echo '<h2>Albaran</h2>';
             echo '<div class="table-responsive">';
             echo '<table class="table table-bordered table-hover">';
             echo '<thead class="thead-dark">';
@@ -838,13 +888,13 @@ function agregar()
     $descripcion = $_REQUEST['descripcion'];
     $precio = $_REQUEST['precio'];
     $ruta = "./imagenes/prod/" . $_FILES["imagen"]["name"];
-    $stock=$_REQUEST['stock1'];
+    $stock = $_REQUEST['stock1'];
     // Vincular los parámetros
-    $stmt->bind_param("sssdd", $nombre, $ruta, $descripcion, $precio,$stock);
+    $stmt->bind_param("sssdd", $nombre, $ruta, $descripcion, $precio, $stock);
 
     // Ejecutar la sentencia
     if ($stmt->execute() === TRUE) {
-       header('Location: ./admin.php');
+        header('Location: ./admin.php');
     } else {
         echo "Error al agregar el producto: " . $con->error;
     }

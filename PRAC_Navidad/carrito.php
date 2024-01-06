@@ -21,16 +21,27 @@
         exit;
     } else {
         if (isset($_REQUEST['comprar'])) {
-            gestCompra();
+            if (compruebastock($_REQUEST['numero'])) {
+                gestCompra();
     ?>
-            <div class="container">
-                COMPRA REALIZADA
-                <a href="./index.php" class="btn btn-primary m-5">Volver</a>
-            </div>
+                <div class="container">
+                    COMPRA REALIZADA
+                    <a href="./index.php" class="btn btn-primary m-5">Volver</a>
+                </div>
 
-        <?
+            <? } else {
+                gestCompra();
+            ?>
+                <div class="container">
+                    ARTICULO AGOTADO
+                    <a href="./index.php" class="btn btn-primary m-5">Volver</a>
+                </div>
+
+            <?
+
+            }
         } else {
-        ?>
+            ?>
             <div class="container">
                 <div class="row justify-content-center p-2">
                     <div class="home col-md-4 text-center d-flex justify-content-center align-items-center">
