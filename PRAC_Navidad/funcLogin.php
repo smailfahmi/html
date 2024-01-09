@@ -1,7 +1,5 @@
 <?
-define('IP', '192.168.0.205');
-define('USER', 'tienda');
-define('PASS', 'SmailSmail');
+require('./conexionBD1.php');
 function validaUsuari($user, $pass)
 {
     try {
