@@ -1,0 +1,20 @@
+<?
+require('./Empresa.php');
+echo '<pre>';
+$empresa = new Empresa('9387934', 'hola', 'zamora');
+print_r($empresa);
+echo '<br>';
+// $empresa->setCif('9739487');
+print_r($empresa);
+echo '<br>';
+$empresa->nombre = 'molas';
+print_r($empresa);
+echo '<br>';
+$empresa1 = new Empresa('9387934', 'hola', 'zamora');
+$empresa1->localidad = 'madrid';
+echo $empresa1->localidad;
+echo '<br>';
+echo $empresa1;
+echo '<br>';
+echo Empresa::saluda();
+echo Empresa::$cont;
