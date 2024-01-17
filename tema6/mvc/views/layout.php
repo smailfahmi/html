@@ -16,9 +16,21 @@
     </header>
     <nav>
         <div>
-            <form action="" method="post">
-                <input type="submit" value="Login" name="login">
-            </form>
+            <?
+            if (validado()) {
+                print_r( $_SESSION['usuario']->descUsuario);
+                ?>
+                <form action="" method="post">
+                    <input type="submit" value="verperfil" name="verperfil">
+                    <input type="submit" value="cerrar" name="cerrar">
+                </form>
+                <?
+            } else { ?>
+                <form action="" method="post">
+                    <input type="submit" value="Login" name="loginLay">
+                </form>
+
+            <? } ?>
         </div>
     </nav>
     <main>

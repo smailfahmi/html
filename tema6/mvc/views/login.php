@@ -1,9 +1,31 @@
-<form action="" method="post">
+<form action="" method="get">
 
 
-    <label for="nombre"><input type="text" name="nombre" id="nombre"></label>
+    <label for="nombre">Nombre: <input type="text" name="nombre" id="nombre"></label>
+    <p>
+        <?php
+        if (isset($errores)) {
+            escribirErrores($errores, "nombre");
+        }
 
-    <label for="password"><input type="password" name="pass" id="pass"></label>
+        ?>
+    </p>
+    <label for="password">Contraseña: <input type="password" name="pass" id="pass"></label>
+    <p>
+        <?php
+        if (isset($errores)) {
+            escribirErrores($errores, "pass");
+        }
 
+        ?>
+    </p>
     <label for="nombre"><input type="submit" name="login" value="Iniciar" id="nombre"></label>
+    <p>
+        <?php
+        if (isset($errores)) {
+            escribirErrores($errores, "validado");
+        }
+
+        ?>
+    </p>
 </form>
