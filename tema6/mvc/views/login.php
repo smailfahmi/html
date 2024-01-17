@@ -20,6 +20,7 @@
         ?>
     </p>
     <label for="nombre"><input type="submit" name="login" value="Iniciar" id="nombre"></label>
+    <label for="ragistrar"><input type="submit" name="registrar" value="Regitrar" id="registrarme"></label>
     <p>
         <?php
         if (isset($errores)) {

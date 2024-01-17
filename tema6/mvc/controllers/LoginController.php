@@ -20,4 +20,6 @@ if (isset($_REQUEST['login'])) {
     } else {
 
     }
+} elseif (isset($_REQUEST['registrar'])) {
+
 }
