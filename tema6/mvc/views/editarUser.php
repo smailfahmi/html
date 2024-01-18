@@ -1,4 +1,4 @@
-<form>
+<form action = "./index.php" method="get" >
     <label for="nombre">Nombre: <input type="text" name="nombrenuevo" id="nombre"
             value="<?php echo $_SESSION['usuario']->descUsuario; ?>"></label>
     <label for="password">Contraseña: <input type="password" name="passnuevo" id="pass" value=""></label>

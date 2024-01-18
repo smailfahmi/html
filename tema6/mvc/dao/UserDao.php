@@ -147,7 +147,7 @@ class UserDao
             );
             return $usuario;
         } else {
-            return 'error en login ';
+            return null;
         }
     }
 

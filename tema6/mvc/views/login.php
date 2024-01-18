@@ -1,4 +1,4 @@
-<form action="" method="get">
+<form action="" method="post">
 
 
     <label for="nombre">Nombre: <input type="text" name="nombre" id="nombre"></label>

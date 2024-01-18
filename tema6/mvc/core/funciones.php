@@ -3,14 +3,55 @@ function validarFormulario(&$errores)
 {
 
     # code...
+    if (isset($_REQUEST['nombre'])) {
+        comNombre($errores);
+    }
+    if (isset($_REQUEST['pass'])) {
+        comcontra($errores);
+    }
+    if (isset($_REQUEST['codUsuarior'])) {
+        comCodir($errores);
+    }
+    if (isset($_REQUEST['descUsuarior'])) {
+        comNombrer($errores);
+    }
+    if (isset($_REQUEST['passr'])) {
+        comcontrar($errores);
+    }
 
-    comNombre($errores);
-    comcontra($errores);
     if (count($errores) == 0) {
         return true;
     } else
         return false;
 
+}
+function comNombrer(&$errores)
+{
+    if (textoVacio('descUsuarior')) {
+        $errores['descUsuarior'] = "este campo esta vacio";
+    }
+    // } elseif (!preg_match('/^[a-zA-Z]{3,}$/', $_REQUEST['nombre'])) {
+    //     $errores['nombre'] = "combinacion incorrecta";
+    // }
+}
+function comCodir(&$errores)
+{
+
+    if (textoVacio('codUsuarior')) {
+        $errores['codUsuarior'] = "este campo esta vacio";
+    }
+    // } elseif (!preg_match('/^[a-zA-Z]{3,}$/', $_REQUEST['nombre'])) {
+    //     $errores['nombre'] = "combinacion incorrecta";
+    // }
+}
+function comcontrar(&$errores)
+{
+    if (textoVacio('passr')) {
+        $errores['passr'] = "este campo esta vacio";
+    }
+    // } elseif (!preg_match('/^[a-zA-Z]{3,}$/', $_REQUEST['nombre'])) {
+    //     $errores['nombre'] = "combinacion incorrecta";
+    // }
 }
 function textovacio($name)
 {

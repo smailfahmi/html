@@ -1,7 +1,8 @@
 <?
+
+$errores = array();
 if (isset($_REQUEST['login'])) {
 
-    $errores = array();
     if (validarFormulario($errores)) {
         //validar usuario 
         $usuario = UserDao::validarUsuario($_REQUEST['nombre'], $_REQUEST['pass']);
@@ -20,6 +21,18 @@ if (isset($_REQUEST['login'])) {
     } else {
 
     }
-} elseif (isset($_REQUEST['registrar'])) {
+} elseif (isset($_REQUEST['registrarse'])) {
+    if (validarFormulario($errores)) {
+        $usuario = new User($_REQUEST['codUsuarior'], sha1($_REQUEST['passr']), $_REQUEST['descUsuarior'], date('Y-m-d'), 'usuario', true);
 
+
+        if ($usuario != null) {
+            UserDao::insert($usuario);
+            $_SESSION['vista'] = VIEW . 'home.php';
+            $_SESSION['usuario'] = $usuario;
+            unset($_SESSION['controller']);
+        } else {
+            $errores['validado'] = 'no se ha encontrado';
+        }
+    }
 }
