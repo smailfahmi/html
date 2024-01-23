@@ -94,3 +94,11 @@ function validado()
     else
         return false;
 }
+function admin()
+{
+    if ($_SESSION['usuario']->perfil === 'administrador') {
+        return true;
+    }
+    return false;
+
+}

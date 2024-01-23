@@ -18,19 +18,25 @@
         <div>
             <?
             if (validado()) {
-                print_r( $_SESSION['usuario']->descUsuario);
+                print_r($_SESSION['usuario']->descUsuario);
                 ?>
                 <form action="" method="post">
                     <input type="submit" value="verperfil" name="verperfil">
                     <input type="submit" value="vercitas" name="vercitas">
                     <input type="submit" value="cerrar" name="cerrar">
+                    <?
+                    if (admin()) {
+                        ?>
+                        <input type="submit" value="verTodo" name="verTodo">
+                        <?
+                    } ?>
                 </form>
                 <?
             } else { ?>
                 <form action="" method="post">
                     <input type="submit" value="Login" name="loginLay">
                 </form>
-                
+
 
             <? } ?>
         </div>

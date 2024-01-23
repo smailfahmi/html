@@ -104,6 +104,7 @@ class CitaDao
             $cita->paciente
         );
         $result = FactoryBd::realizarConsulta($sql, $parametros);
+        return true;
     }
 
     public static function update($cita)
