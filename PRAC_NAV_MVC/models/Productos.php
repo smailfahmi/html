@@ -13,12 +13,13 @@ class Productos
     public function __construct($id, $nombre, $precio, $descripcion, $imagen_url, $stock, $categoria_id, $visible)
     {
         $this->id = $id;
-        $this->usuario = $usuario;
-        $this->clave = $clave;
         $this->nombre = $nombre;
-        $this->correo = $correo;
-        $this->perfil = $perfil;
-        $this->fecha_nacimiento = $fecha_nacimiento;
+        $this->precio = $precio;
+        $this->descripcion = $descripcion;
+        $this->imagen_url = $imagen_url;
+        $this->stock = $stock;
+        $this->categoria_id = $categoria_id;
+        $this->visible = $visible;
     }
 
     public function __get($att)
