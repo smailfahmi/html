@@ -1,6 +1,7 @@
 <?
 class ProductoDAO
 {
+   
 
     public static function findAll()
     {
@@ -21,7 +22,6 @@ class ProductoDAO
 
             );
             array_push($array_productos, $producto);
-
         }
 
         return $array_productos;
@@ -47,8 +47,6 @@ class ProductoDAO
             return $producto;
         } else
             return null;
-
-
     }
     public static function insert($producto)
     {
@@ -95,7 +93,6 @@ class ProductoDAO
             // La inserción falló
             return false;
         }
-
     }
     public static function delete($producto)
     {
@@ -104,7 +101,6 @@ class ProductoDAO
         $result = FactoryBd::realizarConsulta($sql, $parametros);
         if ($result->rowCount() > 0)
             return true;
-
     }
     public static function activa($producto)
     {
@@ -113,7 +109,6 @@ class ProductoDAO
         $result = FactoryBd::realizarConsulta($sql, $parametros);
         if ($result->rowCount() > 0)
             return true;
-
     }
     public static function buscarPorNombre($nombre)
     {
@@ -140,5 +135,4 @@ class ProductoDAO
         } else
             return null;
     }
-
 }
