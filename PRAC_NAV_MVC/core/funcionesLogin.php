@@ -156,3 +156,11 @@ function escribirNombre($name)
         echo $_REQUEST[$name];
     }
 }
+//verifica si se ha hecho login
+function validado()
+{
+    if (isset($_SESSION['usuario']))
+        return true;
+    else
+        return false;
+}

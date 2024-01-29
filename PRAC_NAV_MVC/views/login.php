@@ -23,6 +23,7 @@
                         <?php escribirErrores($errores, "contraLog"); ?>
                     </div>
                     <input type="submit" class="btn btn-dark" value="Iniciar" name="Iniciar"></input>
+                    <input type="submit" class="btn btn-dark m-1" name="Volver" value="Vover">
                 </form>
 
                 <p> <?php escribirErrores($errores, "validado"); ?></p>
@@ -85,8 +86,9 @@
                         escribirErrores($errores, "fechaReg");
                         ?>
                     </div>
-                    <input type="submit" class="btn btn-dark" value="Registrarse" name="Registrarse"></input>
-
+                        <input type="submit" class="btn btn-dark" value="Registrarse" name="Registrarse"></input>
+                        <input type="submit" class="btn btn-dark m-1" name="Volver" value="Vover">
+                 
                 </form>
                 <p> <?php escribirErrores($errores, "validado"); ?></p>
             </div>
