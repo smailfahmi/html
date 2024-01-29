@@ -14,24 +14,23 @@ if (isset($_REQUEST['Iniciar'])) {
                 $array_productos = ProductoDAO::findAll();
             }
         } else {
-            $errores['validado'] = 'no se ha encontrado';
+            $errores['validado'] = 'No se ha encontrado';
         }
 
         //valido
     } else {
     }
 } elseif (isset($_REQUEST['Registrarse'])) {
-    if (validarFormulario($errores)) {
-        $usuario = new User($_REQUEST['codUsuarior'], sha1($_REQUEST['passr']), $_REQUEST['descUsuarior'], date('Y-m-d'), 'usuario', true);
-
+    if (validarFormularioReg($errores)) {
+        $usuario = new Usuario(NULL, $_REQUEST['usuarioReg'], $_REQUEST['contraReg'], $_REQUEST['nombreReg'], $_REQUEST['emailReg'], 'USR', $_REQUEST['fechaReg']);
 
         if ($usuario != null) {
-            UserDao::insert($usuario);
-            $_SESSION['vista'] = VIEW . 'home.php';
-            $_SESSION['usuario'] = $usuario;
+            UsuarioDao::insert($usuario);
+            $_SESSION['vista'] = VIEW . 'principal.php';
             unset($_SESSION['controller']);
+            $array_productos = ProductoDAO::findAll();
         } else {
-            $errores['validado'] = 'no se ha encontrado';
+            $errores['validado'] = 'Vuelve a intentarlo';
         }
     }
 }

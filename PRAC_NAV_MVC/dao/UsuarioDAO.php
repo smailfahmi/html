@@ -128,4 +128,18 @@ class UsuarioDao
             return null;
         }
     }
+    public static function repetido($nombre)
+    {
+        $sql = 'SELECT usuario FROM Usuarios WHERE usuario = ?';
+        $parametros = array($nombre);
+        $result = FactoryBD::realizarConsulta($sql, $parametros);
+
+        $usuario = $result->fetchObject();
+
+        if ($usuario) {
+            return true; // El usuario existe
+        } else {
+            return false; // El usuario no existe
+        }
+    }
 }

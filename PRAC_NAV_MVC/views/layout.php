@@ -12,8 +12,9 @@
 <body>
     <?
     if (!isset($_SESSION['vista'])) {
-        echo 'bienvenidos al login';
-        require VIEW . 'home.php';
+        require CON . 'PrincipalController.php';
+        require VIEW . 'principal.php';
+       
     } else
         require $_SESSION['vista'];
     ?>

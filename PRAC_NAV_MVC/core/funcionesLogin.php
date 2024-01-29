@@ -1,33 +1,4 @@
 <?
-function validaUsuari($user, $pass)
-{
-    try {
-        $DSN = 'mysql:host=' . IP . ';dbname=tienda';
-        $con = new PDO($DSN, USER, PASS);
-        // $con = mysqli_connect(IP, USER, PASS, 'sesiones');
-        $sql = 'select * from Usuarios where usuario= ? and clave=?';
-        $stmt = $con->prepare($sql);
-        $result = $stmt->execute(array($user, $pass));
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($usuario) {
-            unset($con);
-            return $usuario;
-        }
-        return false;
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    } finally {
-        return $usuario;
-        unset($con);
-    }
-}
-function enviado()
-{
-    if (!isset($_REQUEST['Iniciar'])) {
-        return false;
-    }
-    return true;
-}
 function textovacio($name)
 {
     if (empty($_REQUEST[$name])) {
@@ -35,30 +6,8 @@ function textovacio($name)
     }
     return false;
 }
-function iniciar()
-{
-    if (isset($_REQUEST['Iniciar'])) {
-        return true;
-    }
-}
-function registrarse()
-{
-    if (isset($_REQUEST['Registrarse'])) {
-        return true;
-    }
-}
-function dff(&$errores)
-{
-    comUsuario($errores);
-    comNombre($errores);
-    comContra($errores);
-    comFecha($errores);
-    comCorreo($errores);
-    if (count($errores) == 0) {
-        return true;
-    } else
-        return false;
-}
+
+//funciones para validar el login
 function validarFormularioLog(&$errores)
 {
     comNombre1($errores);
@@ -81,61 +30,52 @@ function comContra1(&$errores)
         $errores['contraLog'] = "este campo esta vacio o es erroneo";
     }
 }
+//funciones para validar registro
+function validarFormularioReg(&$errores)
+{
+    comUsuario($errores);
+    comNombre($errores);
+    comContra($errores);
+    comFecha($errores);
+    comCorreo($errores);
+    if (count($errores) == 0) {
+        return true;
+    } else
+        return false;
+}
 function comUsuario(&$errores)
 {
-    if (textoVacio('usuario')) {
-        $errores['usuario'] = "este campo esta vacio";
-    } elseif (repetido()) {
-        $errores['usuario'] = "usuario repetido";
+    if (textoVacio('usuarioReg')) {
+        $errores['usuarioReg'] = "este campo esta vacio";
+    } elseif (UsuarioDao::repetido($_REQUEST['usuarioReg'])) {
+        $errores['usuarioReg'] = "usuario repetido";
     }
 }
 function comNombre(&$errores)
 {
-    if (textoVacio('nombre')) {
-        $errores['nombre'] = "este campo esta vacio";
+    if (textoVacio('nombreReg')) {
+        $errores['nombreReg'] = "este campo esta vacio";
     }
 }
-function repetido()
-{
 
-    try {
-        $DSN = 'mysql:host=' . IP . ';dbname=tienda';
-        $con = new PDO($DSN, 'tienda', 'SmailSmail');
-        $sql = 'SELECT usuario FROM Usuarios WHERE usuario = ?';
-        $stmt = $con->prepare($sql);
-        $stmt->execute(array($_REQUEST['usuario']));
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($usuario) {
-            return true; // El usuario existe
-        } else {
-            return false; // El usuario no existe
-        }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-        return false; // Manejo de errores: Retorna false si hay una excepción
-    } finally {
-        unset($con);
-    }
-}
 function comContra(&$errores)
 {
-    $contra = $_REQUEST['contra'] ?? '';
-    $repContra = $_REQUEST['repContra'] ?? '';
+    $contra = $_REQUEST['contraReg'] ?? '';
+    $repContra = $_REQUEST['repContraReg'] ?? '';
 
     if (empty($contra) || empty($repContra)) {
         if (empty($contra)) {
-            $errores['contra'] = "Este campo está vacío";
+            $errores['contraReg'] = "Este campo está vacío";
         }
         if (empty($repContra)) {
-            $errores['repContra'] = "Este campo está vacío";
+            $errores['repContraReg'] = "Este campo está vacío";
         }
     } else {
         if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $contra)) {
-            $errores['contra'] = "La contraseña debe contener al menos una minúscula, una mayúscula y un dígito";
+            $errores['contraReg'] = "La contraseña debe contener al menos una minúscula, una mayúscula y un dígito";
         } elseif ($contra !== $repContra) {
-            $errores['contra'] = "Las contraseñas no coinciden";
-            $errores['repContra'] = "Las contraseñas no coinciden";
+            $errores['contraReg'] = "Las contraseñas no coinciden";
+            $errores['repContraReg'] = "Las contraseñas no coinciden";
         }
     }
 }
@@ -162,18 +102,18 @@ function comprrueba($fechaNueva, &$errores)
     $mes = substr($fechaNueva, 3, 2);
     $anio = substr($fechaNueva, 6, 4);
     if ($dia > 31 || $mes > 12 || $anio > 2023) {
-        $errores['fecha'] = "formato incorrecto.";
+        $errores['fechaReg'] = "formato incorrecto.";
         return false;
     }
-    $_REQUEST['fecha'] = $anio . '-' . $mes . '-' . $dia;
+    $_REQUEST['fechaReg'] = $anio . '-' . $mes . '-' . $dia;
 }
 function comFecha(&$errores)
 {
-    if (textoVacio('fecha')) {
-        $errores['fecha'] = "este campo esta vacio";
-    } elseif (preg_match('/^(\d{1,2})(\/)(\d{1,2})(\/)(\d{2}|\d{4})$/', $_REQUEST['fecha'])) {
+    if (textoVacio('fechaReg')) {
+        $errores['fechaReg'] = "este campo esta vacio";
+    } elseif (preg_match('/^(\d{1,2})(\/)(\d{1,2})(\/)(\d{2}|\d{4})$/', $_REQUEST['fechaReg'])) {
         global $fechaNueva;
-        $fechaNueva = preg_replace_callback('/(\d{1,2})(\/)(\d{1,2})(\/)(\d{2,4})/', 'corrige', $_REQUEST['fecha']);
+        $fechaNueva = preg_replace_callback('/(\d{1,2})(\/)(\d{1,2})(\/)(\d{2,4})/', 'corrige', $_REQUEST['fechaReg']);
         if (comprrueba($fechaNueva, $errores)) {
             $fechaActual = date('d-m-Y');
             $fechaNacimientoObj = new DateTime($fechaNueva);
@@ -181,7 +121,7 @@ function comFecha(&$errores)
             $diferencia = $fechaNacimientoObj->diff($fechaActualObj);
             $edad = $diferencia->y;
             if ($edad <= 18) {
-                $errores['fecha'] = "La persona no es mayor de edad.";
+                $errores['fechaReg'] = "La persona no es mayor de edad.";
             }
         }
     } else {
@@ -190,10 +130,17 @@ function comFecha(&$errores)
 }
 function comCorreo(&$errores)
 {
-    if (textoVacio('email')) {
-        $errores['email'] = "este campo esta vacio";
-    } elseif (!preg_match('/^.+@.+\..{2,}$/', $_REQUEST['email'])) {
-        $errores['email'] = "combinacion incorrecta";
+    if (textoVacio('emailReg')) {
+        $errores['emailReg'] = "este campo esta vacio";
+    } elseif (!preg_match('/^.+@.+\..{2,}$/', $_REQUEST['emailReg'])) {
+        $errores['emailReg'] = "combinacion incorrecta";
+    }
+}
+//funcioones para control de ficher
+function registrarse()
+{
+    if (isset($_REQUEST['Registrarse'])) {
+        return true;
     }
 }
 function escribirErrores($errores, $name)

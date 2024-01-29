@@ -24,7 +24,8 @@
                     </div>
                     <input type="submit" class="btn btn-dark" value="Iniciar" name="Iniciar"></input>
                 </form>
-                <?php escribirErrores($errores, "validado"); ?>
+
+                <p> <?php escribirErrores($errores, "validado"); ?></p>
             </div>
         </div>
 
@@ -36,57 +37,58 @@
                     <!-- Aquí va el contenido del formulario de registro -->
                     <div class="mb-3">
                         <label for="usuario" class="form-label">Usuario</label>
-                        <input type="text" class="form-control" id="usuario" name="usuario" value="<?php
-                                                                                                    escribirNombre('usuario');
-                                                                                                    ?>">
+                        <input type="text" class="form-control" id="usuario" name="usuarioReg" value="<?php
+                                                                                                        escribirNombre('usuarioReg');
+                                                                                                        ?>">
                         <?php
-                        escribirErrores($errores, "usuario");
+                        escribirErrores($errores, "usuarioReg");
                         ?>
                     </div>
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value="<?php
-                                                                                                    escribirNombre('nombre');
+                        <input type="text" class="form-control" id="nombre" name="nombreReg" value="<?php
+                                                                                                    escribirNombre('nombreReg');
                                                                                                     ?>">
                         <?php
-                        escribirErrores($errores, "nombre");
+                        escribirErrores($errores, "nombreReg");
                         ?>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?php
-                                                                                                escribirNombre('email');
-                                                                                                ?>">
+                        <input type="email" class="form-control" id="email" name="emailReg" value="<?php
+                                                                                                    escribirNombre('emailReg');
+                                                                                                    ?>">
                         <?php
-                        escribirErrores($errores, "email");
+                        escribirErrores($errores, "emailReg");
                         ?>
                     </div>
                     <div class="mb-3">
                         <label for="contraseña" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" name="contra">
+                        <input type="password" class="form-control" name="contraReg">
                         <?php
-                        escribirErrores($errores, "contra");
+                        escribirErrores($errores, "contraReg");
                         ?>
                     </div>
                     <div class="mb-3">
                         <label for="repContraseña" class="form-label">Repite Contraseña</label>
-                        <input type="password" class="form-control" name="repContra">
+                        <input type="password" class="form-control" name="repContraReg">
                         <?php
-                        escribirErrores($errores, "repContra");
+                        escribirErrores($errores, "repContraReg");
                         ?>
                     </div>
                     <div class="mb-3">
                         <label for="fecha" class="form-label">Fecha Nacimiento</label>
-                        <input type="text" class="form-control" id="fecha" name="fecha" placeholder="dd/mm/aaaa" value="<?php
-                                                                                                                        escribirNombre('fecha');
-                                                                                                                        ?>">
+                        <input type="text" class="form-control" id="fecha" name="fechaReg" placeholder="dd/mm/aaaa" value="<?php
+                                                                                                                            escribirNombre('fechaReg');
+                                                                                                                            ?>">
                         <?php
-                        escribirErrores($errores, "fecha");
+                        escribirErrores($errores, "fechaReg");
                         ?>
                     </div>
                     <input type="submit" class="btn btn-dark" value="Registrarse" name="Registrarse"></input>
 
                 </form>
+                <p> <?php escribirErrores($errores, "validado"); ?></p>
             </div>
         </div>
     </div>
