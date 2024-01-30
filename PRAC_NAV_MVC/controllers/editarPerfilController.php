@@ -4,9 +4,8 @@ if (!validado()) {
     $_SESSION['vista'] = VIEW . 'login.php';
     $_SESSION['controller'] = CON . 'LoginController.php';
 } elseif (isset($_REQUEST['Volver'])) {
-    $_SESSION['vista'] = VIEW . 'principal.php';
+    unset($_SESSION['vista']);
     unset($_SESSION['controller']);
-    $array_productos = ProductoDAO::findAll();
 } elseif (isset($_REQUEST['Guardar'])) {
     $usuario = $_SESSION['usuario'];
     $usuario->nombre = $_REQUEST['nombreNuevo'];

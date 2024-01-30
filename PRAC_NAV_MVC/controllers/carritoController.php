@@ -15,9 +15,8 @@ if (!validado()) {
         $errores['stock'] = 'No quedan articulos de este producto';
     }
 } elseif (isset($_REQUEST['Volver'])) {
-    $_SESSION['vista'] = VIEW . 'principal.php';
+    unset($_SESSION['vista']);
     unset($_SESSION['controller']);
-    $array_productos = ProductoDAO::findAll();
 } else {
     $id = ProductoDAO::extraerID($_REQUEST['idOculto']);
     $producto =   ProductoDAO::findById($id);

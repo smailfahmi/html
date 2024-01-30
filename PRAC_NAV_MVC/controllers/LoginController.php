@@ -34,7 +34,6 @@ if (isset($_REQUEST['Iniciar'])) {
         }
     }
 } elseif (isset($_REQUEST['Volver'])) {
-    $_SESSION['vista'] = VIEW . 'principal.php';
+    unset($_SESSION['vista']);
     unset($_SESSION['controller']);
-    $array_productos = ProductoDAO::findAll();
 }
