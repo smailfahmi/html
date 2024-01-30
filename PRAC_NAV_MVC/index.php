@@ -15,6 +15,9 @@ if (isset($_REQUEST['Sign_in'])) {
 }elseif (isset($_REQUEST['Agregar_carrito'])) {
     $_SESSION['vista'] = VIEW . 'carrito.php';
     $_SESSION['controller'] = CON . 'carritoController.php';
+}elseif (isset($_REQUEST['insertar'])) {
+    $_SESSION['vista'] = VIEW . 'insertar.php';
+    $_SESSION['controller'] = CON . 'InsertarController.php';
 }
 
 

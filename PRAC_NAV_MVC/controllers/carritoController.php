@@ -10,6 +10,8 @@ if (!validado()) {
     if (ProductoDAO::compruebastock($producto)) {
         $producto->stock = ($producto->stock - 1);
         ProductoDAO::update($producto);
+        $pedido = new Pedido(null, $producto->id, $_SESSION['usuario']->id, 1, date('Y-m-d'));
+        PedidoDAO::insert($pedido);
         $errores['stock'] = 'Compra exitosa';
     } else {
         $errores['stock'] = 'No quedan articulos de este producto';

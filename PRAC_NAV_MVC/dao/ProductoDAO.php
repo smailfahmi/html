@@ -147,4 +147,18 @@ class ProductoDAO
         } else
             return false;
     }
+    public static function cuentaFilas()
+    {
+        $sql = "SELECT COUNT(*) AS total_filas FROM Productos";
+        $parametros = array();
+        $result = FactoryBd::realizarConsulta($sql, $parametros);
+        $total_filas = 0;
+
+        if ($result) {
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            $total_filas = $row['total_filas'];
+        }
+
+        return $total_filas;
+    }
 }

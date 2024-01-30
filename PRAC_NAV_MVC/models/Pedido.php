@@ -2,7 +2,7 @@
 class Pedido
 {
     private $id;
-    private $profucto_id;
+    private $producto_id;
     private $usuario_id;
 
     private $cantidad;

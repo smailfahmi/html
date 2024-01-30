@@ -12,6 +12,12 @@ if (isset($_REQUEST['Iniciar'])) {
                 $_SESSION['vista'] = VIEW . 'principal.php';
                 unset($_SESSION['controller']);
                 $array_productos = ProductoDAO::findAll();
+            } elseif ($usuario->perfil == 'ADM') {
+                $_SESSION['vista'] = VIEW . 'admin.php';
+                $_SESSION['controller'] =  CON .'AdminController.php';
+            } elseif ($usuario->perfil == 'MOD') {
+                $_SESSION['vista'] = VIEW . 'mod.php';
+                $_SESSION['controller'] = CON . 'ModController.php';
             }
         } else {
             $errores['validado'] = 'No se ha encontrado';

@@ -47,3 +47,16 @@ function leerCarrito($producto)
     echo '</form>';
     echo '</div></div></div></div></div>';
 }
+function guardaImagen()
+{
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_FILES["imagenInser"]) && $_FILES["imagenInser"]["error"] == UPLOAD_ERR_OK) {
+            $nombre_temporal = $_FILES["imagenInser"]["tmp_name"];
+            $nombre_archivo = $_FILES["imagenInser"]["name"];
+            $directorio_destino = "./public/imagenes/prod/";
+
+            move_uploaded_file($nombre_temporal, $directorio_destino . $nombre_archivo);
+        }
+    }
+}
