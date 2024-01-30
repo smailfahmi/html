@@ -12,6 +12,9 @@ if (isset($_REQUEST['Sign_in'])) {
 } elseif (isset($_REQUEST['Cerrar_sesion'])) {
     session_destroy();
     header('Location: ./index.php');
+}elseif (isset($_REQUEST['Agregar_carrito'])) {
+    $_SESSION['vista'] = VIEW . 'carrito.php';
+    $_SESSION['controller'] = CON . 'carritoController.php';
 }
 
 

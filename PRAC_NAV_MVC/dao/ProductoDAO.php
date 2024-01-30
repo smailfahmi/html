@@ -1,7 +1,7 @@
 <?
 class ProductoDAO
 {
-   
+
 
     public static function findAll()
     {
@@ -134,5 +134,17 @@ class ProductoDAO
             return $producto;
         } else
             return null;
+    }
+    public static function extraerID($cadena)
+    {
+        preg_match('/\d+/', $cadena, $matches); // Encuentra una secuencia de uno o más dígitos
+        return $matches[0]; // Devuelve el primer número encontrado en la cadena
+    }
+    public static function compruebastock($producto)
+    {
+        if ($producto->stock > 0) {
+            return $producto;
+        } else
+            return false;
     }
 }
