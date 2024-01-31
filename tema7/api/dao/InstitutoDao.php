@@ -23,28 +23,67 @@ class InstitutoDao
         }
 
     }
-    public static function findByPaciente($usuario)
+    public static function findByFultros($filtros)
     {
-        $sql = "select * from Cita where paciente = ? and activo = 1 and fecha >now() order by fecha";
-        $parametros = array($usuario->codUsuario);
-        $result = FactoryBd::realizarConsulta($sql, $parametros);
-        $array_citas = array();
-        while ($citaStd = $result->fetchObject()) {
-            $cita = new Cita(
-                $citaStd->id,
-                $citaStd->especialista,
-                $citaStd->motivo,
-                $citaStd->fecha,
-                $citaStd->activo,
-                $citaStd->paciente
-            );
-            array_push($array_citas, $cita);
-
+        $parametros = [];
+        $num = count($filtros);
+        $sql = "select * from institutos where ";
+        foreach ($filtros as $key => $value) {
+            if ($key == 'nombre') {
+                $sql .= $key . ' LIKE ?';
+                $valor = '%' . $value . '%';
+                array_push($parametros, $valor);
+            } else {
+                $sql .= $key . ' = ?';
+                array_push($parametros, $value);
+            }
+            if ($num == 2) {
+                $num--;
+                $sql .= ' and ';
+            }
         }
+        $result = FactoryBd::realizarConsulta($sql, $parametros);
+        $instStd = $result->fetchAll(PDO::FETCH_ASSOC);
+        return $instStd;
+    }
 
-        return $array_citas;
+    public static function insert($instituto)
+    {
+        $sql = 'insert into institutos values (null,?,?,?)';
+        $parametros = array(
+            $instituto->nombre,
+            $instituto->localidad,
+            $instituto->telefono
+        );
+        $result = FactoryBd::realizarConsulta($sql, $parametros);
+        return true;
 
     }
+
+    public static function findLast()
+    {
+        $sql = "select * from institutos order by id desc limit 1";
+        $parametros = array();
+        $result = FactoryBD::realizarConsulta($sql, $parametros);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function update($instituto)
+    {
+        $sql = "UPDATE institutos SET nombre =?,localida=?,telefono=? WHERE id =?";
+        $parametros = array(
+
+            $instituto->nombre,
+            $instituto->localidad,
+            $instituto->telefono,
+            $instituto->id
+        );
+        $result = FactoryBd::realizarConsulta($sql, $parametros);
+        return true;
+
+    }
+
+
     // public static function findByPacientePasadas($usuario)
     // {
     //     $sql = "select * from Cita where paciente = ? and activo = 1 and fecha < now() order by fecha desc";

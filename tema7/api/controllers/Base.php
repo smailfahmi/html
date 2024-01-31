@@ -15,8 +15,8 @@ class Base
     }
     public static function condiciones()
     {
-        $filtros = $_SERVER['QUERY_STRINGS'];
-        parse_str($_SERVER['QUERY_STRINGS'], $filtros);
+        $filtros = $_SERVER['QUERY_STRING'];
+        parse_str($_SERVER['QUERY_STRING'], $filtros);
         return $filtros;
     }
 
