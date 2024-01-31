@@ -16,7 +16,14 @@ if (!validado()) {
     $_SESSION['vista'] = VIEW . 'tablas.php';
     $_SESSION['controller'] =  CON . 'AdminController.php';
 } elseif (isset($_REQUEST['editarProducto'])) {
-    $array_productosT = ProductoDAO::findAll();
+    $product = ProductoDAO::findById($_REQUEST['saberId']);
+    $product->nombre = $_REQUEST['nombreEd'];
+    $product->precio = $_REQUEST['precioEd'];
+    $product->descripcion = $_REQUEST['descripcionEd'];
+    $product->stock = $_REQUEST['stockEd'];
+    if (ProductoDAO::update($product)) {
+        $array_productosT = ProductoDAO::findAll();
+    }
     $_SESSION['vista'] = VIEW . 'tablas.php';
     $_SESSION['controller'] =  CON . 'AdminController.php';
 } elseif (isset($_REQUEST['eliminarProducto'])) {

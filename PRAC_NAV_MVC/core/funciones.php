@@ -1,4 +1,5 @@
 <?
+
 function CrearTarjetas($productos) //leo los datos y en creo la tabla con la informacion 
 {
     echo   '<div class="container">';
@@ -162,25 +163,25 @@ function mostrarProductosT($productosT)
                   </tr>';
     echo '</thead>';
     foreach ($productosT as $productoT) {
+        echo '<form action="" method="post">';
         echo '<tbody>';
         echo '<tr>';
         echo '<td>' . $productoT->id . '</td>';
-        echo '<td>' . $productoT->nombre . '</td>';
-        echo '<td>' . $productoT->precio . '</td>';
-        echo '<td>' . $productoT->descripcion . '</td>';
+        echo '<td><input class="form-control" type="text" name="nombreEd" value="' . $productoT->nombre . '" id=""></td>';
+        echo '<td><input class="form-control" type="number" name="precioEd" value="' . $productoT->precio . '" id=""></td>';
+        echo '<td><input class="form-control" type="text" name="descripcionEd" value="' . $productoT->descripcion . '" id=""></td>';
         echo '<td><img src="' . IMG . $productoT->imagen_url . '" width="100" height="100"></td>';
-        echo '<td>' . $productoT->stock . '</td>';
+        echo '<td><input class="form-control" type="number" name="stockEd" value="' . $productoT->stock . '" id=""></td>';
         echo '<td>' . $productoT->categoria_id . '</td>';
         echo '<td>' . ($productoT->visible == 1 ? 'Sí' : 'No') . '</td>';
         echo '<td>
-                <form action="" method="post">
                     <input type="submit" class="btn btn-primary" name="editarProducto" value="Editar">
                     <input type="submit" class="btn btn-danger" name="eliminarProducto" value="Visibilidad">
-                    <input type="hidden" name="saberId" value="' . $productoT->id . '">
-                    </form>
+                    <input type="hidden" name="saberId" value="' . $productoT->id . '">      
               </td>';
         echo '</tr>';
         echo ' </tbody>';
+        echo '</form>';
     }
 
     echo '</table>';
