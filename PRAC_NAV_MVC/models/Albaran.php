@@ -4,7 +4,6 @@ class Albaran
     private $id;
     private $producto_id;
     private $administrador_id;
-
     private $cantidad_anadida;
     private $fecha_albaran;
 

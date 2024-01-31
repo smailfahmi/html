@@ -60,3 +60,130 @@ function guardaImagen()
         }
     }
 }
+
+function mostraPedidos($pedidos)
+{
+
+    echo '<div class="container mt-4">';
+    echo '<h2>Pedidos</h2>';
+    echo '<div class="table-responsive">';
+    echo '<table class="table table-bordered table-hover">';
+    echo '<thead class="thead-dark">';
+    echo '<tr>
+                    <th>ID</th>
+                    <th>ID-P</th>
+                    <th>ID-U</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>';
+    echo '</thead>';
+    foreach ($pedidos as $pedido) {
+        echo '<tbody>';
+        echo '<tr>';
+?>
+        <form method="post" action="">
+            <td><input class="form-control" type="number" name="id" value="<?php echo $pedido->id; ?>" readonly></td>
+            <td><input class="form-control" type="number" name="producto_id" value="<?php echo $pedido->producto_id; ?>"></td>
+            <td><input class="form-control" type="number" name="usuario_id" value="<?php echo $pedido->usuario_id; ?>"></td>
+            <td><input class="form-control" type="number" name="cantidad" value="<?php echo $pedido->cantidad; ?>"></td>
+            <td><input class="form-control" type="text" name="fecha_pedido" value="<?php echo $pedido->fecha_pedido; ?>" readonly></td>
+            <td><input class="btn btn-dark" type="submit" name="actualizar" value="Actualizar"></td>
+        </form>
+    <?
+
+        echo '</tr>';
+        echo ' </tbody>';
+    }
+
+    echo '</table>';
+    echo '</div>';
+    echo '</div>';
+}
+
+
+function mostrarAlbaran($alabaranes)
+{
+
+    echo '<div class="container mt-4">';
+    echo '<h2>Albaran</h2>';
+    echo '<div class="table-responsive">';
+    echo '<table class="table table-bordered table-hover">';
+    echo '<thead class="thead-dark">';
+    echo '<tr>
+                    <th>ID</th>
+                    <th>ID-P</th>
+                    <th>ID-A</th>
+                    <th>Cantidad añadida</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>';
+    echo '</thead>';
+    // Iterar sobre los resultados
+    foreach ($alabaranes as $albaran) {
+        echo '<tbody>';
+        echo '<tr>';
+    ?>
+        <form method="post" action="">
+            <td><input class="form-control" type="number" name="id" value="<?php echo $albaran->id; ?>" readonly></td>
+            <td><input class="form-control" type="number" name="producto_id" value="<?php echo $albaran->producto_id; ?>"></td>
+            <td><input class="form-control" type="number" name="administrador_id" value="<?php echo $albaran->administrador_id; ?>"></td>
+            <td><input class="form-control" type="number" name="cantidad_anadida" value="<?php echo $albaran->cantidad_anadida; ?>"></td>
+            <td><input class="form-control" type="text" name="fecha_albaran" value="<?php echo $albaran->fecha_albaran; ?>" readonly></td>
+            <td><input class="btn btn-dark" type="submit" name="actualizar1" value="Actualizar"></td>
+
+        </form>
+<?
+        echo '</tr>';
+        echo ' </tbody>';
+    }
+
+    echo '</table>';
+    echo '</div>';
+    echo '</div>';
+}
+function mostrarProductosT($productosT)
+{
+    echo '<div class="container mt-4">';
+    echo '<h2>Productos</h2>';
+    echo '<div class="table-responsive">';
+    echo '<table class="table table-bordered table-hover">';
+    echo '<thead class="thead-dark">';
+    echo '<tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Descripción</th>
+                    <th>Imagen</th>
+                    <th>Stock</th>
+                    <th>Categoría ID</th>
+                    <th>Visible</th>
+                    <th>Acciones</th>
+                  </tr>';
+    echo '</thead>';
+    foreach ($productosT as $productoT) {
+        echo '<tbody>';
+        echo '<tr>';
+        echo '<td>' . $productoT->id . '</td>';
+        echo '<td>' . $productoT->nombre . '</td>';
+        echo '<td>' . $productoT->precio . '</td>';
+        echo '<td>' . $productoT->descripcion . '</td>';
+        echo '<td><img src="' . IMG . $productoT->imagen_url . '" width="100" height="100"></td>';
+        echo '<td>' . $productoT->stock . '</td>';
+        echo '<td>' . $productoT->categoria_id . '</td>';
+        echo '<td>' . ($productoT->visible == 1 ? 'Sí' : 'No') . '</td>';
+        echo '<td>
+                <form action="" method="post">
+                    <input type="submit" class="btn btn-primary" name="editarProducto" value="Editar">
+                    <input type="submit" class="btn btn-danger" name="eliminarProducto" value="Visibilidad">
+                    <input type="hidden" name="saberId" value="' . $productoT->id . '">
+                    </form>
+              </td>';
+        echo '</tr>';
+        echo ' </tbody>';
+    }
+
+    echo '</table>';
+    echo '</div>';
+    echo '</div>';
+}

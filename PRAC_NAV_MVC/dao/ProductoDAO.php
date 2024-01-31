@@ -94,21 +94,25 @@ class ProductoDAO
             return false;
         }
     }
-    public static function delete($producto)
+    public static function delete($id)
     {
-        $sql = "UPDATE Producto SET visible = false WHERE id=?";
-        $parametros = array($producto->id);
+        $sql = "UPDATE Productos SET visible = false WHERE id=?";
+        $parametros = array($id);
         $result = FactoryBd::realizarConsulta($sql, $parametros);
         if ($result->rowCount() > 0)
             return true;
+        else
+            return false;
     }
-    public static function activa($producto)
+    public static function activa($id)
     {
-        $sql = "UPDATE Producto SET visible = true WHERE id=?";
-        $parametros = array($producto->id);
+        $sql = "UPDATE Productos SET visible = true WHERE id=?";
+        $parametros = array($id);
         $result = FactoryBd::realizarConsulta($sql, $parametros);
         if ($result->rowCount() > 0)
             return true;
+        else
+            return false;
     }
     public static function buscarPorNombre($nombre)
     {
