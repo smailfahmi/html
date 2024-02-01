@@ -31,7 +31,7 @@ if (!validado()) {
     $albaran->producto_id = $_REQUEST['producto_id'];
     $albaran->administrador_id = $_REQUEST['administrador_id'];
     $albaran->cantidad_anadida = $_REQUEST['cantidad_anadida'];
-    if (AlbaranDAO::update($pedido)) {
+    if (AlbaranDAO::update($albaran)) {
         $errores['albaranActua'] = 'Edicion exitosa';
         $array_albaran = AlbaranDAO::findAll();
     }
