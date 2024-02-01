@@ -70,9 +70,8 @@ class InstitutoDao
 
     public static function update($instituto)
     {
-        $sql = "UPDATE institutos SET nombre =?,localida=?,telefono=? WHERE id =?";
+        $sql = "UPDATE institutos SET nombre =?,localidad=?,telefono=? WHERE id =?";
         $parametros = array(
-
             $instituto->nombre,
             $instituto->localidad,
             $instituto->telefono,
@@ -82,7 +81,16 @@ class InstitutoDao
         return true;
 
     }
-
+    public static function delete($id)
+    {
+        $sql = "DELETE  from  institutos where id = ?";
+        $parametros = array($id);
+        $result = FactoryBd::realizarConsulta($sql, $parametros);
+        if ($result->rowCount() > 0)
+            return true;
+        else
+            return false;
+    }
 
     // public static function findByPacientePasadas($usuario)
     // {
@@ -143,17 +151,7 @@ class InstitutoDao
     //     return true;
 
     // }
-    // public static function delete($cita)
-    // {
-    //     $sql = "update Cita set activo = false where id=?";
-    //     $parametros = array($cita->id);
-    //     // array_pop($parametros);
-    //     // unset($parametros['User perfil']);
-    //     $result = FactoryBd::realizarConsulta($sql, $parametros);
-    //     if ($result->rowCount() > 0)
-    //         return true;
 
-    // }
     // public static function activa($cita)
     // {
     //     $sql = "update Cita set activo = true where id=?";

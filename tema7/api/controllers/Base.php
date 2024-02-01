@@ -4,8 +4,10 @@ class Base
 {
     public static function response($head, $body = '')
     {
-        header($head, $body);
+        header('Content-Type: application/json');
+        header($head);
         echo $body;
+        exit;
     }
 
     public static function divideUri()

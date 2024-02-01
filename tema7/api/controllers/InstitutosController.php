@@ -43,6 +43,9 @@ class InstitutosController extends Base
                     $permitimos = ['nombre', 'localidad', 'telefono'];
                     $datos = file_get_contents('php://input');
                     $datos = json_decode($datos, true);
+                    if ($datos == null) {
+                        self::response("HTTP/1.0 400 Json del body no esta bien formado", 'El id no pertenece a nadie.');
+                    }
                     foreach ($datos as $key => $value) {
                         if (!in_array($key, $permitimos)) {
                             self::response("HTTP/1.0 404 No permite el Parametro " . $key);
@@ -51,17 +54,15 @@ class InstitutosController extends Base
                     $insti = InstitutoDao::findById($recursos[2]);
                     if (count($insti) == 1) {
                         $insti = (object) $insti[0];
-                        if (InstitutoDao::update($recursos[2])) {
-
+                        foreach ($datos as $key => $value) {
+                            $insti->$key = $value;
+                        }
+                        if (InstitutoDao::update($insti)) {
+                            $datos = json_encode($insti);
+                            self::response("HTTP/1.0 201 insercion correcta", $datos);
                         }
                     } else {
                         self::response("HTTP/1.0 400 insercion correcta", 'El id no pertenece a nadie.');
-                    }
-                    $insti = new Instituto(null, $datos['nombre'], $datos['localidad'], $datos['telefono']);
-                    if (InstitutoDao::insert($insti)) {
-                        $insti = InstitutoDao::findLast();
-                        $datos = json_encode($insti);
-                        self::response("HTTP/1.0 201 insercion correcta", $datos);
                     }
 
                 } else
@@ -69,7 +70,13 @@ class InstitutosController extends Base
                 break;
 
             case 'DELETE':
-                # code...
+                if (count($recursos) == 3) {
+                    if (InstitutoDao::delete($recursos[2])) {
+                        self::response("HTTP/1.0 201 Borrado correcto", );
+                    }
+                } else {
+                    self::response("HTTP/1.0 200 id no encontrado", );
+                }
                 break;
 
 
