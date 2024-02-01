@@ -15,6 +15,28 @@ if (!validado()) {
     $array_productosT = ProductoDAO::findAll();
     $_SESSION['vista'] = VIEW . 'tablas.php';
     $_SESSION['controller'] =  CON . 'AdminController.php';
+} elseif (isset($_REQUEST['actualiPed'])) {
+    $pedido = PedidoDAO::findById($_REQUEST['pedOculto']);
+    $pedido->producto_id = $_REQUEST['producto_id'];
+    $pedido->usuario_id = $_REQUEST['usuario_id'];
+    $pedido->cantidad = $_REQUEST['cantidad'];
+    if (PedidoDAO::update($pedido)) {
+        $errores['pedidoActua'] = 'Edicion exitosa';
+        $array_pedidos = PedidoDAO::findAll();
+    }
+    $_SESSION['vista'] = VIEW . 'tablas.php';
+    $_SESSION['controller'] =  CON . 'AdminController.php';
+} elseif (isset($_REQUEST['actualiAlb'])) {
+    $albaran = AlbaranDAO::findById($_REQUEST['pedOculto']);
+    $albaran->producto_id = $_REQUEST['producto_id'];
+    $albaran->administrador_id = $_REQUEST['administrador_id'];
+    $albaran->cantidad_anadida = $_REQUEST['cantidad_anadida'];
+    if (AlbaranDAO::update($pedido)) {
+        $errores['albaranActua'] = 'Edicion exitosa';
+        $array_albaran = AlbaranDAO::findAll();
+    }
+    $_SESSION['vista'] = VIEW . 'tablas.php';
+    $_SESSION['controller'] =  CON . 'AdminController.php';
 } elseif (isset($_REQUEST['editarProducto'])) {
     $product = ProductoDAO::findById($_REQUEST['saberId']);
     $product->nombre = $_REQUEST['nombreEd'];
@@ -22,6 +44,7 @@ if (!validado()) {
     $product->descripcion = $_REQUEST['descripcionEd'];
     $product->stock = $_REQUEST['stockEd'];
     if (ProductoDAO::update($product)) {
+        $errores['editarProd'] = 'Edicion exitosa';
         $array_productosT = ProductoDAO::findAll();
     }
     $_SESSION['vista'] = VIEW . 'tablas.php';

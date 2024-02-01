@@ -89,7 +89,10 @@ function mostraPedidos($pedidos)
             <td><input class="form-control" type="number" name="usuario_id" value="<?php echo $pedido->usuario_id; ?>"></td>
             <td><input class="form-control" type="number" name="cantidad" value="<?php echo $pedido->cantidad; ?>"></td>
             <td><input class="form-control" type="text" name="fecha_pedido" value="<?php echo $pedido->fecha_pedido; ?>" readonly></td>
-            <td><input class="btn btn-dark" type="submit" name="actualizar" value="Actualizar"></td>
+            <? if ($_SESSION['usuario']->perfil == 'ADM') { ?>
+                <input type="hidden" name="pedOculto" value="<?php echo $pedido->id ?>">
+                <td><input class="btn btn-dark" type="submit" name="actualiPed" value="Actualizar"></td>
+            <?   } ?>
         </form>
     <?
 
@@ -131,8 +134,10 @@ function mostrarAlbaran($alabaranes)
             <td><input class="form-control" type="number" name="administrador_id" value="<?php echo $albaran->administrador_id; ?>"></td>
             <td><input class="form-control" type="number" name="cantidad_anadida" value="<?php echo $albaran->cantidad_anadida; ?>"></td>
             <td><input class="form-control" type="text" name="fecha_albaran" value="<?php echo $albaran->fecha_albaran; ?>" readonly></td>
-            <td><input class="btn btn-dark" type="submit" name="actualizar1" value="Actualizar"></td>
-
+            <? if ($_SESSION['usuario']->perfil == 'ADM') { ?>
+                <input type="hidden" name="pedOculto" value="<?php echo $albaran->id ?>">
+                <td><input class="btn btn-dark" type="submit" name="actualiAlb" value="Actualizar"></td>
+            <?   } ?>
         </form>
 <?
         echo '</tr>';
@@ -174,11 +179,13 @@ function mostrarProductosT($productosT)
         echo '<td><input class="form-control" type="number" name="stockEd" value="' . $productoT->stock . '" id=""></td>';
         echo '<td>' . $productoT->categoria_id . '</td>';
         echo '<td>' . ($productoT->visible == 1 ? 'Sí' : 'No') . '</td>';
-        echo '<td>
+        if ($_SESSION['usuario']->perfil == 'ADM') {
+            echo '<td>
                     <input type="submit" class="btn btn-primary" name="editarProducto" value="Editar">
                     <input type="submit" class="btn btn-danger" name="eliminarProducto" value="Visibilidad">
                     <input type="hidden" name="saberId" value="' . $productoT->id . '">      
               </td>';
+        }
         echo '</tr>';
         echo ' </tbody>';
         echo '</form>';

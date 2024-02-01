@@ -7,12 +7,18 @@
     </div>
 </div>
 <?php
-  
+
 if (isset($array_pedidos)) {
+?> <p class="w-100 text-center"> <?php escribirErrores($errores, "pedidoActua");     ?> </p>
+<?php
     mostraPedidos($array_pedidos);
 } elseif (isset($array_albaran)) {
+?> <p class="w-100 text-center"> <?php escribirErrores($errores, "albaranActua");     ?> </p>
+<?php
     mostrarAlbaran($array_albaran);
-}elseif (isset($array_productosT)) {
+} elseif (isset($array_productosT)) {
+?> <p class="w-100 text-center"> <?php escribirErrores($errores, "editarProd");     ?> </p>
+<?php
     mostrarProductosT($array_productosT);
 }
 
