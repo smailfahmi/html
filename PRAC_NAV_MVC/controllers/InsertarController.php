@@ -3,14 +3,12 @@ $errores = array();
 if (!validado()) {
     $_SESSION['vista'] = VIEW . 'login.php';
     $_SESSION['controller'] = CON . 'LoginController.php';
+} elseif ($_SESSION['usuario']->perfil != 'ADM' && $_SESSION['usuario']->perfil != 'MOD') {
+    $_SESSION['vista'] = VIEW . 'login.php';
+    $_SESSION['controller'] = CON . 'LoginController.php';
 } elseif (isset($_REQUEST['Volver'])) {
-    if ($_SESSION['usuario']->perfil == 'ADM') {
-        $_SESSION['vista'] = VIEW . 'admin.php';
-        $_SESSION['controller'] =  CON . 'AdminController.php';
-    } elseif ($_SESSION['usuario']->perfil == 'MOD') {
-        $_SESSION['vista'] = VIEW . 'mod.php';
-        $_SESSION['controller'] = CON . 'ModController.php';
-    }
+    $_SESSION['vista'] = VIEW . 'admin.php';
+    $_SESSION['controller'] =  CON . 'AdminController.php';
 } elseif (isset($_REQUEST['Agregar'])) {
     guardaImagen();
     $ruta = "./imagenes/prod/" . $_FILES["imagenInser"]["name"];

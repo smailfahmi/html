@@ -7,6 +7,7 @@
     </div>
     <div class="container mt-5">
         <h2>Modificar Usuario</h2>
+        <p class="w-100 text-center"> <?php escribirErrores($errores, "update"); ?></p>
         <form action="" method="POST">
             <div class="mb-3">
                 <label for="username" class="form-label">Nombre de Usuario</label>
@@ -35,5 +36,5 @@
             </div>
             </input>
         </form>
-        <p> <?php escribirErrores($errores, "update"); ?></p>
+
     </div>
