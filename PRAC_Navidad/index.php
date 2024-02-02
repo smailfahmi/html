@@ -16,7 +16,7 @@ include('./funcionesBD.php');
 
 <body>
   <?
-  include './fragmentos/header.php';
+  include ('./fragmentos/header.php');
   // comprobar que existe la base de datos 
   echo '<main>';
   existeBD();
