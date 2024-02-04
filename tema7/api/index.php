@@ -2,14 +2,12 @@
 require('./controllers/Base.php');
 require('./controllers/InstitutosController.php');
 // echo '<pre>';
-// print_r($_SERVER);
+// print_r($_SERVER['PATH_INFO']);
 if (isset($_SERVER['PATH_INFO'])) {
     $recurso = Base::divideUri($_SERVER['PATH_INFO']);
     if ($recurso[1] === 'institutos') {
         InstitutosController::institutos();
     } else {
-
-
     }
     // print_r($recurso);
 } else {

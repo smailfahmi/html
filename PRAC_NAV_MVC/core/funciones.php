@@ -197,3 +197,52 @@ function mostrarProductosT($productosT)
     echo '</div>';
     echo '</div>';
 }
+
+//funciones para crear la bases de datos si no existe 
+function existeBD()
+{
+    try {
+        $con = mysqli_connect(IP, 'smail', 'smail', BD);
+        // echo 'la base de datos si existe';
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case 1049:
+                echo 'La base de datos no existe';
+                crearBD();
+                break;
+            default:
+                echo 'Error: ' . $th->getMessage();
+                break;
+        }
+    }
+}
+
+function crearBD() //creo la base de datos a partir del script que hemos creado anteriormente 
+{
+    try {
+        $con = new mysqli();
+        $con->connect(IP, 'smail', 'smail');
+        $script = file_get_contents('./TIENDA_SMAIL.sql');
+        $con->multi_query($script);
+        do {
+            $con->store_result();
+            if (!$con->next_result()) {
+                break;
+            }
+        } while (true);
+        $con->close();
+        header('Location: ./index.php');
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1062':
+                echo 'id repetido';
+                break;
+
+            default:
+                echo $th->getMessage();
+                break;
+        }
+
+        mysqli_close($con);
+    }
+}
