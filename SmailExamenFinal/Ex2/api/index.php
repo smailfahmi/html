@@ -1,12 +1,13 @@
 <?
 require('./controllers/Base.php');
-require('./controllers/InstitutosController.php');
+require('./controllers/PalabrasController.php');
 // echo '<pre>';
-print_r($_SERVER['PATH_INFO']);
+// print_r($_SERVER['PATH_INFO']);
+
 if (isset($_SERVER['PATH_INFO'])) {
     $recurso = Base::divideUri($_SERVER['PATH_INFO']);
-    if ($recurso[1] === 'institutos') {
-        InstitutosController::institutos();
+    if ($recurso[1] === 'palabras') {
+        PalabrasController::palabras();
     } else {
     }
     // print_r($recurso);
