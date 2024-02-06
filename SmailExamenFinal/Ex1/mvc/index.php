@@ -14,10 +14,7 @@ if (isset($_REQUEST['Iniciar'])) {
 } elseif (isset($_REQUEST['ParidaAleatoriaMinima'])) {
     $_SESSION['controller'] = CON . 'JuegoController.php';
     $_SESSION['vista'] = VIEW . 'juego.php';
-} elseif (isset($_REQUEST['editarUltima'])) {
-    $_SESSION['controller'] = CON . 'SorteoController.php';
-    // $_SESSION['vista'] = VIEW . 'sorteo.php';
-} elseif (isset($_REQUEST['CerrarSesion'])) {
+}elseif (isset($_REQUEST['CerrarSesion'])) {
     session_destroy();
     header('Location: ./index.php');
 }
