@@ -5,15 +5,16 @@ GRANT ALL ON gymtrainer.* TO gymtrainer;
 -- Tabla de usuarios
 CREATE TABLE usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    nombre VARCHAR(50) NOT NULL,
-    apellidos VARCHAR(50) NOT NULL,
+    usuario VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
     telefono VARCHAR(20),
     altura DECIMAL(5,2),
     sexo VARCHAR(10),
     fechaNacimiento DATE,
-    tipoUsuario VARCHAR(20)
+    tipoUsuario VARCHAR(20),
+    activo BOOLEAN DEFAULT TRUE
 );
 
 -- Tabla de datosDelUsuario

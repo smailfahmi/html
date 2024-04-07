@@ -1,15 +1,37 @@
-<?
+<?php
 require('./controllers/Base.php');
-require('./controllers/InstitutosController.php');
-// echo '<pre>';
-print_r($_SERVER['PATH_INFO']);
+
+// Obtener la URI
 if (isset($_SERVER['PATH_INFO'])) {
     $recurso = Base::divideUri($_SERVER['PATH_INFO']);
-    if ($recurso[1] === 'institutos') {
-        InstitutosController::institutos();
-    } else {
+
+    // Identificar el recurso solicitado
+    switch ($recurso[1]) {
+        case 'usuarios':
+            require('./controllers/UsuariosController.php');
+            echo "hola";
+            // UsuariosController::manejarSolicitud($recurso);
+            break;
+
+        case 'datosUsuario':
+            require('./controllers/DatosUsuarioController.php');
+            DatosUsuarioController::manejarSolicitud($recurso);
+            break;
+
+        case 'rutina':
+            require('./controllers/RutinaController.php');
+            RutinaController::manejarSolicitud($recurso);
+            break;
+
+        case 'ejercicios':
+            require('./controllers/EjerciciosController.php');
+            EjerciciosController::manejarSolicitud($recurso);
+            break;
+
+        default:
+            Base::response("HTTP/1.0 404 Direccion incorrecta");
+            break;
     }
-    // print_r($recurso);
 } else {
     Base::response("HTTP/1.0 404 Direccion incorrecta");
 }

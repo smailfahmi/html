@@ -168,4 +168,24 @@ class UsuarioDao
             return false; // El usuario no existe
         }
     }
+    public static function delete($id)
+{
+    try {
+        $sql = "UPDATE usuarios SET activo = FALSE WHERE id = ?";
+        $parametros = array($id);
+
+        $result = FactoryBd::realizarConsulta($sql, $parametros);
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        // Handle the exception (e.g., log it, display an error message)
+        error_log("Error al eliminar usuario: " . $e->getMessage());
+        return false;
+    }
+}
+
 }

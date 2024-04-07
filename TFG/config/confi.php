@@ -31,4 +31,4 @@ require('./dao/CategoriaDAO.php');
 require('./dao/PedidoDAO.php');
 require('./dao/PerfilDAO.php');
 require('./dao/ProductoDAO.php');
-require('./dao/UsuarioDAO.php');
+require('./dao/UsuarioDao.php');

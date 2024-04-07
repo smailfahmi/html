@@ -1,5 +1,5 @@
 <?
-class Pedido
+class DetalleRutina
 {
     private $id;
     private $idRutinaFK;

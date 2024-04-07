@@ -1,5 +1,4 @@
 <?
-
 class Base
 {
     public static function response($head, $body = '')
