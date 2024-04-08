@@ -3,6 +3,7 @@ DROP USER IF EXISTS gymtrainer;
 CREATE USER gymtrainer IDENTIFIED BY 'gymtrainer';
 GRANT ALL ON gymtrainer.* TO gymtrainer;
 -- Tabla de usuarios
+use  gymtrainer;
 CREATE TABLE usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
     usuario VARCHAR(100) NOT NULL,
@@ -63,16 +64,16 @@ CREATE TABLE detalleRutina (
 );
 
 -- Insertar datos en la tabla usuarios
-INSERT INTO usuarios (usuario, password, nombre, apellidos, telefono, altura, sexo, fechaNacimiento, tipoUsuario) VALUES
-('usuario1', 'contraseña1', 'Juan', 'Pérez', '123456789', 1.75, 'Masculino', '1990-05-15', 'Normal'),
-('usuario2', 'contraseña2', 'María', 'López', '987654321', 1.65, 'Femenino', '1995-09-20', 'Premium'),
-('usuario3', 'contraseña3', 'Carlos', 'González', '456123789', 1.80, 'Masculino', '1985-07-10', 'Normal');
+INSERT INTO usuarios (usuario, password, nombre, apellidos, telefono, altura, sexo, fechaNacimiento, tipoUsuario,activo) VALUES
+('usuario1', 'contraseña1', 'Juan', 'Pérez', '123456789', 1.75, 'Masculino', '1990-05-15', 'Normal',TRUE),
+('usuario2', 'contraseña2', 'María', 'López', '987654321', 1.65, 'Femenino', '1995-09-20', 'Premium',TRUE),
+('usuario3', 'contraseña3', 'Carlos', 'González', '456123789', 1.80, 'Masculino', '1985-07-10', 'Normal',TRUE);
 
 -- Insertar datos en la tabla datosDelUsuario
-INSERT INTO datosDelUsuario (peso, circunferenciaCuello, circunferenciaAbdominal, niveActividadDiaria, fechaRegistro, objetivo, idUsuarioFK) VALUES
+INSERT INTO datosUsuario (peso, circunferenciaCuello, circunferenciaAbdominal, niveActividadDiaria, fechaRegistro, objetivo, idUsuarioFK) VALUES
 (70.5, 40.0, 85.0, 1.5, '2024-03-27', 'Perder peso', 1),
 (65.0, 38.0, 80.0, 1.3, '2024-03-27','Ganar masa muscular', 2),
-(80.0, 42.0, 90.0, 1.2,'2024-03-27', 'Mantenerme en forma', 3),
+(80.0, 42.0, 90.0, 1.2,'2024-03-27', 'Mantenerme en forma', 3);
 
 -- Insertar ejercicios en la tabla ejercicios
 INSERT INTO ejercicios (nombreEjercicio, descripcionEjercicio, grupoMuscular, dificultad, enlace) VALUES
@@ -103,14 +104,14 @@ INSERT INTO ejercicios (nombreEjercicio, descripcionEjercicio, grupoMuscular, di
 ('Prensa de piernas Gluteo', 'Ejercicio para fortalecer los cuádriceps y los glúteos.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=h6vVZZiBe7w'),
 ('Prensa de piernas', 'La prensa de piernas es un ejercicio excelente para trabajar los cuádriceps y los glúteos. Se realiza en una máquina de prensa, lo que permite un movimiento controlado y seguro.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=xvCynwyNoP4'),
 ('Zancadas', 'Las zancadas son un ejercicio efectivo para trabajar los músculos de las piernas, incluidos los cuádriceps, los glúteos y los isquiotibiales. Se pueden hacer con o sin peso adicional.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=YX7733B17gY'),
-('Elevación de talones', 'La elevación de talones es un ejercicio que se centra en los músculos de la pantorrilla. Se puede realizar con una máquina específica para talones o con mancuernas para aumentar la resistencia.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=GUBzhO-XSqk');
+('Elevación de talones', 'La elevación de talones es un ejercicio que se centra en los músculos de la pantorrilla. Se puede realizar con una máquina específica para talones o con mancuernas para aumentar la resistencia.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=GUBzhO-XSqk'),
 ('Extensión de cuádriceps', 'La extensión de cuádriceps es un ejercicio de aislamiento que se realiza en una máquina específica. Se centra en trabajar los músculos del cuádriceps.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=UVvyNfw97og'),
 ('Curl femoral de pie', 'El curl femoral de pie es un ejercicio que se centra en trabajar los músculos isquiotibiales. Se realiza con una máquina específica o con una polea baja.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=BQ0yJ1ukx9A'),
 ('Curl femoral sentado', 'El curl femoral sentado es una variación del curl femoral que se realiza en una máquina específica. Es efectivo para trabajar los músculos isquiotibiales.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=Th_m1_3upXo'),
 ('Extensión de cuádriceps alternando', 'La extensión de cuádriceps alternando se realiza en una máquina específica y permite trabajar cada pierna de forma independiente. Es útil para corregir desequilibrios musculares.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=2Hg2nb1lrHA'),
 ('Peso muerto convencional', 'El peso muerto convencional es un ejercicio compuesto que involucra varios grupos musculares, incluyendo la espalda baja, los glúteos y los isquiotibiales. Es excelente para desarrollar fuerza y masa muscular.', 'Piernas', 'Avanzado', 'https://www.youtube.com/watch?v=cfgsCh_kaew'),
 ('Abducción en máquina', 'La abducción en máquina es un ejercicio que se centra en trabajar los músculos abductores de la cadera, incluyendo el glúteo medio. Se realiza en una máquina específica.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=EJagAciZDNI'),
-('Aducción en máquina', 'La aducción en máquina es un ejercicio que se centra en trabajar los músculos aductores de la cadera. Se realiza en una máquina específica.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=fItDiXXZyZo');
+('Aducción en máquina', 'La aducción en máquina es un ejercicio que se centra en trabajar los músculos aductores de la cadera. Se realiza en una máquina específica.', 'Piernas', 'Intermedio', 'https://www.youtube.com/watch?v=fItDiXXZyZo'),
 -- Hombros
 ('Press militar', 'Ejercicio para trabajar los hombros.', 'Hombros', 'Intermedio', 'https://www.youtube.com/watch?v=Wz8ifiRefB0'),
 ('Elevaciones laterales', 'Ejercicio para fortalecer los deltoides laterales.', 'Hombros', 'Intermedio', 'https://www.youtube.com/watch?v=nOAUECQEpHs'),
@@ -137,40 +138,45 @@ INSERT INTO ejercicios (nombreEjercicio, descripcionEjercicio, grupoMuscular, di
 ('Patada tríceps trasnuca', 'La patada de tríceps trasnuca se realiza con una mancuerna o un peso, llevando el peso hacia arriba y detrás de la cabeza. Es ideal para trabajar la porción larga del tríceps.', 'Triceps', 'Intermedio', 'https://www.youtube.com/watch?v=m-pFQ3zq_zQ'),
 ('Press cerrado', 'El press cerrado es un ejercicio compuesto que se realiza en una barra o en una máquina específica. Es excelente para trabajar los tríceps, especialmente la porción larga.', 'Triceps', 'Intermedio', 'https://www.youtube.com/watch?v=SF0uoT4JWNw');
 
+
 -- Detalles de la rutina
 INSERT INTO rutina (tipoRutina, fechaInicio, idUsuarioFK) VALUES
 ('Rutina de fuerza', '2024-03-28', 1); -- Suponiendo que el usuario tiene el ID 1
 
+-- Modificar la tabla detalleRutina
+ALTER TABLE detalleRutina
+ADD COLUMN series INT DEFAULT 1;
+
 -- Día 1: Pecho y Tríceps
-INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones,diaDeSemana) VALUES
-(1, 0, 12,'LUNES'), -- Press de banca
-(1, 1, 10,'LUNES'), -- Aperturas con mancuernas
-(1, 58, 12,'LUNES'), -- Press cerrado
-(1, 3, 10,'LUNES'), -- Fondos en paralelas
-(1, 56, 12,'LUNES'), -- Patada tríceps unilateral
-(1, 5, 10,'LUNES'); -- Peck deck
+INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaDeSemana) VALUES
+(1, 1, 12, 3, 'LUNES'), -- Press de banca
+(1, 2, 10, 3, 'LUNES'), -- Aperturas con mancuernas
+(1, 79, 12, 3, 'LUNES'), -- Press cerrado
+(1, 4, 10, 3, 'LUNES'), -- Fondos en paralelas
+(1, 77, 12, 3, 'LUNES'), -- Patada tríceps unilateral
+(1, 6, 10, 3, 'LUNES'); -- Peck deck
 
 -- Día 2: Espalda y Bíceps
-INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones,diaDeSemana) VALUES
-(1, 11, 12,'MARTES'), -- Dominadas
-(1, 12, 10,'MARTES'), -- Remo con barra
-(1, 53, 12,'MARTES'), -- Curl con barra Z
-(1, 54, 10,'MARTES'), -- Curl predicador
-(1, 40, 12,'MARTES'), -- Remo al mentón
-(1, 55, 10,'MARTES'); -- Curl con cuerda en máquina
+INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaDeSemana) VALUES
+(1, 11, 12, 3, 'MARTES'), -- Dominadas
+(1, 12, 10, 3, 'MARTES'), -- Remo con barra
+(1, 74, 12, 3, 'MARTES'), -- Curl con barra Z
+(1, 75, 10, 3, 'MARTES'), -- Curl predicador
+(1, 63, 12, 3, 'MARTES'), -- Remo al mentón
+(1, 76, 10, 3, 'MARTES'); -- Curl con cuerda en máquina
 
 -- Día 3: Piernas y Hombros
-INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones,diaDeSemana) VALUES
-(1, 12, 12,'MIERCOLES'), -- Sentadillas
-(1, 24, 10,'MIERCOLES'), -- Prensa de piernas
-(1, 37, 12,'MIERCOLES'), -- Press de hombros con mancuernas
-(1, 39, 10,'MIERCOLES'), -- Elevaciones laterales con polea
-(1, 27, 12,'MIERCOLES'), -- Extensiones de cuádriceps
-(1, 28, 10,'MIERCOLES'); -- Curl femoral de pie
+INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaDeSemana) VALUES
+(1, 46, 12, 3, 'MIERCOLES'), -- Sentadillas
+(1, 47, 10, 3, 'MIERCOLES'), -- Prensa de piernas
+(1, 60, 12, 3, 'MIERCOLES'), -- Press de hombros con mancuernas
+(1, 59, 10, 3, 'MIERCOLES'), -- Elevaciones laterales con polea
+(1, 51, 12, 3, 'MIERCOLES'), -- Extensiones de cuádriceps
+(1, 52, 10, 3, 'MIERCOLES'); -- Curl femoral de pie
 
 -- Día 4: Core y Cardio
-INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones,diaDeSemana) VALUES
-(1, 44, 20,'JUEVES'), -- Plank
-(1, 45, 30,'JUEVES'), -- Mountain climbers
-(1, 46, 20,'JUEVES'), -- Russian twists
-(1, 127, 20,'JUEVES'), -- Dead bug
+INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaDeSemana) VALUES
+(1, 66, 20, 3, 'JUEVES'), -- Plank
+(1, 67, 30, 3, 'JUEVES'), -- Mountain climbers
+(1, 68, 20, 3, 'JUEVES'), -- Russian twists
+(1, 69, 20, 3, 'JUEVES'); -- Dead bug

@@ -30,7 +30,7 @@ class UsuarioDao
 
             // Close the database connection
             $result = null;
-            FactoryBd::cerrarConexion();
+            // FactoryBd::cerrarConexion();
 
             return $array_usuarios;
         } catch (Exception $e) {
@@ -42,29 +42,42 @@ class UsuarioDao
 
     public static function findById($id)
     {
-        $sql = "SELECT * FROM usuarios WHERE id = ?";
-        $parametros = array($id);
-        $result = FactoryBd::realizarConsulta($sql, $parametros);
+        try {
+            // Validar si $id es un entero
+            if (!is_numeric($id)) {
+                error_log("El ID proporcionado no es un entero.");
+                return null;
+            }
 
-        if ($result && $result->rowCount() > 0) {
-            $usuarioStd = $result->fetchObject();
-            $usuario = new Usuario(
-                $usuarioStd->id,
-                $usuarioStd->usuario,
-                $usuarioStd->password,
-                $usuarioStd->nombre,
-                $usuarioStd->apellidos,
-                $usuarioStd->telefono,
-                $usuarioStd->altura,
-                $usuarioStd->sexo,
-                $usuarioStd->fechaNacimiento,
-                $usuarioStd->tipoUsuario
-            );
-            return $usuario;
-        } else {
+            $sql = "SELECT * FROM usuarios WHERE id = ?";
+            $parametros = array($id);
+            $result = FactoryBd::realizarConsulta($sql, $parametros);
+
+            if ($result && $result->rowCount() > 0) {
+                $usuarioStd = $result->fetchObject();
+                $usuario = new Usuario(
+                    $usuarioStd->id,
+                    $usuarioStd->usuario,
+                    $usuarioStd->password,
+                    $usuarioStd->nombre,
+                    $usuarioStd->apellidos,
+                    $usuarioStd->telefono,
+                    $usuarioStd->altura,
+                    $usuarioStd->sexo,
+                    $usuarioStd->fechaNacimiento,
+                    $usuarioStd->tipoUsuario
+                );
+                return $usuario;
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            // Handle the exception (e.g., log it, display an error message)
+            error_log("Error al buscar usuario por ID: " . $e->getMessage());
             return null;
         }
     }
+
     public static function insert($usuarioStd)
     {
         try {
@@ -96,21 +109,21 @@ class UsuarioDao
         }
     }
 
-    public static function update($usuarioStd)
+    public static function update($usuarioActualizar)
     {
         try {
             $sql = "UPDATE usuarios SET usuario = ?, password = ?, nombre = ?, apellidos = ?, telefono = ?, altura = ?, sexo = ?, fechaNacimiento = ?, tipoUsuario = ? WHERE id = ?";
             $parametros = array(
-                $usuarioStd->usuario,
-                $usuarioStd->password,
-                $usuarioStd->nombre,
-                $usuarioStd->apellidos,
-                $usuarioStd->telefono,
-                $usuarioStd->altura,
-                $usuarioStd->sexo,
-                $usuarioStd->fechaNacimiento,
-                $usuarioStd->tipoUsuario,
-                $usuarioStd->id
+                $usuarioActualizar->usuario,
+                $usuarioActualizar->password,
+                $usuarioActualizar->nombre,
+                $usuarioActualizar->apellidos,
+                $usuarioActualizar->telefono,
+                $usuarioActualizar->altura,
+                $usuarioActualizar->sexo,
+                $usuarioActualizar->fechaNacimiento,
+                $usuarioActualizar->tipoUsuario,
+                $usuarioActualizar->id
             );
 
             $result = FactoryBd::realizarConsulta($sql, $parametros);
@@ -169,23 +182,22 @@ class UsuarioDao
         }
     }
     public static function delete($id)
-{
-    try {
-        $sql = "UPDATE usuarios SET activo = FALSE WHERE id = ?";
-        $parametros = array($id);
+    {
+        try {
+            $sql = "UPDATE usuarios SET activo = FALSE WHERE id = ?";
+            $parametros = array($id);
 
-        $result = FactoryBd::realizarConsulta($sql, $parametros);
+            $result = FactoryBd::realizarConsulta($sql, $parametros);
 
-        if ($result) {
-            return true;
-        } else {
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            // Handle the exception (e.g., log it, display an error message)
+            error_log("Error al eliminar usuario: " . $e->getMessage());
             return false;
         }
-    } catch (PDOException $e) {
-        // Handle the exception (e.g., log it, display an error message)
-        error_log("Error al eliminar usuario: " . $e->getMessage());
-        return false;
     }
-}
-
 }

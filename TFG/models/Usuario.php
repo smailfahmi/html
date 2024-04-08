@@ -1,5 +1,5 @@
 <?
-class Usuario
+class Usuario implements JsonSerializable
 {
     private $id;
     private $usuario;
@@ -39,5 +39,20 @@ class Usuario
         if (property_exists(__CLASS__, $att)) {
             $this->$att = $val;
         }
+    }
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'usuario' => $this->usuario,
+            'password' => $this->password,
+            'nombre' => $this->nombre,
+            'apellidos' => $this->apellidos,
+            'telefono' => $this->telefono,
+            'altura' => $this->altura,
+            'sexo' => $this->sexo,
+            'fechaNacimiento' => $this->fechaNacimiento,
+            'tipoUsuario' => $this->tipoUsuario
+        ];
     }
 }

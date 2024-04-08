@@ -64,7 +64,6 @@ class InstitutosController extends Base
                     } else {
                         self::response("HTTP/1.0 400 insercion correcta", 'El id no pertenece a nadie.');
                     }
-
                 } else
                     self::response("HTTP/1.0 400 insercion correcta", 'Los datos introducidos son incorrector.');
                 break;
@@ -72,10 +71,10 @@ class InstitutosController extends Base
             case 'DELETE':
                 if (count($recursos) == 3) {
                     if (InstitutoDao::delete($recursos[2])) {
-                        self::response("HTTP/1.0 201 Borrado correcto", );
+                        self::response("HTTP/1.0 201 Borrado correcto",);
                     }
                 } else {
-                    self::response("HTTP/1.0 200 id no encontrado", );
+                    self::response("HTTP/1.0 200 id no encontrado",);
                 }
                 break;
 
@@ -83,21 +82,6 @@ class InstitutosController extends Base
             default:
                 self::response("HTTP/1.0 404 Metodo incorrecta");
                 break;
-
-
         }
-
     }
-    public static function buscarFiltros()
-    {
-        $permitimos = ['nombre', 'localidad'];
-        $filtros = self::condiciones();
-        foreach ($filtros as $key => $value) {
-            if (!in_array($key, $permitimos)) {
-                self::response("HTTP/1.0 404 No permite el Parametro " . $key);
-            }
-        }
-        return InstitutoDao::findByFultros($filtros);
-    }
-
 }

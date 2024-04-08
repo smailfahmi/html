@@ -18,17 +18,18 @@ require('./core/funciones.php');
 require('./core/funcionesLogin.php');
 
 //MODELOS
-require('./models/Albaran.php');
-require('./models/Categoria.php');
-require('./models/Pedido.php');
-require('./models/Perfil.php');
-require('./models/Productos.php');
+require('./models/DatosUsuario.php');
+require('./models/DetalleRutina.php');
+require('./models/Ejercicios.php');
+require('./models/Rutina.php');
 require('./models/Usuario.php');
 
 //DAOS
-require('./dao/AlbaranDAO.php');
-require('./dao/CategoriaDAO.php');
-require('./dao/PedidoDAO.php');
-require('./dao/PerfilDAO.php');
-require('./dao/ProductoDAO.php');
-require('./dao/UsuarioDao.php');
+require('./dao/RutinaDAO.php');
+require('./dao/EjerciciosDAO.php');
+require('./dao/DatosUsuarioDAO.php');
+require('./dao/DetalleRutinaDAO.php');
+require('./dao/UsuarioDAO.php');
+
+//CONTROLES
+require('./controllers/UsuariosController.php');

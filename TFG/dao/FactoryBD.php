@@ -16,10 +16,6 @@ class FactoryBd
         }
         return $stmt;
     }
-
-    public static function cerrarConexion()
-    {
-        unset(self::$conn);
-    }
+   
 }
 ?>

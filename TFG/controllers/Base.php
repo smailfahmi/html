@@ -8,6 +8,7 @@ class Base
         echo $body;
         exit;
     }
+    
 
     public static function divideUri()
     {
@@ -20,9 +21,26 @@ class Base
         parse_str($_SERVER['QUERY_STRING'], $filtros);
         return $filtros;
     }
-
-
-
+    public static function buscarFiltros($permitimos)
+    {
+        $filtros = self::condiciones();
+        foreach ($filtros as $key => $value) {
+            if (!in_array($key, $permitimos)) {
+                return false;
+                // self::response("HTTP/1.0 404 No permite el Parametro " . $key);
+            } else
+                return true;
+        }
+    }
+    public static function retornaValores($variable)
+    {
+        $filtros = self::condiciones();
+        foreach ($filtros as $key => $value) {
+            if ($key == $variable) {
+                return $value;
+                // self::response("HTTP/1.0 404 No permite el Parametro " . $key);
+            }
+        }
+        return null;
+    }
 }
-
-?>
