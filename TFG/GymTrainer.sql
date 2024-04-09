@@ -147,36 +147,31 @@ INSERT INTO rutina (tipoRutina, fechaInicio, idUsuarioFK) VALUES
 ALTER TABLE detalleRutina
 ADD COLUMN series INT DEFAULT 1;
 
--- Día 1: Pecho y Tríceps
 INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaDeSemana) VALUES
-(1, 1, 12, 3, 'LUNES'), -- Press de banca
-(1, 2, 10, 3, 'LUNES'), -- Aperturas con mancuernas
-(1, 79, 12, 3, 'LUNES'), -- Press cerrado
-(1, 4, 10, 3, 'LUNES'), -- Fondos en paralelas
-(1, 77, 12, 3, 'LUNES'), -- Patada tríceps unilateral
-(1, 6, 10, 3, 'LUNES'); -- Peck deck
+-- Día 1: Pecho y espalda
+(1, 1, 10, 4, 'Lunes'), -- Press de banca
+(1, 2, 12, 3, 'Lunes'), -- Aperturas con mancuernas
+(1, 3, 15, 3, 'Lunes'), -- Flexiones de brazos
+(1, 11, 8, 4, 'Lunes'), -- Dominadas
+(1, 12, 10, 3, 'Lunes'), -- Remo con barra
 
--- Día 2: Espalda y Bíceps
-INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaDeSemana) VALUES
-(1, 11, 12, 3, 'MARTES'), -- Dominadas
-(1, 12, 10, 3, 'MARTES'), -- Remo con barra
-(1, 74, 12, 3, 'MARTES'), -- Curl con barra Z
-(1, 75, 10, 3, 'MARTES'), -- Curl predicador
-(1, 63, 12, 3, 'MARTES'), -- Remo al mentón
-(1, 76, 10, 3, 'MARTES'); -- Curl con cuerda en máquina
+-- Día 2: Piernas
+(1, 21, 12, 4, 'Martes'), -- Sentadillas
+(1, 22, 10, 3, 'Martes'), -- Prensa de piernas Gluteo
+(1, 23, 15, 3, 'Martes'), -- Prensa de piernas
+(1, 24, 12, 3, 'Martes'), -- Zancadas
+(1, 25, 15, 3, 'Martes'), -- Elevación de talones
 
--- Día 3: Piernas y Hombros
-INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaDeSemana) VALUES
-(1, 46, 12, 3, 'MIERCOLES'), -- Sentadillas
-(1, 47, 10, 3, 'MIERCOLES'), -- Prensa de piernas
-(1, 60, 12, 3, 'MIERCOLES'), -- Press de hombros con mancuernas
-(1, 59, 10, 3, 'MIERCOLES'), -- Elevaciones laterales con polea
-(1, 51, 12, 3, 'MIERCOLES'), -- Extensiones de cuádriceps
-(1, 52, 10, 3, 'MIERCOLES'); -- Curl femoral de pie
+-- Día 3: Hombros y core
+(1, 31, 10, 4, 'Miércoles'), -- Press militar
+(1, 32, 12, 3, 'Miércoles'), -- Elevaciones laterales
+(1, 33, 15, 3, 'Miércoles'), -- Press de hombros con mancuernas
+(1, 34, 12, 3, 'Miércoles'), -- Elevaciones frontales con mancuernas
+(1, 41, 60, 3, 'Miércoles'), -- Plank
 
--- Día 4: Core y Cardio
-INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaDeSemana) VALUES
-(1, 66, 20, 3, 'JUEVES'), -- Plank
-(1, 67, 30, 3, 'JUEVES'), -- Mountain climbers
-(1, 68, 20, 3, 'JUEVES'), -- Russian twists
-(1, 69, 20, 3, 'JUEVES'); -- Dead bug
+-- Día 4: Brazos
+(1, 51, 12, 4, 'Jueves'), -- Curl de bíceps con barra
+(1, 52, 12, 4, 'Jueves'), -- Extensiones de tríceps en polea alta
+(1, 53, 12, 4, 'Jueves'), -- Curl de bíceps con mancuernas
+(1, 54, 12, 4, 'Jueves'), -- Extensiones de tríceps con mancuerna
+(1, 61, 15, 3, 'Jueves'); -- Russian twists
