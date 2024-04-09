@@ -163,15 +163,16 @@ INSERT INTO detalleRutina (idRutinaFK, idEjercicioFK, repeticiones, series, diaD
 (1, 25, 15, 3, 'Martes'), -- Elevación de talones
 
 -- Día 3: Hombros y core
-(1, 31, 10, 4, 'Miércoles'), -- Press militar
-(1, 32, 12, 3, 'Miércoles'), -- Elevaciones laterales
-(1, 33, 15, 3, 'Miércoles'), -- Press de hombros con mancuernas
-(1, 34, 12, 3, 'Miércoles'), -- Elevaciones frontales con mancuernas
+(1, 33, 10, 4, 'Miércoles'), -- Press militar
+(1, 34, 12, 3, 'Miércoles'), -- Elevaciones laterales
+(1, 35, 15, 3, 'Miércoles'), -- Press de hombros con mancuernas
+(1, 36, 12, 3, 'Miércoles'), -- Elevaciones frontales con mancuernas
 (1, 41, 60, 3, 'Miércoles'), -- Plank
 
 -- Día 4: Brazos
-(1, 51, 12, 4, 'Jueves'), -- Curl de bíceps con barra
-(1, 52, 12, 4, 'Jueves'), -- Extensiones de tríceps en polea alta
-(1, 53, 12, 4, 'Jueves'), -- Curl de bíceps con mancuernas
-(1, 54, 12, 4, 'Jueves'), -- Extensiones de tríceps con mancuerna
-(1, 61, 15, 3, 'Jueves'); -- Russian twists
+(1, 45, 12, 4, 'Jueves'), -- Curl de bíceps con barra
+(1, 48, 12, 4, 'Jueves'), -- Extensiones de tríceps en polea alta
+(1, 47, 12, 4, 'Jueves'), -- Curl de bíceps con mancuernas
+(1, 48, 12, 4, 'Jueves'), -- Extensiones de tríceps con mancuerna
+(1, 43, 15, 3, 'Jueves'); -- Russian twists
+
